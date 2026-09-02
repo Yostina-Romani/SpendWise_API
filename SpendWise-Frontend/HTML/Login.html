@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SpendWise - Login</title>
+</head>
+<body>
+    <h1>SpendWise</h1>
+    <h2>Login</h2>
+
+    <form id="formid">
+        <label for="password">password</label>
+        <input type="password" placeholder="password" required id="password" />
+        <span id="passworderror" class="error"></span>
+
+        <label for="email">email</label>
+        <input type="email" placeholder="email" id="email" required />
+        <span class="error" id="emailerror"></span>
+
+        <button type="submit">login</button>
+    </form>
+    <p id="message"></p>
+    <script src="../JS/login.js"></script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SpendWise - Register</title>
+</head>
+<body>
+    <h1>SpendWise</h1>
+    <h2>Create Account</h2>
+    <form id="register_form">
+        <label for="name">name</label>
+        <input type="text" placeholder="name" id="name" />
+        <span class="error" id="nameerror"></span>
+
+        <label for="email">email</label>
+        <input type="email" placeholder="email" id="email" />
+        <span class="error" id="emailerror"></span>
+
+        <label for="paaaword">password</label>
+        <input type="password" placeholder="password" id="password" />
+        <span class="error" id="passworderror"></span>
+
+        <label for="paaawordConfirmation">password</label>
+        <input type="password" placeholder="password" id="passwordConfirmation" />
+        <span class="error" id="passwordConfiramtionError"></span>
+
+        <button type="submit">Register</button>
+    </form>
+    <p id="message"></p>
+
+    <script src="../JS/register.js"></script>
+    </body>
+</html>

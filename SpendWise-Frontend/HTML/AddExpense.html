@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>
+            add expense
+        </title>
+    </head>
+    <body>
+<h1>add expense</h1>
+        <form id="addexpense">
+            <label>expense name</label>
+            <select id="categoryid">
+                <option value="1">food</option>
+                <option value="2">transport</option>
+                <option value="3">sports</option>
+                <option value="4">drinks</option>
+            </select>
+            
+            <label>expense ammount</label>
+            <input  type="decimal" step="-1" id="expenseamount"/>
+            <label>time</label>
+            <input type="date" id="expensetime"/>
+            <button type="submit">add expense</button>
+
+
+        </form>
+        <script src="../JS/addexpense.js"></script>
+    </body>
+</html>
