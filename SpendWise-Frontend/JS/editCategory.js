@@ -21,10 +21,12 @@ else{
 }
 
 const token=localStorage.getItem("token");
-const prams=new URLSearchParams(window.location.search);
-const id=prams.get("id");
-console.log(id);
-const response=await fetch(`http://localhost:5253/api/Category/${id}`,{
+const params = new URLSearchParams(window.location.search);
+const id = params.get("id");
+
+console.log("FULL URL:", window.location.href);
+console.log("CATEGORY ID:", id);
+const response=await fetch(`http://127.0.0.1:5253/api/Category/${id}`,{
     method:"PUT",
     headers:{
         "Content-Type":"application/json",
@@ -39,8 +41,11 @@ const response=await fetch(`http://localhost:5253/api/Category/${id}`,{
 
 const data=await response.json();
 if(!response.ok){
+
 console.log(data);
+
 }
+
 alert(data.message);
 });
 

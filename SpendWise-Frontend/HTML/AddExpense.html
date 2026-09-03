@@ -1,32 +1,165 @@
 <!doctype html>
-<html>
-    <head>
-        <meta charset="utf-8"/>
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="en">
 
-        <title>
-            add expense
-        </title>
-    </head>
-    <body>
-<h1>add expense</h1>
-        <form id="addexpense">
-            <label>expense name</label>
-            <select id="categoryid">
-                <option value="1">food</option>
-                <option value="2">transport</option>
-                <option value="3">sports</option>
-                <option value="4">drinks</option>
-            </select>
-            
-            <label>expense ammount</label>
-            <input  type="decimal" step="-1" id="expenseamount"/>
-            <label>time</label>
-            <input type="date" id="expensetime"/>
-            <button type="submit">add expense</button>
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>SpendWise - Add Expense</title>
+
+    <!-- Bootstrap -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link
+        rel="stylesheet"
+        href="../CSS/style.css">
+
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg spend-navbar">
+
+        <div class="container">
+
+            <a
+                class="navbar-brand"
+                href="./dashboard.html">
+
+                <span class="brand-small-icon">
+                    S
+                </span>
+
+                SpendWise
+
+            </a>
+
+            <a
+                href="./dashboard.html"
+                class="back-link">
+
+                ← Dashboard
+
+            </a>
+
+        </div>
+
+    </nav>
 
 
-        </form>
-        <script src="../JS/addexpense.js"></script>
-    </body>
+    <!-- Page -->
+    <main class="container form-page">
+
+        <div class="form-card fade-in">
+
+            <div class="form-icon expense-icon">
+                $
+            </div>
+
+            <h1>
+                Add Expense
+            </h1>
+
+            <p class="form-subtitle">
+                Record your spending and keep your finances organized.
+            </p>
+
+
+            <form id="addexpense">
+
+                <!-- Category -->
+
+                <div class="form-group">
+
+                    <label for="categoryid">
+                        Category
+                    </label>
+
+                    <select
+                        id="categoryid"
+                        class="form-select">
+
+                        <option value="1">
+                            Food
+                        </option>
+
+                        <option value="2">
+                            Transport
+                        </option>
+
+                        <option value="3">
+                            Sports
+                        </option>
+
+                        <option value="4">
+                            Drinks
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- Amount -->
+
+                <div class="form-group">
+
+                    <label for="expenseamount">
+                        Expense Amount
+                    </label>
+
+                    <input
+                        type="number"
+                        step="0.01"
+                        id="expenseamount"
+                        class="form-control"
+                        placeholder="0.00">
+
+                </div>
+
+
+                <!-- Date -->
+
+                <div class="form-group">
+
+                    <label for="expensetime">
+                        Date
+                    </label>
+
+                    <input
+                        type="date"
+                        id="expensetime"
+                        class="form-control">
+
+                </div>
+
+
+                <!-- Submit -->
+
+                <button
+                    type="submit"
+                    class="btn btn-primary custom-btn w-100">
+
+                    Add Expense
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </main>
+
+
+    <script src="../JS/addexpense.js"></script>
+
+</body>
+
 </html>

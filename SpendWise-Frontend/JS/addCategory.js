@@ -24,7 +24,7 @@ form.addEventListener("submit",async function (event) {
                 alert("You must login first");
         return;
     }
- const response= await fetch("http://localhost:5253/api/Category/addCategory",{
+ const response= await fetch("http://127.0.0.1:5253/api/Category/addCategory",{
     method:"Post",
     headers:{
         "Content-Type":"application/json",

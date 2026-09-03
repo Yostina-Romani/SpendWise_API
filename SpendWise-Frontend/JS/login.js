@@ -12,7 +12,7 @@ form.addEventListener("submit", async function (event) {
         showError("passworderror", "password is required");
         return;
     }
-    const response = await fetch("http://localhost:5253/api/Auth/login", {
+    const response = await fetch("http://127.0.0.1:5253/api/Auth/login", {
         method:"POST",
         headers: {
             "Content-Type":"application/json"

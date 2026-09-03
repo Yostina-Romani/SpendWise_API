@@ -7,7 +7,7 @@ form.addEventListener("submit", async function (event) {
     const categoryId=Number( document.getElementById("categoryid").value);
     const token =localStorage.getItem("token")
 
-    const response = await fetch("http://localhost:5253/api/Expenses/addExpense", {
+    const response = await fetch("http://127.0.0.1:5253/api/Expenses/addExpense", {
         method: "POST",
         headers: {
             "content-type":"application/json",

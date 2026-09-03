@@ -66,6 +66,34 @@ namespace SpendWise.Controllers
 
 
         }
+        [Authorize(Roles = "Admin")]
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> deleteCategory(int id) {
+
+
+            var categor = await _dbcontext.category.FirstOrDefaultAsync(c => c.categoryID == id);
+            if (categor == null)
+            {
+                return NotFound(new
+                {
+                    message = "not fount"
+                });
+            }
+
+            var hasExpense = await _dbcontext.expense.AnyAsync(e => e.categoryID == id);
+            if (hasExpense)
+            {
+                return BadRequest(new { message = "soryy this category has expenses" });
+            }
+            await _dbcontext.category.Where(c => c.categoryID == id).ExecuteDeleteAsync();
+            
+          
+            return Ok(new
+            {
+                message = "deleted successfully"
+            });
+        }
+
     }
     
 }
