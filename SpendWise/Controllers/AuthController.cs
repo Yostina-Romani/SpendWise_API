@@ -107,11 +107,54 @@ namespace SpendWise.Controllers
             }
             var token = await _usermanager.GeneratePasswordResetTokenAsync(user);
             var encodedToken = Uri.EscapeDataString(token);
+            var encodedEmail = Uri.EscapeDataString(model.email);
+
+            var resetLink = $"http://127.0.0.1:5500/HTML/ResetPassword.html?email={encodedEmail}&token={encodedToken}";
+            var emailDody = $@"
+
+        <h2>Reset Your SpendWise Password</h2>
+
+        <p>You requested to reset your password.</p>
+
+        <p>Click the button below to create a new password:</p>
+        <a href='{resetLink}'
+           style='
+           display:inline-block;
+           padding:12px 20px;
+           background:#6366f1;
+           color:white;
+           text-decoration:none;
+           border-radius:8px;'>
+           
+           Reset Password
+        </a>
+
+        <p>If you did not request this, you can ignore this email.</p>
+             ";
+           await _emailservice.SendEmailAsync(user.Email!, "SpendWise - Reset Password", emailDody);
+             
             return Ok(new
             {
                 message = "If an account exists for this email, a reset link has been sent."
             });
 
+        }
+
+        [HttpPost("resetPassword")]
+        public async Task<IActionResult> resetPassword(resetPasswordDTO model)
+        {
+            var user = await _usermanager.FindByEmailAsync(model.email);
+            if (user == null)
+            {
+                return BadRequest(new { message = "Unable to reset password." });
+            }
+           var result= await _usermanager.ResetPasswordAsync(user,model.token ,model.password);
+            if (!result.Succeeded)
+            {
+                return BadRequest(new {message=result.Errors.Select(e => e.Description) });
+            }
+
+            return Ok(new { message= "Password reset successfully." });
         }
     }
 }
