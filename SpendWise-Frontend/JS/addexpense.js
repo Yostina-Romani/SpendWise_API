@@ -1,3 +1,26 @@
+
+async function getCategories() {
+    try{
+    const response=await fetch("http://127.0.0.1:5253/api/Category/getcategories");
+    if(!response.ok){
+        throw new Error("Failed to load categories");
+        
+    }
+    const categories=await response.json();
+    const categorySelect=document.getElementById("categoryid");
+    categories.forEach(cat => {
+        const option=document.createElement("option");
+        option.value=cat.categoryID;
+        option.textContent=cat.categoryNmae;
+        categorySelect.appendChild(option);
+    });}
+    catch(error){
+        console.error("Error loading categories:",error);
+    }
+    
+}
+getCategories();
+
 const form = document.getElementById("addexpense");
 form.addEventListener("submit", async function (event) {
 

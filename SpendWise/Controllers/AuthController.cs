@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using SpendWise.DTOS;
 using SpendWise.Models;
+using SpendWise.Services;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -16,11 +17,13 @@ namespace SpendWise.Controllers
     {
         private readonly UserManager<Applicationuser> _usermanager;
         private readonly IConfiguration _iconfiguration;
+        private readonly IEmailservice _emailservice;
 
-        public AuthController(UserManager<Applicationuser> userManager,IConfiguration iconfiguration)
+        public AuthController(UserManager<Applicationuser> userManager,IConfiguration iconfiguration,IEmailservice emailservice)
         {
             _usermanager=userManager;
             _iconfiguration = iconfiguration;
+            _emailservice=emailservice;
         }
 
         [HttpPost("register")]
@@ -90,6 +93,25 @@ namespace SpendWise.Controllers
             return Ok(new
             { token = jwttoken
             });
+        }
+        [HttpPost("forgetPassword")]
+        public async Task<IActionResult> forgetPassword(forgetpasswordDTO model)
+        {
+            var user = await _usermanager.FindByEmailAsync(model.email);
+            if (user == null)
+            {
+                return BadRequest(new
+                {
+                    message = "If an account exists for this email, a password reset link has been sent."
+                });
+            }
+            var token = await _usermanager.GeneratePasswordResetTokenAsync(user);
+            var encodedToken = Uri.EscapeDataString(token);
+            return Ok(new
+            {
+                message = "If an account exists for this email, a reset link has been sent."
+            });
+
         }
     }
 }

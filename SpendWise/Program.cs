@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using SpendWise.Data;
 using SpendWise.Models;
+using SpendWise.Services;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -86,6 +87,9 @@ builder.Services.AddCors(options =>
             .AllowAnyMethod();
     });
 });
+
+//email services
+builder.Services.AddScoped<IEmailservice, Emailservice>();
 
 var app = builder.Build();
 
