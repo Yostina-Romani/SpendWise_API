@@ -23,9 +23,13 @@ form.addEventListener("submit",async function(event) {
 
     });
     const data=await response.json();
+   // console.log("STATUS:", response.status);
+   // console.log("DATA:", data);
     if(!response.ok){
-      return(data.message);
+     alert(JSON.stringify(data));
+    return;
     }
-    return(data.message);
+    alert(data.message);
+    window.location.href="Login.html";
     
 });

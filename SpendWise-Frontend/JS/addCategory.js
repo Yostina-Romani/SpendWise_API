@@ -3,6 +3,7 @@ form.addEventListener("submit",async function (event) {
     event.preventDefault();
     const catname=document.getElementById("catname").value.trim();
     const catdescription=document.getElementById("catdescription").value.trim();
+    const image=document.getElementById("catimage").files[0];
     if(catname===""){
       showError("catname","this field is required");
       return;
@@ -24,26 +25,30 @@ form.addEventListener("submit",async function (event) {
                 alert("You must login first");
         return;
     }
+    const formdata=new FormData();
+    formdata.append("categoryNmae",catname);
+    formdata.append("CategoryDescription",catdescription);
+    if(image){
+    formdata.append("image",image);
+
+    }
  const response= await fetch("http://127.0.0.1:5253/api/Category/addCategory",{
     method:"Post",
     headers:{
-        "Content-Type":"application/json",
-        "Authorization":`Bearer ${token} `,
+        "Authorization":`Bearer ${token}`,
     },
-    body:JSON.stringify({
-        
-        categoryNmae:catname,
-        CategoryDescription:catdescription
-    
-    })
+    body:formdata
  });
 
- const data=await response.json();
+ const text=await response.text();
 
     if(!response.ok){
-        console.log(data);
+        console.log("status",response.status);
+        return;
     }
+    const data=JSON.parse(text);
     alert(data.message);
+    window.location.href="categories.html";
 
 });
 

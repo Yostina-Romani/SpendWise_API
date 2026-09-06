@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SpendWise.Data;
 
@@ -11,9 +12,11 @@ using SpendWise.Data;
 namespace SpendWise.Migrations
 {
     [DbContext(typeof(dbcontext))]
-    partial class dbcontextModelSnapshot : ModelSnapshot
+    [Migration("20260906180137_addImageUrlColumn")]
+    partial class addImageUrlColumn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

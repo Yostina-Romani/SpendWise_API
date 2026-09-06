@@ -151,7 +151,17 @@ namespace SpendWise.Controllers
            var result= await _usermanager.ResetPasswordAsync(user,model.token ,model.password);
             if (!result.Succeeded)
             {
-                return BadRequest(new {message=result.Errors.Select(e => e.Description) });
+                foreach (var error in result.Errors)
+                {
+                    Console.WriteLine(
+                        $"RESET ERROR: {error.Code} - {error.Description}"
+                    );
+                }
+
+                return BadRequest(new
+                {
+                    message = result.Errors.Select(e => e.Description)
+                });
             }
 
             return Ok(new { message= "Password reset successfully." });

@@ -33,7 +33,7 @@ builder.Services.AddDbContext<dbcontext>(options =>
 // =========================
 
 builder.Services.AddIdentityCore<Applicationuser>().AddRoles<IdentityRole>()
-    .AddEntityFrameworkStores<dbcontext>();
+    .AddEntityFrameworkStores<dbcontext>().AddDefaultTokenProviders();
 
 // =========================
 // JWT Authentication
@@ -136,5 +136,5 @@ app.UseAuthorization();
 
 // Controllers
 app.MapControllers();
-
+app.UseStaticFiles();
 app.Run();

@@ -68,7 +68,7 @@
             </p>
 
 
-            <form id="catform">
+            <form id="catform" enctype="multipart/form-data">
 
                 <div class="form-group">
 
@@ -81,6 +81,18 @@
                         id="catname"
                         class="form-control"
                         placeholder="e.g. Food">
+
+                </div>
+                <div class="form-group">
+
+                    <label for="catimage">
+                        Category image
+                    </label>
+
+                    <input
+                        type="file"
+                        id="catimage"
+                        class="form-control" accept="image/*">
 
                 </div>
 

@@ -14,7 +14,18 @@ async function getcategories() {
             row.innerHTML = `
                 <td>${category.categoryID}</td>
                 <td>${category.categoryNmae}</td>
-                <td>${category.categoryDescription}</td>
+                <td>
+                    ${
+                        category.imageURL
+                        ? `<img 
+                                src="http://127.0.0.1:5253${category.imageURL}"
+                                width="60"
+                                height="60"
+                                style="object-fit: cover; border-radius: 8px;"
+                        >`
+                        : "No image"
+                    }
+                </td>                <td>${category.categoryDescription}</td>
                 <td>
                     <button type="button" class="btn btn-sm btn-primary edit-btn">
                         Edit
@@ -71,6 +82,7 @@ async function deleteCategory(id){
             return;
         }
         alert(data.message);
+        window.location.href="categories.html";
         getcategories();
     }
 

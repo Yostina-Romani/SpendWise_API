@@ -32,8 +32,23 @@ namespace SpendWise.Controllers
 
         [Authorize(Roles ="Admin")]
         [HttpPost("addCategory")]
-        public async Task<IActionResult> addCategory( Categories model)
+        public async Task<IActionResult> addCategory([FromForm] Categories model,IFormFile? image)
         {
+            if (image != null)
+            {
+                var folderPath = Path.Combine(Directory.GetCurrentDirectory(),"wwwroot","Images","categories");
+                if (!Directory.Exists(folderPath))
+                {
+                    Directory.CreateDirectory(folderPath);
+                }
+                var fileName = Guid.NewGuid().ToString() + Path.GetExtension(image.FileName);
+                var filePath = Path.Combine(folderPath, fileName);
+                using(var stream=new FileStream(filePath, FileMode.Create))
+                {
+                    await image.CopyToAsync(stream);
+                }
+                model.imageURL = $"/Images/categories/{fileName}";
+            }
           await  _dbcontext.category.AddAsync(model);
            await _dbcontext.SaveChangesAsync();
             return Ok(new
