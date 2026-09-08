@@ -5,6 +5,7 @@ using SpendWise.DTOS;
 using SpendWise.Data;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
+using Microsoft.EntityFrameworkCore;
 namespace SpendWise.Controllers
 {
     [Route("api/[controller]")]
@@ -12,9 +13,12 @@ namespace SpendWise.Controllers
     public  class ExpensesController : ControllerBase
     {
         private readonly dbcontext _dbcont;
-        public ExpensesController(dbcontext dbcont)
+        private readonly UserManager<Applicationuser> _usermanager;
+
+        public ExpensesController(dbcontext dbcont,UserManager<Applicationuser> userManager)
         {
             _dbcont = dbcont;
+            _usermanager = userManager;
            
 
         }
@@ -50,5 +54,42 @@ namespace SpendWise.Controllers
             });
 
         }
+
+        [HttpGet("myExpenses")]
+        [Authorize]
+        public async Task<IActionResult>myExpenses()
+        {
+            var userid = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (userid == null)
+            {
+                return BadRequest(new
+                {
+                    message = "not found"
+                });
+
+            }
+            var expenses = await _dbcont.expense
+                   .Where(e => e.UserId == userid)
+                   .Select(e => new
+                   {
+                       e.expenseId,
+                       e.expenseAmount,
+                       e.expenseTime,
+
+                       category = new
+                       {
+                           e.Category.categoryID,
+                           e.Category.categoryNmae,
+                           e.Category.imageURL
+                       }
+                   })
+                   .ToListAsync(); if (!expenses.Any())
+            {
+                return BadRequest(new { message = "you donot have any expenses" });
+
+            }
+            return Ok(expenses);
+        }
+
     }
 }

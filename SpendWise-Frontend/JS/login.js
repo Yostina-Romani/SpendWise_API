@@ -1,4 +1,4 @@
-alert("h1");
+
 const form = document.getElementById("formid");
 form.addEventListener("submit", async function (event) {
     event.preventDefault();
@@ -23,14 +23,27 @@ form.addEventListener("submit", async function (event) {
         })
     });
 
-    const data = await response.json();
     if (!response.ok) {
+        const errorMessage=await response.text();
+        showError("emailerror",errorMessage);
         console.log("api response", data);
         return;
     }
+
+     const data = await response.json();
+
     const token = data.token;
-    localStorage.setItem("token", token)
+    localStorage.setItem("token", token);
+
+    const payload=JSON.parse(atob(token.split(".")[1]));
+    const role=payload["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
+    if(role==="Admin"){
     window.location.href="DashBoard.html";
+
+    }
+    else{
+        window.location.href="UserDahboard.html";
+    }
 });
 function showError(elementid, message) {
     document.getElementById(elementid).textContent = message;

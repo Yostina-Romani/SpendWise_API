@@ -1,153 +1,382 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
 
 <head>
 
-    <meta charset="UTF-8">
+```
+<meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
-    <title>SpendWise - Add Expense</title>
+<meta name="description"
+      content="SpendWise - Add Expense">
 
-    <!-- Bootstrap -->
-    <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-        rel="stylesheet">
+<title>SpendWise | Add Expense</title>
 
-    <!-- Custom CSS -->
-    <link
-        rel="stylesheet"
-        href="../CSS/style.css">
+
+<!-- Bootstrap -->
+
+<link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet">
+
+
+<!-- Bootstrap Icons -->
+
+<link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+
+<!-- Google Font -->
+
+<link
+    rel="preconnect"
+    href="https://fonts.googleapis.com">
+
+<link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin>
+
+<link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+
+
+<!-- Custom CSS -->
+
+<link
+    rel="stylesheet"
+    href="../CSS/style.css">
+```
 
 </head>
 
 <body>
 
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg spend-navbar">
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
 
-        <div class="container">
+<nav class="navbar navbar-expand-lg spend-navbar">
 
-            <a
-                class="navbar-brand"
-                href="./dashboard.html">
+```
+<div class="container">
+
+
+    <!-- BRAND -->
+
+    <a
+        class="navbar-brand"
+        href="./UserDashboard.html">
+
+        <span class="brand-small-icon">
+            S
+        </span>
+
+        SpendWise
+
+    </a>
+
+
+    <!-- BACK TO DASHBOARD -->
+
+    <a
+        href="./UserDashboard.html"
+        class="back-link">
+
+        <i class="bi bi-arrow-left"></i>
+
+        Dashboard
+
+    </a>
+
+</div>
+```
+
+</nav>
+
+<!-- =====================================================
+     MAIN CONTENT
+===================================================== -->
+
+<main class="container form-page">
+
+```
+<div class="form-card fade-in">
+
+
+    <!-- ICON -->
+
+    <div class="form-icon expense-icon">
+
+        <i class="bi bi-wallet2"></i>
+
+    </div>
+
+
+
+    <!-- TITLE -->
+
+    <span class="section-label">
+
+        EXPENSE MANAGEMENT
+
+    </span>
+
+
+    <h1>
+
+        Add Expense
+
+    </h1>
+
+
+    <p class="form-subtitle">
+
+        Record your spending and keep your finances organized.
+
+    </p>
+
+
+
+    <!-- =================================================
+         FORM
+    ================================================= -->
+
+    <form id="addexpense">
+
+
+        <!-- CATEGORY -->
+
+        <div class="form-group">
+
+
+            <label for="categoryid">
+
+                <i class="bi bi-grid"></i>
+
+                Category
+
+            </label>
+
+
+            <select
+                id="categoryid"
+                class="form-select"
+                required>
+
+                <option value="">
+
+                    Select Category
+
+                </option>
+
+            </select>
+
+
+        </div>
+
+
+
+        <!-- AMOUNT -->
+
+        <div class="form-group">
+
+
+            <label for="expenseamount">
+
+                <i class="bi bi-cash-stack"></i>
+
+                Expense Amount
+
+            </label>
+
+
+            <div class="input-group">
+
+                <span class="input-group-text">
+
+                    $
+
+                </span>
+
+
+                <input
+                    type="number"
+                    step="0.01"
+                    min="0"
+                    id="expenseamount"
+                    class="form-control"
+                    placeholder="0.00"
+                    required>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- DATE -->
+
+        <div class="form-group">
+
+
+            <label for="expensetime">
+
+                <i class="bi bi-calendar3"></i>
+
+                Date
+
+            </label>
+
+
+            <input
+                type="date"
+                id="expensetime"
+                class="form-control"
+                required>
+
+        </div>
+
+
+
+        <!-- SUBMIT -->
+
+        <button
+            type="submit"
+            class="btn btn-primary custom-btn w-100">
+
+            <i class="bi bi-plus-circle"></i>
+
+            Add Expense
+
+        </button>
+
+
+    </form>
+
+
+
+    <!-- INFO -->
+
+    <div class="form-info">
+
+
+        <i class="bi bi-lightbulb"></i>
+
+
+        <div>
+
+            <strong>
+
+                Keep your expenses organized
+
+            </strong>
+
+
+            <p>
+
+                Add every expense with the correct
+                category and date to keep your
+                financial records accurate.
+
+            </p>
+
+        </div>
+
+
+    </div>
+
+
+</div>
+```
+
+</main>
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="spend-footer">
+
+```
+<div class="container">
+
+    <div class="footer-content">
+
+
+        <div>
+
+            <div class="footer-brand">
 
                 <span class="brand-small-icon">
+
                     S
+
                 </span>
 
                 SpendWise
 
-            </a>
-
-            <a
-                href="./dashboard.html"
-                class="back-link">
-
-                ← Dashboard
-
-            </a>
-
-        </div>
-
-    </nav>
-
-
-    <!-- Page -->
-    <main class="container form-page">
-
-        <div class="form-card fade-in">
-
-            <div class="form-icon expense-icon">
-                $
             </div>
 
-            <h1>
-                Add Expense
-            </h1>
 
-            <p class="form-subtitle">
-                Record your spending and keep your finances organized.
+            <p>
+
+                Smart expense management made simple.
+
             </p>
-
-
-            <form id="addexpense">
-
-                <!-- Category -->
-
-                <div class="form-group">
-
-                    <label for="categoryid">
-                        Category
-                    </label>
-
-                    <select
-                        id="categoryid"
-                        class="form-select">
-
-                        <option value="">
-                        select Category
-                        </option>
-
-                    
-                    </select>
-
-                </div>
-
-
-                <!-- Amount -->
-
-                <div class="form-group">
-
-                    <label for="expenseamount">
-                        Expense Amount
-                    </label>
-
-                    <input
-                        type="number"
-                        step="0.01"
-                        id="expenseamount"
-                        class="form-control"
-                        placeholder="0.00">
-
-                </div>
-
-
-                <!-- Date -->
-
-                <div class="form-group">
-
-                    <label for="expensetime">
-                        Date
-                    </label>
-
-                    <input
-                        type="date"
-                        id="expensetime"
-                        class="form-control">
-
-                </div>
-
-
-                <!-- Submit -->
-
-                <button
-                    type="submit"
-                    class="btn btn-primary custom-btn w-100">
-
-                    Add Expense
-
-                </button>
-
-            </form>
 
         </div>
 
-    </main>
+
+        <div>
+
+            <span>
+
+                © 2026 SpendWise
+
+            </span>
 
 
-    <script src="../JS/addexpense.js"></script>
+            <span class="footer-divider">
+
+                •
+
+            </span>
+
+
+            <span>
+
+                Built with ASP.NET Core & JavaScript
+
+            </span>
+
+        </div>
+
+
+    </div>
+
+</div>
+```
+
+</footer>
+
+<!-- Bootstrap JS -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+
+<!-- Add Expense JS -->
+
+<script
+    src="../JS/addexpense.js">
+</script>
 
 </body>
 
