@@ -1,468 +1,675 @@
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
 
-```
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-<meta name="description"
-      content="SpendWise User Dashboard">
+    <meta
+        name="description"
+        content="SpendWise User Dashboard"
+    >
 
-<title>SpendWise | Dashboard</title>
-
-
-<!-- Bootstrap -->
-
-<link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-    rel="stylesheet">
+    <title>SpendWise | Dashboard</title>
 
 
-<!-- Bootstrap Icons -->
+    <!-- Bootstrap -->
 
-<link
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
-
-<!-- Google Font -->
-
-<link
-    rel="preconnect"
-    href="https://fonts.googleapis.com">
-
-<link
-    rel="preconnect"
-    href="https://fonts.gstatic.com"
-    crossorigin>
-
-<link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
-    rel="stylesheet">
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
 
 
-<!-- Custom CSS -->
+    <!-- Bootstrap Icons -->
 
-<link
-    rel="stylesheet"
-    href="../CSS/style.css">
-```
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    >
+
+
+    <!-- Google Font -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <!-- Project CSS -->
+
+    <link
+        rel="stylesheet"
+        href="../CSS/theme.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../CSS/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../CSS/components.css"
+    >
 
 </head>
 
+
 <body>
 
-<!-- =====================================================
-     NAVBAR
-===================================================== -->
 
-<nav class="navbar navbar-expand-lg spend-navbar">
+    <!-- ================= NAVBAR ================= -->
 
-```
-<div class="container">
+    <nav class="navbar navbar-expand-lg spend-navbar">
 
-    <!-- BRAND -->
+        <div class="container">
 
-    <a
-        class="navbar-brand"
-        href="./UserDashboard.html">
 
-        <span class="brand-small-icon">
-            S
-        </span>
+            <!-- Brand -->
 
-        SpendWise
+            <a
+                class="navbar-brand d-flex align-items-center gap-2"
+                href="./UserDashboard.html"
+            >
 
-    </a>
+                <span class="brand-icon">
+                    S
+                </span>
 
+                <span class="fw-bold">
+                    SpendWise
+                </span>
 
-    <!-- LOGOUT -->
+            </a>
 
-    <button
-        class="btn btn-danger"
-        onclick="logout()">
 
-        <i class="bi bi-box-arrow-right"></i>
+            <!-- Right Side -->
 
-        Logout
+            <div class="d-flex align-items-center gap-3">
 
-    </button>
 
-</div>
-```
+                <!-- Theme -->
 
-</nav>
+                <button
+                    id="themeToggle"
+                    class="theme-btn"
+                    type="button"
+                    aria-label="Toggle theme"
+                >
 
-<!-- =====================================================
-     DASHBOARD
-===================================================== -->
+                    <i class="bi bi-moon"></i>
 
-<main class="container page-container">
+                </button>
 
-```
-<!-- ================= WELCOME ================= -->
 
-<section class="dashboard-welcome fade-in">
+                <!-- Logout -->
 
-    <div>
+                <button
+                    type="button"
+                    class="btn btn-danger"
+                    onclick="logout()"
+                >
 
-        <span class="section-label">
+                    <i class="bi bi-box-arrow-right me-1"></i>
 
-            PERSONAL DASHBOARD
+                    Logout
 
-        </span>
-
-
-        <h1>
-
-            Welcome to SpendWise 👋
-
-        </h1>
-
-
-        <p>
-
-            Manage your expenses, organize your spending,
-            and stay in control of your finances.
-
-        </p>
-
-    </div>
-
-</section>
-
-
-
-<!-- =================================================
-     QUICK ACTIONS
-================================================= -->
-
-<section class="mt-5">
-
-    <div class="section-heading">
-
-        <span class="section-label">
-
-            QUICK ACTIONS
-
-        </span>
-
-
-        <h2>
-
-            What would you like to do?
-
-        </h2>
-
-    </div>
-
-
-    <div class="row g-4 mt-2">
-
-
-        <!-- MY EXPENSES -->
-
-        <div class="col-lg-4 col-md-6">
-
-            <div class="dashboard-action-card">
-
-                <div class="dashboard-action-icon">
-
-                    <i class="bi bi-receipt"></i>
-
-                </div>
-
-
-                <h4>
-
-                    My Expenses
-
-                </h4>
-
-
-                <p>
-
-                    View and manage all your recorded
-                    expenses in one place.
-
-                </p>
-
-
-                <a
-                    href="./expenses.html"
-                    class="dashboard-action-link">
-
-                    View Expenses
-
-                    <i class="bi bi-arrow-right"></i>
-
-                </a>
+                </button>
 
             </div>
 
         </div>
 
+    </nav>
 
 
-        <!-- ADD EXPENSE -->
 
-        <div class="col-lg-4 col-md-6">
+    <!-- ================= MAIN ================= -->
 
-            <div class="dashboard-action-card">
+    <main class="dashboard-page">
 
-                <div class="dashboard-action-icon">
+        <div class="container">
 
-                    <i class="bi bi-plus-circle"></i>
 
-                </div>
+            <!-- ================= WELCOME ================= -->
 
-
-                <h4>
-
-                    Add Expense
-
-                </h4>
-
-
-                <p>
-
-                    Quickly add a new expense and
-                    keep your spending records updated.
-
-                </p>
-
-
-                <a
-                    href="./AddExpense.html"
-                    class="dashboard-action-link">
-
-                    Add Expense
-
-                    <i class="bi bi-arrow-right"></i>
-
-                </a>
-
-            </div>
-
-        </div>
-
-
-
-        <!-- CATEGORIES -->
-
-        <div class="col-lg-4 col-md-6">
-
-            <div class="dashboard-action-card">
-
-                <div class="dashboard-action-icon">
-
-                    <i class="bi bi-grid"></i>
-
-                </div>
-
-
-                <h4>
-
-                    Categories
-
-                </h4>
-
-
-                <p>
-
-                    Browse expense categories and
-                    organize your spending.
-
-                </p>
-
-
-                <a
-                    href="./categories.html"
-                    class="dashboard-action-link">
-
-                    View Categories
-
-                    <i class="bi bi-arrow-right"></i>
-
-                </a>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-
-<!-- =================================================
-     INFO SECTION
-================================================= -->
-
-<section class="dashboard-info-section mt-5">
-
-    <div class="row align-items-center g-5">
-
-
-        <!-- TEXT -->
-
-        <div class="col-lg-6">
-
-            <span class="section-label">
-
-                SPEND SMARTER
-
-            </span>
-
-
-            <h2>
-
-                Take Control
-                Of Your Spending.
-
-            </h2>
-
-
-            <p>
-
-                SpendWise gives you a simple way to
-                organize your expenses and understand
-                your spending habits.
-
-            </p>
-
-
-            <div class="security-list">
+            <section class="dashboard-welcome fade-in">
 
                 <div>
 
-                    <i class="bi bi-check-circle-fill"></i>
-
-                    Easy expense management
-
-                </div>
+                    <span class="section-label">
+                        PERSONAL DASHBOARD
+                    </span>
 
 
-                <div>
-
-                    <i class="bi bi-check-circle-fill"></i>
-
-                    Organized categories
-
-                </div>
+                    <h1>
+                        Welcome to SpendWise 👋
+                    </h1>
 
 
-                <div>
-
-                    <i class="bi bi-check-circle-fill"></i>
-
-                    Secure account
+                    <p>
+                        Everything you need to manage
+                        your expenses in one place.
+                    </p>
 
                 </div>
 
-
-                <div>
-
-                    <i class="bi bi-check-circle-fill"></i>
-
-                    Simple and responsive interface
-
-                </div>
-
-            </div>
-
-        </div>
+            </section>
 
 
 
-        <!-- VISUAL CARD -->
+            <!-- ================= QUICK ACTIONS ================= -->
 
-        <div class="col-lg-6">
+            <section class="dashboard-actions">
 
-            <div class="dashboard-summary-card">
 
-                <div class="summary-top">
+                <div class="dashboard-section-header">
 
                     <div>
 
-                        <small>
+                        <span class="section-label text-start">
+                            QUICK ACTIONS
+                        </span>
 
-                            SpendWise
+                        <h2>
+                            Manage your finances
+                        </h2>
 
-                        </small>
+                    </div>
+
+                </div>
+
+
+
+                <div class="row g-4">
+
+
+                    <!-- Expenses -->
+
+                    <div class="col-md-6 col-lg-4">
+
+                        <div class="dashboard-action-card">
+
+                            <div class="dashboard-action-top">
+
+                                <div class="dashboard-action-icon">
+
+                                    <i class="bi bi-receipt"></i>
+
+                                </div>
+
+
+                                <span class="action-number">
+                                    01
+                                </span>
+
+                            </div>
+
+
+                            <h3>
+                                My Expenses
+                            </h3>
+
+
+                            <p>
+                                View and manage all your
+                                recorded expenses.
+                            </p>
+
+
+                            <a
+                                href="./expenses.html"
+                                class="dashboard-action-link"
+                            >
+
+                                View Expenses
+
+                                <i class="bi bi-arrow-right"></i>
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Add Expense -->
+
+                    <div class="col-md-6 col-lg-4">
+
+                        <div class="dashboard-action-card">
+
+                            <div class="dashboard-action-top">
+
+                                <div class="dashboard-action-icon">
+
+                                    <i class="bi bi-plus-lg"></i>
+
+                                </div>
+
+
+                                <span class="action-number">
+                                    02
+                                </span>
+
+                            </div>
+
+
+                            <h3>
+                                Add Expense
+                            </h3>
+
+
+                            <p>
+                                Quickly record a new expense
+                                and keep your records updated.
+                            </p>
+
+
+                            <a
+                                href="./AddExpense.html"
+                                class="dashboard-action-link"
+                            >
+
+                                Add Expense
+
+                                <i class="bi bi-arrow-right"></i>
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Categories -->
+
+                    <div class="col-md-6 col-lg-4">
+
+                        <div class="dashboard-action-card">
+
+                            <div class="dashboard-action-top">
+
+                                <div class="dashboard-action-icon">
+
+                                    <i class="bi bi-grid"></i>
+
+                                </div>
+
+
+                                <span class="action-number">
+                                    03
+                                </span>
+
+                            </div>
+
+
+                            <h3>
+                                Categories
+                            </h3>
+
+
+                            <p>
+                                Organize your expenses into
+                                clear and useful categories.
+                            </p>
+
+
+                            <a
+                                href="./categories.html"
+                                class="dashboard-action-link"
+                            >
+
+                                View Categories
+
+                                <i class="bi bi-arrow-right"></i>
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- ================= OVERVIEW ================= -->
+
+            <section class="dashboard-overview">
+
+                <div class="row align-items-center g-5">
+
+
+                    <!-- Text -->
+
+                    <div class="col-lg-6">
+
+                        <div class="overview-content">
+
+                            <span class="section-label text-start">
+                                SPEND SMARTER
+                            </span>
+
+
+                            <h2>
+                                A simpler way to
+                                manage your money.
+                            </h2>
+
+
+                            <p>
+                                SpendWise helps you keep your
+                                expenses organized so you can
+                                focus on making better financial
+                                decisions.
+                            </p>
+
+
+                            <div class="overview-list">
+
+
+                                <div class="overview-item">
+
+                                    <div class="overview-check">
+
+                                        <i class="bi bi-check-lg"></i>
+
+                                    </div>
+
+                                    <div>
+
+                                        <strong>
+                                            Track your expenses
+                                        </strong>
+
+                                        <span>
+                                            Keep every expense organized.
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+
+
+                                <div class="overview-item">
+
+                                    <div class="overview-check">
+
+                                        <i class="bi bi-check-lg"></i>
+
+                                    </div>
+
+                                    <div>
+
+                                        <strong>
+                                            Organize categories
+                                        </strong>
+
+                                        <span>
+                                            Group your spending clearly.
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+
+
+                                <div class="overview-item">
+
+                                    <div class="overview-check">
+
+                                        <i class="bi bi-check-lg"></i>
+
+                                    </div>
+
+                                    <div>
+
+                                        <strong>
+                                            Stay in control
+                                        </strong>
+
+                                        <span>
+                                            Understand where your money goes.
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Visual -->
+
+                    <div class="col-lg-6">
+
+                        <div class="dashboard-visual">
+
+
+                            <div class="visual-header">
+
+                                <div>
+
+                                    <small>
+                                        SpendWise
+                                    </small>
+
+                                    <h3>
+                                        Financial Overview
+                                    </h3>
+
+                                </div>
+
+
+                                <div class="visual-icon">
+
+                                    <i class="bi bi-wallet2"></i>
+
+                                </div>
+
+                            </div>
+
+
+
+                            <div class="visual-balance">
+
+                                <span>
+                                    Your finances
+                                </span>
+
+                                <strong>
+                                    Stay organized
+                                </strong>
+
+                            </div>
+
+
+
+                            <div class="visual-progress">
+
+                                <div class="progress-info">
+
+                                    <span>
+                                        Expense Tracking
+                                    </span>
+
+                                    <span>
+                                        Ready
+                                    </span>
+
+                                </div>
+
+
+                                <div class="progress">
+
+                                    <div
+                                        class="progress-bar"
+                                        role="progressbar"
+                                        style="width: 85%"
+                                    ></div>
+
+                                </div>
+
+                            </div>
+
+
+
+                            <div class="visual-items">
+
+
+                                <div>
+
+                                    <i class="bi bi-receipt"></i>
+
+                                    <span>
+                                        Expenses
+                                    </span>
+
+                                    <i class="bi bi-check-circle-fill ms-auto"></i>
+
+                                </div>
+
+
+                                <div>
+
+                                    <i class="bi bi-tags"></i>
+
+                                    <span>
+                                        Categories
+                                    </span>
+
+                                    <i class="bi bi-check-circle-fill ms-auto"></i>
+
+                                </div>
+
+
+                                <div>
+
+                                    <i class="bi bi-shield-check"></i>
+
+                                    <span>
+                                        Secure Account
+                                    </span>
+
+                                    <i class="bi bi-check-circle-fill ms-auto"></i>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- ================= FINAL MESSAGE ================= -->
+
+            <section class="dashboard-final">
+
+                <div>
+
+                    <div class="final-icon">
+
+                        <i class="bi bi-stars"></i>
+
+                    </div>
+
+
+                    <div>
 
                         <h3>
-
-                            Financial Overview
-
+                            Make every expense count.
                         </h3>
 
-                    </div>
-
-
-                    <div class="summary-icon">
-
-                        <i class="bi bi-wallet2"></i>
+                        <p>
+                            Stay organized. Spend smarter.
+                        </p>
 
                     </div>
 
                 </div>
 
-
-                <div class="summary-line">
-
-                    <span>
-
-                        Track Expenses
-
-                    </span>
-
-                    <i class="bi bi-check-circle-fill"></i>
-
-                </div>
+            </section>
 
 
-                <div class="summary-line">
+        </div>
 
-                    <span>
-
-                        Manage Categories
-
-                    </span>
-
-                    <i class="bi bi-check-circle-fill"></i>
-
-                </div>
+    </main>
 
 
-                <div class="summary-line">
 
-                    <span>
+    <!-- ================= FOOTER ================= -->
 
-                        Protect Your Account
+    <footer class="spend-footer">
 
-                    </span>
+        <div class="container">
 
-                    <i class="bi bi-check-circle-fill"></i>
+            <div class="footer-content">
+
+                <div>
+
+                    <div class="footer-brand">
+
+                        <span class="brand-icon">
+                            S
+                        </span>
+
+                        SpendWise
+
+                    </div>
+
+
+                    <p>
+                        Smart expense management made simple.
+                    </p>
 
                 </div>
 
 
-                <div class="summary-line">
+                <div class="footer-copy">
 
-                    <span>
+                    © 2026 SpendWise
 
-                        Make Better Decisions
-
+                    <span class="footer-divider">
+                        •
                     </span>
 
-                    <i class="bi bi-check-circle-fill"></i>
+                    Built with ASP.NET Core & JavaScript
 
                 </div>
 
@@ -470,88 +677,27 @@
 
         </div>
 
-    </div>
-
-</section>
-```
-
-</main>
-
-<!-- =====================================================
-     FOOTER
-===================================================== -->
-
-<footer class="spend-footer">
-
-```
-<div class="container">
-
-    <div class="footer-content">
-
-        <div>
-
-            <div class="footer-brand">
-
-                <span class="brand-small-icon">
-
-                    S
-
-                </span>
-
-                SpendWise
-
-            </div>
+    </footer>
 
 
-            <p>
 
-                Smart expense management made simple.
+    <!-- Bootstrap JS -->
 
-            </p>
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    ></script>
 
-        </div>
+
+    <!-- Shared JS -->
+
+    <script src="../JS/components.js"></script>
+
+    <script src="../JS/theme.js"></script>
 
 
-        <div>
+    <!-- Dashboard JS -->
 
-            <span>
-
-                © 2026 SpendWise
-
-            </span>
-
-            <span class="footer-divider">
-
-                •
-
-            </span>
-
-            <span>
-
-                Built with ASP.NET Core & JavaScript
-
-            </span>
-
-        </div>
-
-    </div>
-
-</div>
-```
-
-</footer>
-
-<!-- Bootstrap JS -->
-
-<script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
-</script>
-
-<!-- Dashboard JS -->
-
-<script
-    src="../JS/UserDashboard.js">
-</script>
+    <script src="../JS/UserDashboard.js"></script>
 
 </body>
 
