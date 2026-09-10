@@ -1,5 +1,4 @@
 
-alert("hi");
 const form = document.getElementById("register_form");
 form.addEventListener("submit", async function (event) {
     event.preventDefault();

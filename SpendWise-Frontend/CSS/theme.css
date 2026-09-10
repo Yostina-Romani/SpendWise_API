@@ -1,80 +1,110 @@
+/* =====================================================
+   SPENDWISE — DESIGN SYSTEM
+===================================================== */
+
 :root {
 
     /* =========================
        Backgrounds
     ========================= */
-
     --bg: #f8faff;
-
     --surface: #ffffff;
-
-    --surface-soft: #f5f3ff;
+    --surface-soft: #f7f5ff;
+    --surface-hover: #faf9ff;
 
 
     /* =========================
        Text
     ========================= */
-
     --text: #1e293b;
-
     --text-soft: #64748b;
+    --text-muted: #94a3b8;
 
 
     /* =========================
-       Border
+       Borders
     ========================= */
-
-    --border: #e2e8f0;
+    --border: #e5e7eb;
+    --border-soft: #eef0f6;
 
 
     /* =========================
        Brand Colors
     ========================= */
-
     --primary: #6366f1;
-
     --primary-dark: #4f46e5;
-
     --secondary: #8b5cf6;
+    --accent: #ec4899;
 
 
     /* =========================
-       Gradients
+       Main Gradient
     ========================= */
-
     --primary-gradient:
         linear-gradient(
             135deg,
-            #6366f1,
-            #8b5cf6
+            #6366f1 0%,
+            #8b5cf6 50%,
+            #ec4899 100%
         );
 
+
+    /* =========================
+       Soft Background Gradient
+    ========================= */
     --soft-gradient:
         linear-gradient(
             135deg,
-            #eef2ff,
-            #f5f3ff,
-            #faf5ff
+            #eef2ff 0%,
+            #f5f3ff 50%,
+            #fdf2f8 100%
+        );
+
+
+    /* =========================
+       Hero Gradient
+    ========================= */
+    --hero-gradient:
+        linear-gradient(
+            135deg,
+            #6366f1 0%,
+            #8b5cf6 45%,
+            #ec4899 100%
+        );
+
+
+    /* =========================
+       Card Gradient
+    ========================= */
+    --card-gradient:
+        linear-gradient(
+            145deg,
+            #ffffff 0%,
+            #faf9ff 100%
         );
 
 
     /* =========================
        Status Colors
     ========================= */
-
     --success: #22c55e;
-
     --danger: #ef4444;
-
     --warning: #f59e0b;
-
     --info: #3b82f6;
+
+
+    /* =========================
+       Status Backgrounds
+    ========================= */
+    --success-bg: #f0fdf4;
+    --danger-bg: #fef2f2;
+    --warning-bg: #fffbeb;
+    --info-bg: #eff6ff;
 
 
     /* =========================
        Shadows
     ========================= */
-
     --shadow:
         0 10px 35px rgba(
             99,
@@ -84,33 +114,43 @@
         );
 
     --shadow-hover:
-        0 20px 45px rgba(
+        0 20px 50px rgba(
             99,
             102,
             241,
-            0.15
+            0.16
+        );
+
+    --shadow-card:
+        0 15px 40px rgba(
+            15,
+            23,
+            42,
+            0.08
         );
 
 
     /* =========================
-       Radius
+       Border Radius
     ========================= */
-
     --radius-sm: 10px;
-
     --radius-md: 14px;
-
     --radius-lg: 20px;
-
-    --radius-xl: 24px;
+    --radius-xl: 28px;
+    --radius-full: 999px;
 
 
     /* =========================
        Transitions
     ========================= */
-
     --transition:
         0.3s ease;
+
+    --transition-fast:
+        0.2s ease;
+
+    --transition-slow:
+        0.5s ease;
 }
 
 
@@ -123,78 +163,104 @@
     /* =========================
        Backgrounds
     ========================= */
-
-    --bg: #111827;
-
-    --surface: #1f2937;
-
-    --surface-soft: #374151;
+    --bg: #0f172a;
+    --surface: #1e293b;
+    --surface-soft: #263247;
+    --surface-hover: #334155;
 
 
     /* =========================
        Text
     ========================= */
-
     --text: #f8fafc;
-
     --text-soft: #cbd5e1;
+    --text-muted: #94a3b8;
 
 
     /* =========================
-       Border
+       Borders
     ========================= */
-
-    --border: #374151;
+    --border: #334155;
+    --border-soft: #3b475a;
 
 
     /* =========================
        Brand Colors
     ========================= */
-
     --primary: #818cf8;
-
     --primary-dark: #6366f1;
-
     --secondary: #a78bfa;
+    --accent: #f472b6;
 
 
     /* =========================
-       Gradients
+       Main Gradient
     ========================= */
-
     --primary-gradient:
         linear-gradient(
             135deg,
-            #6366f1,
-            #8b5cf6
+            #6366f1 0%,
+            #8b5cf6 50%,
+            #ec4899 100%
         );
 
+
+    /* =========================
+       Soft Background Gradient
+    ========================= */
     --soft-gradient:
         linear-gradient(
             135deg,
-            #1e1b4b,
-            #312e81,
-            #1f2937
+            #111827 0%,
+            #1e1b4b 50%,
+            #312e81 100%
+        );
+
+
+    /* =========================
+       Hero Gradient
+    ========================= */
+    --hero-gradient:
+        linear-gradient(
+            135deg,
+            #4f46e5 0%,
+            #7c3aed 50%,
+            #db2777 100%
+        );
+
+
+    /* =========================
+       Card Gradient
+    ========================= */
+    --card-gradient:
+        linear-gradient(
+            145deg,
+            #1e293b 0%,
+            #263247 100%
         );
 
 
     /* =========================
        Status Colors
     ========================= */
-
     --success: #4ade80;
-
     --danger: #f87171;
-
     --warning: #fbbf24;
-
     --info: #60a5fa;
+
+
+    /* =========================
+       Status Backgrounds
+    ========================= */
+    --success-bg: #052e16;
+    --danger-bg: #450a0a;
+    --warning-bg: #451a03;
+    --info-bg: #172554;
 
 
     /* =========================
        Shadows
     ========================= */
-
     --shadow:
         0 10px 35px rgba(
             0,
@@ -204,10 +270,18 @@
         );
 
     --shadow-hover:
-        0 20px 45px rgba(
+        0 20px 50px rgba(
             0,
             0,
             0,
             0.35
+        );
+
+    --shadow-card:
+        0 15px 40px rgba(
+            0,
+            0,
+            0,
+            0.25
         );
 }

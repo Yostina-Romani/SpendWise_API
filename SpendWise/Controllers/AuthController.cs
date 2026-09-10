@@ -18,12 +18,14 @@ namespace SpendWise.Controllers
         private readonly UserManager<Applicationuser> _usermanager;
         private readonly IConfiguration _iconfiguration;
         private readonly IEmailservice _emailservice;
+        private readonly SignInManager<Applicationuser> _signmanager;
 
-        public AuthController(UserManager<Applicationuser> userManager,IConfiguration iconfiguration,IEmailservice emailservice)
+        public AuthController(SignInManager<Applicationuser> signInManager,UserManager<Applicationuser> userManager, IConfiguration iconfiguration, IEmailservice emailservice)
         {
-            _usermanager=userManager;
+            _usermanager = userManager;
             _iconfiguration = iconfiguration;
-            _emailservice=emailservice;
+            _emailservice = emailservice;
+            _signmanager = signInManager;
         }
 
         [HttpPost("register")]
@@ -32,8 +34,8 @@ namespace SpendWise.Controllers
             var user = new Applicationuser
             {
                 name = model.yourname,
-                Email=model.Email,
-                UserName=model.Email,
+                Email = model.Email,
+                UserName = model.Email,
 
             };
             var result = await _usermanager.CreateAsync(user, model.password);
@@ -42,23 +44,23 @@ namespace SpendWise.Controllers
             {
                 return BadRequest(result.Errors);
             }
-            return Ok(new {message= "User registered successfully" });
+            return Ok(new { message = "User registered successfully" });
         }
-       
+
 
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginDTO model)
         {
-            var user=await _usermanager.FindByEmailAsync(model.email);
+            var user = await _usermanager.FindByEmailAsync(model.email);
             if (user == null) {
                 return Unauthorized("invalid email or password");
             }
 
-            var result = await _usermanager.CheckPasswordAsync(user,model.password);
+            var result = await _usermanager.CheckPasswordAsync(user, model.password);
             if (!result)
-                {
-                    return Unauthorized("invalid email or password");
-                }
+            {
+                return Unauthorized("invalid email or password");
+            }
             var roles = await _usermanager.GetRolesAsync(user);
 
 
@@ -68,9 +70,9 @@ namespace SpendWise.Controllers
                 new Claim(ClaimTypes.Email,user.Email!)
 
             };
-            foreach(var role in roles)
+            foreach (var role in roles)
             {
-                claims.Add(new Claim(ClaimTypes.Role,role));
+                claims.Add(new Claim(ClaimTypes.Role, role));
             }
 
 
@@ -131,8 +133,8 @@ namespace SpendWise.Controllers
 
         <p>If you did not request this, you can ignore this email.</p>
              ";
-           await _emailservice.SendEmailAsync(user.Email!, "SpendWise - Reset Password", emailDody);
-             
+            await _emailservice.SendEmailAsync(user.Email!, "SpendWise - Reset Password", emailDody);
+
             return Ok(new
             {
                 message = "If an account exists for this email, a reset link has been sent."
@@ -148,7 +150,7 @@ namespace SpendWise.Controllers
             {
                 return BadRequest(new { message = "Unable to reset password." });
             }
-           var result= await _usermanager.ResetPasswordAsync(user,model.token ,model.password);
+            var result = await _usermanager.ResetPasswordAsync(user, model.token, model.password);
             if (!result.Succeeded)
             {
                 foreach (var error in result.Errors)
@@ -164,7 +166,34 @@ namespace SpendWise.Controllers
                 });
             }
 
-            return Ok(new { message= "Password reset successfully." });
+            return Ok(new { message = "Password reset successfully." });
+        }
+
+
+        [HttpGet("google-success")]
+        public async Task<IActionResult> googleSuccess(){
+
+            var info = await _signmanager.GetExternalLoginInfoAsync();
+
+            if(info == null)
+            {
+                return Unauthorized("Google authentication failed.");
+            }
+
+            return Ok(new
+            {
+                provider = info.LoginProvider,
+                providerKey = info.ProviderKey,
+                email = info.Principal.FindFirstValue(ClaimTypes.Email),
+                name = info.Principal.FindFirstValue(ClaimTypes.Name)
+            });
+
+        }
+        [HttpGet("google-login")]
+        public async Task<IActionResult> google_login()
+        {
+            var properties = _signmanager.ConfigureExternalAuthenticationProperties("Google", "/api/Auth/google-success");
+            return Challenge(properties, "Google");
         }
     }
 }

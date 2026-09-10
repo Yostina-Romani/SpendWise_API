@@ -58,6 +58,9 @@
         rel="stylesheet"
         href="../CSS/components.css">
 
+
+ 
+
 </head>
 
 
@@ -68,182 +71,279 @@
     <div id="navbar"></div>
 
 
-    <!-- Main Content -->
-    <main class="container form-page">
+    <!-- Main -->
+    <main class="expense-page">
 
-        <div class="form-card fade-in">
-
-
-            <!-- Icon -->
-            <div class="form-icon expense-icon">
-
-                <i class="bi bi-wallet2"></i>
-
-            </div>
+        <div class="expense-card">
 
 
-            <!-- Section Label -->
-            <span class="section-label">
+            <!-- =====================================
+                 LEFT VISUAL SECTION
+            ====================================== -->
 
-                EXPENSE MANAGEMENT
+            <section class="expense-visual">
 
-            </span>
-
-
-            <!-- Title -->
-            <h1 class="form-title">
-
-                Add Expense
-
-            </h1>
+                <img
+                    src="../images/image3.png"
+                    alt="Expense management"
+                    class="expense-image">
 
 
-            <!-- Subtitle -->
-            <p class="form-subtitle">
-
-                Record your spending and keep your finances organized.
-
-            </p>
+                <!-- Overlay -->
+                <div class="expense-overlay"></div>
 
 
-            <!-- Form -->
-            <form id="addexpense">
+                <!-- Visual Content -->
+                <div class="expense-visual-content">
+
+                    <div class="expense-visual-icon">
+
+                        <i class="bi bi-wallet2"></i>
+
+                    </div>
 
 
-                <!-- Category -->
-                <div class="form-group">
-
-                    <label for="categoryid">
-
-                        <i class="bi bi-grid"></i>
-
-                        Category
-
-                    </label>
+                    <span>
+                        SPENDWISE
+                    </span>
 
 
-                    <select
-                        id="categoryid"
-                        class="form-select"
-                        required>
+                    <h2>
+                        Take control of
+                        your spending.
+                    </h2>
 
-                        <option value="">
-                            Select Category
-                        </option>
 
-                    </select>
+                    <p>
+                        Track every expense, organize your
+                        finances, and make smarter financial
+                        decisions.
+                    </p>
+
+
+                    <!-- Small Stats -->
+                    <div class="expense-mini-stats">
+
+                        <div class="mini-stat">
+
+                            <i class="bi bi-check-circle-fill"></i>
+
+                            <span>
+                                Easy tracking
+                            </span>
+
+                        </div>
+
+
+                        <div class="mini-stat">
+
+                            <i class="bi bi-graph-up-arrow"></i>
+
+                            <span>
+                                Better insights
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =====================================
+                 RIGHT FORM SECTION
+            ====================================== -->
+
+            <section class="expense-form-section">
+
+
+                <!-- Header -->
+
+                <div class="expense-header">
+
+                    <span class="section-label">
+                        EXPENSE MANAGEMENT
+                    </span>
+
+
+                    <h1 class="form-title">
+                        Add Expense
+                    </h1>
+
+
+                    <p class="form-subtitle">
+                        Record your spending and keep
+                        your finances organized.
+                    </p>
 
                 </div>
 
 
-                <!-- Amount -->
-                <div class="form-group">
+                <!-- Form -->
 
-                    <label for="expenseamount">
-
-                        <i class="bi bi-cash-stack"></i>
-
-                        Expense Amount
-
-                    </label>
+                <form id="addexpense">
 
 
-                    <div class="input-group">
+                    <!-- Category -->
 
-                        <span class="input-group-text">
+                    <div class="form-group">
 
-                            $
+                        <label for="categoryid">
 
+                            <i class="bi bi-grid"></i>
+
+                            Category
+
+                        </label>
+
+
+                        <select
+                            id="categoryid"
+                            class="form-select"
+                            required>
+
+                            <option value="">
+                                Select Category
+                            </option>
+
+                        </select>
+
+
+                        <span
+                            id="categoryError"
+                            class="field-error">
                         </span>
+
+                    </div>
+
+
+                    <!-- Amount -->
+
+                    <div class="form-group">
+
+                        <label for="expenseamount">
+
+                            <i class="bi bi-cash-stack"></i>
+
+                            Expense Amount
+
+                        </label>
+
+
+                        <div class="input-group">
+
+                            <span class="input-group-text">
+                                $
+                            </span>
+
+
+                            <input
+                                type="number"
+                                step="0.01"
+                                min="0"
+                                id="expenseamount"
+                                class="form-control"
+                                placeholder="0.00"
+                                required>
+
+                        </div>
+
+
+                        <span
+                            id="amountError"
+                            class="field-error">
+                        </span>
+
+                    </div>
+
+
+                    <!-- Date -->
+
+                    <div class="form-group">
+
+                        <label for="expensetime">
+
+                            <i class="bi bi-calendar3"></i>
+
+                            Date
+
+                        </label>
 
 
                         <input
-                            type="number"
-                            step="0.01"
-                            min="0"
-                            id="expenseamount"
+                            type="date"
+                            id="expensetime"
                             class="form-control"
-                            placeholder="0.00"
                             required>
+
+
+                        <span
+                            id="dateError"
+                            class="field-error">
+                        </span>
+
+                    </div>
+
+
+                    <!-- Submit -->
+
+                    <button
+                        type="submit"
+                        class="btn custom-btn expense-submit-btn">
+
+                        <i class="bi bi-plus-circle me-2"></i>
+
+                        Add Expense
+
+                    </button>
+
+                </form>
+
+
+                <!-- Info -->
+
+                <div class="form-info">
+
+                    <i class="bi bi-lightbulb"></i>
+
+
+                    <div>
+
+                        <strong>
+                            Keep your expenses organized
+                        </strong>
+
+
+                        <p>
+                            Add every expense with the correct
+                            category and date to keep your
+                            financial records accurate.
+                        </p>
 
                     </div>
 
                 </div>
 
 
-                <!-- Date -->
-                <div class="form-group">
+                <!-- Back -->
 
-                    <label for="expensetime">
+                <div class="form-footer">
 
-                        <i class="bi bi-calendar3"></i>
+                    <a
+                        href="./UserDashboard.html"
+                        class="back-link">
 
-                        Date
+                        <i class="bi bi-arrow-left"></i>
 
-                    </label>
+                        Back to Dashboard
 
-
-                    <input
-                        type="date"
-                        id="expensetime"
-                        class="form-control"
-                        required>
+                    </a>
 
                 </div>
 
-
-                <!-- Submit -->
-                <button
-                    type="submit"
-                    class="btn custom-btn w-100">
-
-                    <i class="bi bi-plus-circle me-2"></i>
-
-                    Add Expense
-
-                </button>
-
-            </form>
-
-
-            <!-- Info -->
-            <div class="form-info">
-
-                <i class="bi bi-lightbulb"></i>
-
-
-                <div>
-
-                    <strong>
-                        Keep your expenses organized
-                    </strong>
-
-
-                    <p>
-                        Add every expense with the correct
-                        category and date to keep your
-                        financial records accurate.
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <!-- Back -->
-            <div class="form-footer">
-
-                <a
-                    href="./UserDashboard.html"
-                    class="back-link">
-
-                    <i class="bi bi-arrow-left"></i>
-
-                    Back to Dashboard
-
-                </a>
-
-            </div>
+            </section>
 
         </div>
 
@@ -255,20 +355,25 @@
 
 
     <!-- Bootstrap JS -->
+
     <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
     </script>
 
 
+
     <!-- Shared Components -->
+
     <script src="../JS/components.js"></script>
 
 
     <!-- Theme -->
+
     <script src="../JS/theme.js"></script>
 
 
     <!-- Add Expense JS -->
+
     <script src="../JS/addexpense.js"></script>
 
 </body>

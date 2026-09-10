@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -33,7 +34,7 @@ builder.Services.AddDbContext<dbcontext>(options =>
 // =========================
 
 builder.Services.AddIdentityCore<Applicationuser>().AddRoles<IdentityRole>()
-    .AddEntityFrameworkStores<dbcontext>().AddDefaultTokenProviders();
+    .AddEntityFrameworkStores<dbcontext>().AddDefaultTokenProviders().AddSignInManager();
 
 // =========================
 // JWT Authentication
@@ -46,6 +47,7 @@ builder.Services.AddAuthentication(options =>
 
     options.DefaultChallengeScheme =
         JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
 })
 .AddJwtBearer(options =>
 {
@@ -65,7 +67,15 @@ builder.Services.AddAuthentication(options =>
             )
         )
     };
+}).AddCookie(IdentityConstants.ExternalScheme).AddGoogle(options =>
+{
+    options.ClientId = builder.Configuration["Authentication:Google:ClientId"]!;
+    options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"]!;
+    options.CallbackPath = "/api/Auth/google-callback";
 });
+
+
+
 
 // =========================
 // Authorization
