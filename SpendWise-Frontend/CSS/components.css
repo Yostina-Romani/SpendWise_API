@@ -3,17 +3,422 @@
 ===================================================== */
 
 .spend-navbar {
-    background: rgba(255, 255, 255, 0.85);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 
-    backdrop-filter: blur(15px);
+    width: 100%;
+
+    background: rgba(255, 255, 255, 0.90);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
 
     border-bottom: 1px solid var(--border);
 
-    box-shadow: var(--shadow);
+    box-shadow: 0 4px 20px rgba(15, 23, 42, 0.05);
+
+    transition:
+        background 0.3s ease,
+        box-shadow 0.3s ease;
 }
 
 [data-theme="dark"] .spend-navbar {
-    background: rgba(31, 41, 55, 0.85);
+    background: rgba(31, 41, 55, 0.92);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+
+/* =====================================================
+   NAVBAR BRAND
+===================================================== */
+
+.spend-navbar .navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    color: var(--text) !important;
+
+    font-size: 1.25rem;
+    font-weight: 800;
+
+    text-decoration: none;
+
+    letter-spacing: -0.3px;
+
+    transition: 0.3s ease;
+}
+
+.spend-navbar .navbar-brand:hover {
+    color: var(--text) !important;
+}
+
+
+/* Logo Icon */
+
+.spend-navbar .brand-icon {
+    width: 40px;
+    height: 40px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    color: white;
+
+    background: var(--primary-gradient);
+
+    box-shadow:
+        0 8px 20px rgba(99, 102, 241, 0.25);
+
+    transition: 0.3s ease;
+}
+
+.spend-navbar .navbar-brand:hover .brand-icon {
+    transform: translateY(-2px) rotate(-3deg);
+
+    box-shadow:
+        0 12px 25px rgba(99, 102, 241, 0.32);
+}
+
+
+/* =====================================================
+   NAVBAR LINKS
+===================================================== */
+
+.spend-navbar .navbar-nav {
+    gap: 6px;
+}
+
+.spend-navbar .nav-link {
+    position: relative;
+
+    padding: 9px 13px !important;
+
+    color: var(--text-soft) !important;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    border-radius: 9px;
+
+    transition:
+        color 0.25s ease,
+        background 0.25s ease,
+        transform 0.25s ease;
+}
+
+.spend-navbar .nav-link:hover {
+    color: var(--primary) !important;
+
+    background: var(--surface-soft);
+
+    transform: translateY(-1px);
+}
+
+
+/* Active Link */
+
+.spend-navbar .nav-link.active {
+    color: var(--primary) !important;
+}
+
+
+/* Active Underline */
+
+.spend-navbar .nav-link::after {
+    content: "";
+
+    position: absolute;
+
+    left: 13px;
+    right: 13px;
+    bottom: 3px;
+
+    height: 2px;
+
+    border-radius: 10px;
+
+    background: var(--primary-gradient);
+
+    transform: scaleX(0);
+
+    transition: transform 0.25s ease;
+}
+
+.spend-navbar .nav-link:hover::after,
+.spend-navbar .nav-link.active::after {
+    transform: scaleX(1);
+}
+
+
+/* =====================================================
+   NAVBAR ACTIONS
+===================================================== */
+
+.navbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+
+
+/* =====================================================
+   THEME BUTTON
+===================================================== */
+
+.theme-btn {
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid var(--border);
+
+    border-radius: 10px;
+
+    background: var(--surface);
+
+    color: var(--text);
+
+    cursor: pointer;
+
+    transition: 0.3s ease;
+}
+
+.theme-btn:hover {
+    color: var(--primary);
+
+    border-color: var(--primary);
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 7px 18px rgba(99, 102, 241, 0.12);
+}
+
+
+/* =====================================================
+   LOGIN BUTTON
+===================================================== */
+
+.nav-login-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 78px;
+
+    padding: 9px 17px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 10px;
+
+    background: var(--surface);
+
+    color: var(--text) !important;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    text-decoration: none;
+
+    transition: 0.3s ease;
+}
+
+.nav-login-btn:hover {
+    color: var(--primary) !important;
+
+    border-color: var(--primary);
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 7px 18px rgba(99, 102, 241, 0.10);
+}
+
+
+/* =====================================================
+   REGISTER BUTTON
+===================================================== */
+
+.nav-register-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 92px;
+
+    padding: 10px 18px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: var(--primary-gradient);
+
+    color: white !important;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    text-decoration: none;
+
+    box-shadow:
+        0 7px 18px rgba(99, 102, 241, 0.22);
+
+    transition: 0.3s ease;
+}
+
+.nav-register-btn:hover {
+    color: white !important;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 11px 25px rgba(99, 102, 241, 0.32);
+}
+
+
+/* =====================================================
+   MOBILE TOGGLE
+===================================================== */
+
+.spend-navbar .navbar-toggler {
+    padding: 7px 9px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 10px;
+
+    background: var(--surface);
+
+    box-shadow: none !important;
+}
+
+.spend-navbar .navbar-toggler:hover {
+    border-color: var(--primary);
+}
+
+.spend-navbar .navbar-toggler:focus {
+    box-shadow:
+        0 0 0 3px rgba(99, 102, 241, 0.12) !important;
+}
+
+
+/* =====================================================
+   RESPONSIVE NAVBAR
+===================================================== */
+
+@media (max-width: 991.98px) {
+
+    .spend-navbar .navbar-collapse {
+        margin-top: 15px;
+
+        padding: 18px;
+
+        background: var(--surface);
+
+        border: 1px solid var(--border);
+
+        border-radius: 16px;
+
+        box-shadow: var(--shadow);
+
+        animation: navbarMobileOpen 0.25s ease;
+    }
+
+    .spend-navbar .navbar-nav {
+        gap: 3px;
+
+        margin-bottom: 12px !important;
+    }
+
+    .spend-navbar .nav-link {
+        width: 100%;
+
+        padding: 11px 13px !important;
+
+        border-radius: 9px;
+    }
+
+    .spend-navbar .nav-link::after {
+        display: none;
+    }
+
+    .spend-navbar .nav-link:hover {
+        background: var(--surface-soft);
+    }
+
+
+    /* Mobile Actions */
+
+    .navbar-actions {
+        width: 100%;
+
+        display: flex;
+
+        padding-top: 15px;
+
+        border-top: 1px solid var(--border);
+    }
+
+    .nav-login-btn,
+    .nav-register-btn {
+        flex: 1;
+    }
+}
+
+
+/* =====================================================
+   SMALL MOBILE
+===================================================== */
+
+@media (max-width: 575.98px) {
+
+    .spend-navbar .navbar-brand {
+        font-size: 1.1rem;
+    }
+
+    .spend-navbar .brand-icon {
+        width: 36px;
+        height: 36px;
+
+        border-radius: 10px;
+    }
+
+    .navbar-actions {
+        flex-direction: column;
+    }
+
+    .theme-btn,
+    .nav-login-btn,
+    .nav-register-btn {
+        width: 100%;
+    }
+}
+
+
+/* =====================================================
+   NAVBAR ANIMATION
+===================================================== */
+
+@keyframes navbarMobileOpen {
+
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 
@@ -1587,4 +1992,88 @@ input[type="file"].form-control {
             scale(1);
     }
 
+}
+
+
+
+/* Google Login Button */
+
+.google-login-btn {
+    width: 100%;
+    height: 50px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+
+    margin-top: 12px;
+    padding: 0 20px;
+
+    background: #e92dc9;
+    color: #202124;
+
+    border: 1px solid #bb1fae;
+    border-radius: 10px;
+
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: all 0.25s ease;
+}
+
+/* Google Icon */
+
+.google-login-btn i {
+    font-size: 18px;
+    color: #4285f4;
+
+    transition: transform 0.25s ease;
+}
+
+/* Hover */
+
+.google-login-btn:hover {
+    background: #800585;
+    border-color: #210229;
+
+    transform: translateY(-2px);
+
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+.google-login-btn:hover i {
+    transform: scale(1.1);
+}
+
+/* Click */
+
+.google-login-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.06);
+}
+
+/* Focus */
+
+.google-login-btn:focus-visible {
+    outline: none;
+    border-color: var(--primary);
+
+    box-shadow:
+        0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+/* Dark Mode */
+
+[data-theme="dark"] .google-login-btn {
+    background: var(--surface);
+    color: var(--text);
+    border-color: var(--border);
+}
+
+[data-theme="dark"] .google-login-btn:hover {
+    background: var(--surface-soft);
 }

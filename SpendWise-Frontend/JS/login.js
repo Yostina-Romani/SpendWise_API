@@ -1,4 +1,10 @@
 
+const btngoogle=document.getElementById("googleLoginBtn");
+btngoogle.addEventListener("click",()=>{
+window.location.href="http://localhost:5253/api/Auth/google-login";
+});
+
+
 const form = document.getElementById("formid");
 form.addEventListener("submit", async function (event) {
     event.preventDefault();
