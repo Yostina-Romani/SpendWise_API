@@ -1,13 +1,17 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json.Linq;
 using SpendWise.DTOS;
 using SpendWise.Models;
 using SpendWise.Services;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using SpendWise.Services;
+using SpendWise.Services.Interfaces;
 
 namespace SpendWise.Controllers
 {
@@ -19,13 +23,15 @@ namespace SpendWise.Controllers
         private readonly IConfiguration _iconfiguration;
         private readonly IEmailservice _emailservice;
         private readonly SignInManager<Applicationuser> _signmanager;
+        private readonly ITokenService _tokenservise;
 
-        public AuthController(SignInManager<Applicationuser> signInManager,UserManager<Applicationuser> userManager, IConfiguration iconfiguration, IEmailservice emailservice)
+        public AuthController(ITokenService tokenService,SignInManager<Applicationuser> signInManager,UserManager<Applicationuser> userManager, IConfiguration iconfiguration, IEmailservice emailservice)
         {
             _usermanager = userManager;
             _iconfiguration = iconfiguration;
             _emailservice = emailservice;
             _signmanager = signInManager;
+            _tokenservise = tokenService;
         }
 
         [HttpPost("register")]
@@ -44,6 +50,13 @@ namespace SpendWise.Controllers
             {
                 return BadRequest(result.Errors);
             }
+
+            var roleResult = await _usermanager.AddToRoleAsync(user, "User");
+
+            if (!roleResult.Succeeded)
+            {
+                return BadRequest(roleResult.Errors);
+            }
             return Ok(new { message = "User registered successfully" });
         }
 
@@ -61,36 +74,9 @@ namespace SpendWise.Controllers
             {
                 return Unauthorized("invalid email or password");
             }
-            var roles = await _usermanager.GetRolesAsync(user);
+           
 
-
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.NameIdentifier,user.Id),
-                new Claim(ClaimTypes.Email,user.Email!)
-
-            };
-            foreach (var role in roles)
-            {
-                claims.Add(new Claim(ClaimTypes.Role, role));
-            }
-
-
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_iconfiguration["jwt:key"]!));
-
-            var credentails = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-            var token = new JwtSecurityToken(
-                issuer: _iconfiguration["jwt:issuer"],
-                audience: _iconfiguration["jwt:audience"],
-                claims,
-                expires: DateTime.UtcNow.AddHours(3),
-                signingCredentials: credentails
-
-                );
-
-            var jwtobject = new JwtSecurityTokenHandler();
-            var jwttoken = jwtobject.WriteToken(token);
+            var jwttoken =await _tokenservise.GenerateTokenAsync( user);
 
             return Ok(new
             { token = jwttoken
@@ -180,13 +166,56 @@ namespace SpendWise.Controllers
                 return Unauthorized("Google authentication failed.");
             }
 
+            var email = info.Principal.FindFirstValue(ClaimTypes.Email);
+            var nameg = info.Principal.FindFirstValue(ClaimTypes.Name);
+            if (string.IsNullOrEmpty(email))
+            {
+                return BadRequest("Google account does not contain an email.");
+
+            }
+
+            var user = await _usermanager.FindByLoginAsync(info.LoginProvider,info.ProviderKey);
+            if (user == null)
+            {
+                 user = await _usermanager.FindByEmailAsync(email);
+                if (user == null)
+                {
+                    user = new Applicationuser()
+                    {
+                        name = nameg,
+                        Email = email,
+                        UserName = email
+                    };
+
+                    var createResult=await _usermanager.CreateAsync(user);
+                    if (!createResult.Succeeded)
+                    {
+                        return BadRequest(createResult.Errors);
+                    }
+
+
+                    var roleResult = await _usermanager.AddToRoleAsync(user, "User");
+
+                    if (!roleResult.Succeeded)
+                    {
+                        return BadRequest(roleResult.Errors);
+                    }
+
+
+                }
+                var addLogininfo = await _usermanager.AddLoginAsync(user, info);
+                if (!addLogininfo.Succeeded)
+                {
+                    return BadRequest(addLogininfo.Errors);
+                }
+            }
+            var jwttoken = await _tokenservise.GenerateTokenAsync(user);
+
             return Ok(new
             {
-                provider = info.LoginProvider,
-                providerKey = info.ProviderKey,
-                email = info.Principal.FindFirstValue(ClaimTypes.Email),
-                name = info.Principal.FindFirstValue(ClaimTypes.Name)
+                token = jwttoken
             });
+
 
         }
         [HttpGet("google-login")]

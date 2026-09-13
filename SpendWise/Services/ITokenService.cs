@@ -1,6 +1,9 @@
-﻿namespace SpendWise.Services
+﻿using SpendWise.Models;
+
+namespace SpendWise.Services.Interfaces
 {
-    public class ITokenService
+    public interface ITokenService
     {
+        Task<string> GenerateTokenAsync(Applicationuser user);
     }
 }

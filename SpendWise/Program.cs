@@ -1,11 +1,12 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using SpendWise.Data;
 using SpendWise.Models;
 using SpendWise.Services;
+using SpendWise.Services.Interfaces;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -100,6 +101,9 @@ builder.Services.AddCors(options =>
 
 //email services
 builder.Services.AddScoped<IEmailservice, Emailservice>();
+
+//toke sevices
+builder.Services.AddScoped<ITokenService, TokenService>();
 
 var app = builder.Build();
 

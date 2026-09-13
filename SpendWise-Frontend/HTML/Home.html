@@ -1,730 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <title>SpendWise | Manage Your Money Smarter</title>
-
+    <title>SpendWise | Smart Expense Management</title>
 
     <!-- Bootstrap -->
-
     <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
         rel="stylesheet"
     >
 
-
     <!-- Bootstrap Icons -->
-
     <link
         rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
     >
 
-
     <!-- Google Font -->
-
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
         rel="stylesheet"
     >
 
-
     <!-- Project CSS -->
-
-    <link
-        rel="stylesheet"
-        href="../CSS/theme.css"
-    >
-
-    <link
-        rel="stylesheet"
-        href="../CSS/style.css"
-    >
-
-    <link
-        rel="stylesheet"
-        href="../CSS/components.css"
-    >
-
+    <link rel="stylesheet" href="../CSS/theme.css">
+    <link rel="stylesheet" href="../CSS/style.css">
+    <link rel="stylesheet" href="../CSS/components.css">
+    <link rel="stylesheet" href="../CSS/home.css">
 </head>
-
 
 <body>
 
-
-    <!-- ================= NAVBAR ================= -->
-
+    <!-- =========================
+         NAVBAR
+    ========================== -->
     <div id="navbar"></div>
 
 
+    <!-- =========================
+         HERO
+    ========================== -->
+    <main>
 
-    <!-- ================= HERO ================= -->
+        <section class="home-hero">
 
-    <section class="home-hero">
-
-        <div class="container">
-
-            <div class="row align-items-center g-5">
-
-
-                <!-- LEFT -->
-
-                <div class="col-lg-6">
-
-                    <div class="hero-content">
-
-                        <div class="hero-tag">
-
-                            <i class="bi bi-stars"></i>
-
-                            Smart Expense Management
-
-                        </div>
-
-
-                        <h1>
-
-                            Your money.
-
-                            <span>
-                                Your control.
-                            </span>
-
-                        </h1>
-
-
-                        <p>
-
-                            SpendWise helps you track expenses,
-                            understand your spending habits,
-                            and manage your money with confidence.
-
-                        </p>
-
-
-                        <div class="hero-actions">
-
-                            <a
-                                href="./register.html"
-                                class="hero-primary-btn"
-                            >
-
-                                Get Started
-
-                                <i class="bi bi-arrow-right"></i>
-
-                            </a>
-
-
-                            <a
-                                href="#features"
-                                class="hero-secondary-btn"
-                            >
-
-                                Explore Features
-
-                            </a>
-
-                        </div>
-
-
-                        <div class="hero-note">
-
-                            <span>
-
-                                <i class="bi bi-check-circle-fill"></i>
-
-                                Simple
-
-                            </span>
-
-
-                            <span>
-
-                                <i class="bi bi-check-circle-fill"></i>
-
-                                Secure
-
-                            </span>
-
-
-                            <span>
-
-                                <i class="bi bi-check-circle-fill"></i>
-
-                                Easy to use
-
-                            </span>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-
-                <!-- RIGHT -->
-
-                <div class="col-lg-6">
-
-                    <div class="hero-dashboard">
-
-
-                        <!-- Dashboard Header -->
-
-                        <div class="mock-header">
-
-                            <div class="mock-brand">
-
-                                <div class="mock-logo">
-                                    S
-                                </div>
-
-                                <strong>
-                                    SpendWise
-                                </strong>
-
-                            </div>
-
-
-                            <div class="mock-user">
-
-                                <span></span>
-
-                            </div>
-
-                        </div>
-
-
-
-                        <!-- Balance -->
-
-                        <div class="balance-box">
-
-                            <small>
-                                Total Balance
-                            </small>
-
-
-                            <h2>
-                                $8,420.50
-                            </h2>
-
-
-                            <div class="balance-status">
-
-                                <i class="bi bi-arrow-up"></i>
-
-                                8.2% this month
-
-                            </div>
-
-                        </div>
-
-
-
-                        <!-- Mini Cards -->
-
-                        <div class="row g-3">
-
-
-                            <div class="col-6">
-
-                                <div class="money-card">
-
-                                    <div class="money-icon income-icon">
-
-                                        <i class="bi bi-arrow-down-left"></i>
-
-                                    </div>
-
-
-                                    <div>
-
-                                        <small>
-                                            Income
-                                        </small>
-
-                                        <strong>
-                                            $12,500
-                                        </strong>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-
-
-                            <div class="col-6">
-
-                                <div class="money-card">
-
-                                    <div class="money-icon expense-icon">
-
-                                        <i class="bi bi-arrow-up-right"></i>
-
-                                    </div>
-
-
-                                    <div>
-
-                                        <small>
-                                            Expenses
-                                        </small>
-
-                                        <strong>
-                                            $4,079
-                                        </strong>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-
-
-                        <!-- Spending -->
-
-                        <div class="spending-box">
-
-                            <div class="spending-header">
-
-                                <div>
-
-                                    <small>
-                                        Monthly Spending
-                                    </small>
-
-                                    <h5>
-                                        $2,840
-                                    </h5>
-
-                                </div>
-
-
-                                <span>
-                                    +12.5%
-                                </span>
-
-                            </div>
-
-
-                            <div class="fake-chart">
-
-                                <div style="height:35%;"></div>
-
-                                <div style="height:55%;"></div>
-
-                                <div style="height:42%;"></div>
-
-                                <div style="height:70%;"></div>
-
-                                <div style="height:52%;"></div>
-
-                                <div style="height:82%;"></div>
-
-                                <div style="height:65%;"></div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- ================= TRUST ================= -->
-
-    <section class="trust-section">
-
-        <div class="container">
-
-            <div class="trust-wrapper">
-
-
-                <div>
-
-                    <strong>
-                        Simple
-                    </strong>
-
-                    <span>
-                        Manage everything easily
-                    </span>
-
-                </div>
-
-
-                <div>
-
-                    <strong>
-                        Secure
-                    </strong>
-
-                    <span>
-                        Your data stays protected
-                    </span>
-
-                </div>
-
-
-                <div>
-
-                    <strong>
-                        Organized
-                    </strong>
-
-                    <span>
-                        Keep your finances clear
-                    </span>
-
-                </div>
-
-
-                <div>
-
-                    <strong>
-                        Smart
-                    </strong>
-
-                    <span>
-                        Understand your spending
-                    </span>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- ================= FEATURES ================= -->
-
-    <section
-        id="features"
-        class="home-features"
-    >
-
-        <div class="container">
-
-
-            <div class="home-section-header">
-
-                <span>
-                    FEATURES
-                </span>
-
-                <h2>
-
-                    Everything you need
-
-                    <br>
-
-                    to manage your expenses.
-
-                </h2>
-
-                <p>
-
-                    SpendWise keeps your financial life
-                    organized without making it complicated.
-
-                </p>
-
-            </div>
-
-
-
-            <div class="row g-4">
-
-
-                <!-- Feature 1 -->
-
-                <div class="col-md-6 col-lg-3">
-
-                    <div class="simple-feature">
-
-                        <div class="simple-feature-icon">
-
-                            <i class="bi bi-wallet2"></i>
-
-                        </div>
-
-
-                        <h3>
-                            Track Expenses
-                        </h3>
-
-
-                        <p>
-
-                            Record your expenses
-                            and always know where
-                            your money goes.
-
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-
-                <!-- Feature 2 -->
-
-                <div class="col-md-6 col-lg-3">
-
-                    <div class="simple-feature">
-
-                        <div class="simple-feature-icon">
-
-                            <i class="bi bi-tags"></i>
-
-                        </div>
-
-
-                        <h3>
-                            Organize Categories
-                        </h3>
-
-
-                        <p>
-
-                            Organize your spending
-                            using simple and clear
-                            categories.
-
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-
-                <!-- Feature 3 -->
-
-                <div class="col-md-6 col-lg-3">
-
-                    <div class="simple-feature">
-
-                        <div class="simple-feature-icon">
-
-                            <i class="bi bi-bar-chart"></i>
-
-                        </div>
-
-
-                        <h3>
-                            View Insights
-                        </h3>
-
-
-                        <p>
-
-                            Understand your spending
-                            patterns with useful insights.
-
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-
-                <!-- Feature 4 -->
-
-                <div class="col-md-6 col-lg-3">
-
-                    <div class="simple-feature">
-
-                        <div class="simple-feature-icon">
-
-                            <i class="bi bi-shield-check"></i>
-
-                        </div>
-
-
-                        <h3>
-                            Stay Secure
-                        </h3>
-
-
-                        <p>
-
-                            Your account and financial
-                            information stay protected.
-
-                        </p>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- ================= ABOUT ================= -->
-
-    <section class="about-section">
-
-        <div class="container">
-
-            <div class="about-box">
-
+            <div class="container">
 
                 <div class="row align-items-center g-5">
 
-
+                    <!-- Hero Content -->
                     <div class="col-lg-6">
 
-                        <div class="about-content">
+                        <span class="hero-badge">
+                            <i class="bi bi-stars"></i>
+                            Smart Expense Management
+                        </span>
 
-                            <span>
-                                WHY SPENDWISE?
-                            </span>
+                        <h1 class="hero-title">
+                            Take control of
+                            <span>your money.</span>
+                        </h1>
 
+                        <p class="hero-description">
+                            SpendWise helps you track your expenses,
+                            organize your spending, and understand
+                            your financial habits easily.
+                        </p>
 
-                            <h2>
+                        <div class="hero-actions">
 
-                                Financial management
-                                doesn't have to be complicated.
+                            <a href="register.html"
+                               class="hero-primary-btn">
+                                Get Started
+                                <i class="bi bi-arrow-right"></i>
+                            </a>
 
-                            </h2>
-
-
-                            <p>
-
-                                SpendWise gives you a clear view
-                                of your money so you can make
-                                better financial decisions without
-                                unnecessary complexity.
-
-                            </p>
-
-
-                            <div class="about-points">
-
-                                <div>
-
-                                    <i class="bi bi-check-circle-fill"></i>
-
-                                    <span>
-                                        Easy expense tracking
-                                    </span>
-
-                                </div>
-
-
-                                <div>
-
-                                    <i class="bi bi-check-circle-fill"></i>
-
-                                    <span>
-                                        Clear financial overview
-                                    </span>
-
-                                </div>
-
-
-                                <div>
-
-                                    <i class="bi bi-check-circle-fill"></i>
-
-                                    <span>
-                                        Simple and modern interface
-                                    </span>
-
-                                </div>
-
-                            </div>
+                            <a href="login.html"
+                               class="hero-secondary-btn">
+                                Login
+                            </a>
 
                         </div>
 
                     </div>
 
 
-
+                    <!-- Hero Image -->
                     <div class="col-lg-6">
 
-                        <div class="about-visual">
+                        <div class="hero-image-wrapper">
 
-
-                            <div class="visual-circle">
-
-                                <i class="bi bi-wallet2"></i>
-
-                            </div>
-
-
-                            <div class="floating-card card-one">
-
-                                <i class="bi bi-arrow-down-left"></i>
-
-                                <div>
-
-                                    <small>
-                                        Income
-                                    </small>
-
-                                    <strong>
-                                        +$2,500
-                                    </strong>
-
-                                </div>
-
-                            </div>
-
-
-                            <div class="floating-card card-two">
-
-                                <i class="bi bi-arrow-up-right"></i>
-
-                                <div>
-
-                                    <small>
-                                        Expense
-                                    </small>
-
-                                    <strong>
-                                        -$420
-                                    </strong>
-
-                                </div>
-
-                            </div>
-
+                            <img
+                                src="../images/image5.png"
+                                alt="SpendWise Finance Management"
+                                class="hero-image"
+                            >
 
                         </div>
 
@@ -734,79 +106,391 @@
 
             </div>
 
-        </div>
-
-    </section>
+        </section>
 
 
 
-    <!-- ================= CTA ================= -->
+        <!-- =========================
+             ABOUT
+        ========================== -->
+        <section class="about-section section-space">
 
-    <section class="home-cta">
+            <div class="container">
 
-        <div class="container">
+                <div class="row align-items-center g-5">
 
-            <div class="cta-content">
+                    <!-- About Text -->
+                    <div class="col-lg-6">
 
-                <span>
-                    START TODAY
-                </span>
+                        <div class="section-heading about-heading">
+
+                            <span class="section-label">
+                                About SpendWise
+                            </span>
+
+                            <h2>
+                                Manage your money
+                                <span>with confidence.</span>
+                            </h2>
+
+                            <p>
+                                SpendWise is a simple and smart expense
+                                management platform designed to help you
+                                keep track of your daily spending.
+                            </p>
+
+                            <p>
+                                Organize your expenses into categories,
+                                monitor your financial activity, and get
+                                a clearer view of where your money goes.
+                            </p>
+
+                        </div>
+
+                        <div class="about-points">
+
+                            <div class="about-point">
+                                <div class="about-point-icon">
+                                    <i class="bi bi-check-lg"></i>
+                                </div>
+
+                                <div>
+                                    <h6>Easy to use</h6>
+                                    <p>
+                                        Simple and clean interface.
+                                    </p>
+                                </div>
+                            </div>
 
 
-                <h2>
+                            <div class="about-point">
+                                <div class="about-point-icon">
+                                    <i class="bi bi-check-lg"></i>
+                                </div>
 
-                    Take control of
-                    your money.
-
-                </h2>
-
-
-                <p>
-
-                    Start managing your expenses
-                    with SpendWise today.
-
-                </p>
+                                <div>
+                                    <h6>Track your spending</h6>
+                                    <p>
+                                        Know exactly where your money goes.
+                                    </p>
+                                </div>
+                            </div>
 
 
-                <a
-                    href="./register.html"
-                    class="hero-primary-btn"
-                >
+                            <div class="about-point">
+                                <div class="about-point-icon">
+                                    <i class="bi bi-check-lg"></i>
+                                </div>
 
-                    Create Your Account
+                                <div>
+                                    <h6>Stay organized</h6>
+                                    <p>
+                                        Keep your expenses organized.
+                                    </p>
+                                </div>
+                            </div>
 
-                    <i class="bi bi-arrow-right"></i>
+                        </div>
 
-                </a>
+                    </div>
+
+
+                    <!-- About Image -->
+                    <div class="col-lg-6">
+
+                        <div class="about-image-wrapper">
+
+                            <img
+                                src="../images/image6.png"
+                                alt="Managing personal finances"
+                                class="about-image"
+                            >
+
+                            <div class="about-floating-card">
+
+                                <div class="floating-icon">
+                                    <i class="bi bi-wallet2"></i>
+                                </div>
+
+                                <div>
+                                    <span>Smart Spending</span>
+                                    <strong>Stay in control</strong>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
 
             </div>
 
-        </div>
-
-    </section>
+        </section>
 
 
 
-    <!-- ================= FOOTER ================= -->
+        <!-- =========================
+             FEATURES
+        ========================== -->
+        <section class="features-section section-space"
+                 id="features">
+
+            <div class="container">
+
+                <div class="section-heading text-center">
+
+                    <span class="section-label">
+                        Features
+                    </span>
+
+                    <h2>
+                        Everything you need to
+                        <span>manage your expenses.</span>
+                    </h2>
+
+                    <p>
+                        Simple tools to help you understand
+                        and control your spending.
+                    </p>
+
+                </div>
+
+
+                <div class="row g-4 mt-4">
+
+
+                    <!-- Feature 1 -->
+                    <div class="col-md-4">
+
+                        <div class="feature-card">
+
+                            <div class="feature-image-wrapper">
+
+                                <img
+                                    src="../images/image7.png"
+                                    alt="Track Expenses"
+                                    class="feature-image"
+                                >
+
+                            </div>
+
+                            <div class="feature-content">
+
+                                <div class="feature-icon">
+                                    <i class="bi bi-receipt"></i>
+                                </div>
+
+                                <h4>
+                                    Track Expenses
+                                </h4>
+
+                                <p>
+                                    Record your daily expenses
+                                    and keep track of your spending
+                                    easily.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Feature 2 -->
+                    <div class="col-md-4">
+
+                        <div class="feature-card">
+
+                            <div class="feature-image-wrapper">
+
+                                <img
+                                    src="../images/image8.png"
+                                    alt="Expense Categories"
+                                    class="feature-image"
+                                >
+
+                            </div>
+
+                            <div class="feature-content">
+
+                                <div class="feature-icon">
+                                    <i class="bi bi-grid"></i>
+                                </div>
+
+                                <h4>
+                                    Organize Categories
+                                </h4>
+
+                                <p>
+                                    Organize your expenses into
+                                    categories and understand your
+                                    spending habits.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Feature 3 -->
+                    <div class="col-md-4">
+
+                        <div class="feature-card">
+
+                            <div class="feature-image-wrapper">
+
+                                <img
+                                    src="../images/image9.png"
+                                    alt="Financial Overview"
+                                    class="feature-image"
+                                >
+
+                            </div>
+
+                            <div class="feature-content">
+
+                                <div class="feature-icon">
+                                    <i class="bi bi-bar-chart"></i>
+                                </div>
+
+                                <h4>
+                                    Financial Overview
+                                </h4>
+
+                                <p>
+                                    Get a clear overview of your
+                                    financial activity and spending.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             CONTACT
+        ========================== -->
+        <section class="contact-section section-space">
+
+            <div class="container">
+
+                <div class="contact-card">
+
+                    <div class="section-heading text-center">
+
+                        <span class="section-label">
+                            Get In Touch
+                        </span>
+
+                        <h2>
+                            Let's stay
+                            <span>connected.</span>
+                        </h2>
+
+                        <p>
+                            Have a question or want to learn more
+                            about SpendWise?
+                        </p>
+
+                    </div>
+
+
+                    <div class="contact-links">
+
+                        <!-- Email -->
+                        <a href="mailto:yostinaromani42@gmail.com"
+                           class="contact-item">
+
+                            <div class="contact-icon">
+                                <i class="bi bi-envelope"></i>
+                            </div>
+
+                            <div>
+                                <span>Email</span>
+                                <strong>
+                                    Contact us
+                                </strong>
+                            </div>
+
+                        </a>
+
+
+                        <!-- GitHub -->
+                        <a href="#"
+                           target="_blank"
+                           class="contact-item">
+
+                            <div class="contact-icon">
+                                <i class="bi bi-github"></i>
+                            </div>
+
+                            <div>
+                                <span>GitHub</span>
+                                <strong>
+                                    View our project
+                                </strong>
+                            </div>
+
+                        </a>
+
+
+                        <!-- LinkedIn -->
+                        <a href="#"
+                           target="_blank"
+                           class="contact-item">
+
+                            <div class="contact-icon">
+                                <i class="bi bi-linkedin"></i>
+                            </div>
+
+                            <div>
+                                <span>LinkedIn</span>
+                                <strong>
+                                    Connect with us
+                                </strong>
+                            </div>
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
 
     <div id="footer"></div>
 
 
-
-    <!-- Bootstrap JS -->
-
-    <script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-    ></script>
-
-
-    <!-- Shared Components -->
+    <!-- =========================
+         SCRIPTS
+    ========================== -->
 
     <script src="../JS/components.js"></script>
-
     <script src="../JS/theme.js"></script>
 
 </body>
-
 </html>
