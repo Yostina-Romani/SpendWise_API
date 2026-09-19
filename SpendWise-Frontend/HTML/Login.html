@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,6 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>SpendWise | Login</title>
+
+    <!-- Bootstrap Icons -->
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <!-- Bootstrap -->
     <link
@@ -17,10 +21,94 @@
     <link rel="stylesheet" href="../CSS/style.css">
     <link rel="stylesheet" href="../CSS/theme.css">
     <link rel="stylesheet" href="../CSS/components.css">
+    <link rel="stylesheet" href="../CSS/home.css">
+    <link rel="stylesheet" href="../CSS/navbar.css">
 </head>
 
 <body>
 
+    <!-- Navbar -->
+    <nav class="spend-navbar">
+        <div class="nav-container">
+
+            <!-- Brand -->
+            <a href="./Home.html="brand">
+                <span class="brand-icon">
+                    <i class="bi bi-wallet2"></i>
+                </span>
+
+                <span class="brand-name">SpendWise</span>
+            </a>
+
+            <!-- Desktop Links -->
+            <div class="nav-links">
+                <a href="./Home.html">Home</a>
+            </div>
+
+            <!-- Actions -->
+            <div class="nav-actions">
+
+                <!-- Theme Button -->
+                <button
+                    type="button"
+                    class="theme-btn"
+                    id="themeToggle"
+                    aria-label="Toggle theme">
+
+                    <i class="bi bi-moon"></i>
+                </button>
+
+                <a href="./Login.html" class="nav-btn login-btn">
+                    Login
+                </a>
+
+                <a href="./Register.html" class="nav-btn register-btn">
+                    Register
+                </a>
+
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button
+                type="button"
+                class="menu-toggle"
+                id="menuToggle"
+                aria-label="Toggle navigation">
+
+                <i class="bi bi-list"></i>
+            </button>
+
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+
+            <a href="./Home.html">Home</a>
+
+            <div class="mobile-actions">
+
+                <button
+                    type="button"
+                    class="theme-btn"
+                    id="mobileThemeToggle">
+
+                    <i class="bi bi-moon"></i>
+                    Theme
+                </button>
+
+                <a href="./Login.html" class="nav-btn login-btn">
+                    Login
+                </a>
+
+                <a href="./Register.html" class="nav-btn register-btn">
+                    Register
+                </a>
+
+            </div>
+        </div>
+    </nav>
+
+    <!-- Login Content -->
     <div class="login-page">
 
         <!-- Overlay -->
@@ -34,7 +122,7 @@
                 <p class="subtitle">Manage your money wisely</p>
             </div>
 
-            <form id="loginForm">
+            <form id="formid">
 
                 <!-- Email -->
                 <div class="mb-3">
@@ -78,29 +166,27 @@
                         <label
                             class="form-check-label"
                             for="rememberMe">
+
                             Remember me
                         </label>
                     </div>
 
-                    <a href="./ResetPasswordEmail.html" class="forgot-link">
+                    <a
+                        href="./ResetPasswordEmail.html"
+                        class="forgot-link">
+
                         Forgot Password?
                     </a>
-
                 </div>
 
                 <!-- Login Button -->
                 <button
                     type="submit"
                     class="btn login-btn w-100">
+
                     Login
                 </button>
-
             </form>
-            <!-- Register -->
-            <div class="register-text text-center mt-4">
-                Don't have an account?
-                <a href="./Register.html">Create Account</a>
-            </div>
 
             <!-- Continue with Google -->
             <div class="google-login-wrapper">
@@ -109,7 +195,11 @@
                     <span>OR</span>
                 </div>
 
-                <button type="button" class="google-login-btn" id="googleLoginBtn">
+                <button
+                    type="button"
+                    class="google-login-btn"
+                    id="googleLoginBtn">
+
                     <span class="google-icon">
                         <i class="bi bi-google"></i>
                     </span>
@@ -118,15 +208,25 @@
                         Continue with Google
                     </span>
                 </button>
-
             </div>
 
+            <!-- Register -->
+            <div class="register-text text-center mt-4">
+                <span>Don't have an account?</span>
+
+                <a href="./Register.html">
+                    Create Account
+                    <i class="bi bi-arrow-right"></i>
+                </a>
+            </div>
 
         </div>
-
     </div>
 
+    <!-- JavaScript -->
     <script src="../JS/login.js"></script>
+    <script src="../JS/components.js"></script>
+    <script src="../JS/navbar.js"></script>
 
 </body>
 </html>

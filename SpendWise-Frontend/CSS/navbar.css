@@ -1,0 +1,321 @@
+/* =====================================================
+   NAVBAR
+===================================================== */
+
+.spend-navbar {
+    width: 100%;
+    position: relative;
+    z-index: 1000;
+
+    background: var(--surface, #ffffff);
+    border-bottom: 1px solid var(--border, #e5e7eb);
+
+    box-shadow: 0 4px 18px rgba(15, 23, 42, 0.05);
+}
+
+.nav-container {
+    width: min(1200px, 92%);
+    min-height: 76px;
+
+    margin: 0 auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+}
+
+/* =====================================================
+   BRAND
+===================================================== */
+
+.spend-navbar .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+
+    color: var(--text, #202124);
+    text-decoration: none;
+
+    white-space: nowrap;
+}
+
+.spend-navbar .brand-icon {
+    width: 42px;
+    height: 42px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #ffffff;
+    background: linear-gradient(135deg, #6366f1, #a855f7);
+
+    border-radius: 12px;
+
+    font-size: 21px;
+    box-shadow: 0 6px 15px rgba(99, 102, 241, 0.25);
+}
+
+.spend-navbar .brand-name {
+    font-size: 21px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+}
+
+/* =====================================================
+   DESKTOP LINKS
+===================================================== */
+
+.spend-navbar .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+
+    margin-left: auto;
+}
+
+.spend-navbar .nav-links a {
+    position: relative;
+
+    color: var(--text-soft, #64748b);
+    text-decoration: none;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    transition: color 0.25s ease;
+}
+
+.spend-navbar .nav-links a::after {
+    content: "";
+
+    position: absolute;
+    left: 0;
+    bottom: -8px;
+
+    width: 0;
+    height: 2px;
+
+    background: linear-gradient(90deg, #6366f1, #a855f7);
+    border-radius: 10px;
+
+    transition: width 0.25s ease;
+}
+
+.spend-navbar .nav-links a:hover {
+    color: var(--primary, #6366f1);
+}
+
+.spend-navbar .nav-links a:hover::after {
+    width: 100%;
+}
+
+/* =====================================================
+   ACTIONS
+===================================================== */
+
+.spend-navbar .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Theme Button */
+
+.spend-navbar .theme-btn {
+    width: 40px;
+    height: 40px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid var(--border, #e5e7eb);
+    border-radius: 10px;
+
+    background: var(--surface-soft, #f8fafc);
+    color: var(--text, #202124);
+
+    cursor: pointer;
+
+    transition: all 0.25s ease;
+}
+
+.spend-navbar .theme-btn:hover {
+    color: #6366f1;
+    border-color: #6366f1;
+    transform: translateY(-2px);
+}
+
+/* Navbar Buttons */
+
+.spend-navbar .nav-btn {
+    min-height: 40px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0 18px;
+
+    border-radius: 10px;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    text-decoration: none;
+    white-space: nowrap;
+
+    transition: all 0.25s ease;
+}
+
+.spend-navbar .login-btn {
+    color: var(--text, #202124);
+    background: transparent;
+    border: 1px solid var(--border, #e5e7eb);
+}
+
+.spend-navbar .login-btn:hover {
+    color: #6366f1;
+    border-color: #6366f1;
+    transform: translateY(-2px);
+}
+
+.spend-navbar .register-btn {
+    color: #ffffff;
+    background: linear-gradient(135deg, #6366f1, #a855f7);
+    border: 1px solid transparent;
+
+    box-shadow: 0 5px 14px rgba(99, 102, 241, 0.22);
+}
+
+.spend-navbar .register-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
+}
+
+/* =====================================================
+   MOBILE MENU BUTTON
+===================================================== */
+
+.spend-navbar .menu-toggle {
+    display: none;
+
+    width: 42px;
+    height: 42px;
+
+    align-items: center;
+    justify-content: center;
+
+    background: var(--surface-soft, #f8fafc);
+    color: var(--text, #202124);
+
+    border: 1px solid var(--border, #e5e7eb);
+    border-radius: 10px;
+
+    font-size: 23px;
+    cursor: pointer;
+}
+
+/* =====================================================
+   MOBILE MENU
+===================================================== */
+
+.spend-navbar .mobile-menu {
+    display: none;
+
+    width: min(1200px, 92%);
+    margin: 0 auto;
+
+    padding: 18px 0 22px;
+
+    border-top: 1px solid var(--border, #e5e7eb);
+}
+
+.spend-navbar .mobile-menu.active {
+    display: block;
+}
+
+.spend-navbar .mobile-menu > a {
+    display: block;
+
+    padding: 12px 0;
+
+    color: var(--text, #202124);
+    text-decoration: none;
+
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.spend-navbar .mobile-menu > a:hover {
+    color: #6366f1;
+}
+
+.spend-navbar .mobile-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    margin-top: 12px;
+}
+
+.spend-navbar .mobile-actions .theme-btn {
+    gap: 7px;
+    width: auto;
+    padding: 0 14px;
+}
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 768px) {
+
+    .nav-container {
+        min-height: 68px;
+    }
+
+    .spend-navbar .nav-links,
+    .spend-navbar .nav-actions {
+        display: none;
+    }
+
+    .spend-navbar .menu-toggle {
+        display: inline-flex;
+    }
+
+    .spend-navbar .mobile-actions {
+        flex-wrap: wrap;
+    }
+
+    .spend-navbar .mobile-actions .nav-btn {
+        flex: 1;
+    }
+}
+
+@media (min-width: 769px) {
+    .spend-navbar .mobile-menu {
+        display: none !important;
+    }
+}
+
+/* =====================================================
+   DARK MODE
+===================================================== */
+
+[data-theme="dark"] .spend-navbar {
+    background: var(--surface);
+    border-color: var(--border);
+}
+
+[data-theme="dark"] .spend-navbar .brand,
+[data-theme="dark"] .spend-navbar .nav-links a,
+[data-theme="dark"] .spend-navbar .mobile-menu > a {
+    color: var(--text);
+}
+
+[data-theme="dark"] .spend-navbar .login-btn {
+    color: var(--text);
+}

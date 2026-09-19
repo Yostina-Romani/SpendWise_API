@@ -12,6 +12,8 @@ namespace SpendWise.Data
         :base(options)
         { }
         public DbSet<Expenses>expense{ get; set; }
+        public DbSet<Income> income { get; set; }
+        public DbSet<Budget> budget { get; set; }
         public DbSet<Categories> category { get; set; }
     }
 }

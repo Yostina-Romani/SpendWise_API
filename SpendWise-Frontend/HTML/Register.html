@@ -29,10 +29,92 @@
     <link rel="stylesheet" href="../CSS/theme.css">
     <link rel="stylesheet" href="../CSS/style.css">
     <link rel="stylesheet" href="../CSS/components.css">
+    <link rel="stylesheet" href="../CSS/navbar.css">
 </head>
 
 <body class="register-page">
 
+
+    <!-- Navbar -->
+    <nav class="spend-navbar">
+        <div class="nav-container">
+
+            <!-- Brand -->
+            <a href="./Home.html" class="brand">
+                <span class="brand-icon">
+                    <i class="bi bi-wallet2"></i>
+                </span>
+
+                <span class="brand-name">SpendWise</span>
+            </a>
+
+            <!-- Desktop Links -->
+            <div class="nav-links">
+                <a href="./Home.html">Home</a>
+            </div>
+
+            <!-- Actions -->
+            <div class="nav-actions">
+
+                <!-- Theme Button -->
+                <button
+                    type="button"
+                    class="theme-btn"
+                    id="themeToggle"
+                    aria-label="Toggle theme">
+
+                    <i class="bi bi-moon"></i>
+                </button>
+
+                <a href="./Login.html" class="nav-btn login-btn">
+                    Login
+                </a>
+
+                <a href="./Register.html" class="nav-btn register-btn">
+                    Register
+                </a>
+
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button
+                type="button"
+                class="menu-toggle"
+                id="menuToggle"
+                aria-label="Toggle navigation">
+
+                <i class="bi bi-list"></i>
+            </button>
+
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+
+            <a href="./Home.html">Home</a>
+
+            <div class="mobile-actions">
+
+                <button
+                    type="button"
+                    class="theme-btn"
+                    id="mobileThemeToggle">
+
+                    <i class="bi bi-moon"></i>
+                    Theme
+                </button>
+
+                <a href="./Login.html" class="nav-btn login-btn">
+                    Login
+                </a>
+
+                <a href="./Register.html" class="nav-btn register-btn">
+                    Register
+                </a>
+
+            </div>
+        </div>
+    </nav>
     <main class="register-wrapper">
 
         <div class="register-card">
@@ -86,7 +168,7 @@
                     <div class="register-header">
 
                         <div class="register-icon">
-                            <i class="bi bi-person-plus"></i>
+                            <i class="bi bi-person-plus p-3"></i>
                         </div>
 
                         <h1>
@@ -252,7 +334,7 @@
 
                     <div class="register-back">
 
-                        <a href="./index.html">
+                        <a href="./Home.html">
                             <i class="bi bi-arrow-left"></i>
                             Back to home
                         </a>
@@ -271,7 +353,7 @@
     <!-- JavaScript -->
 
     <script src="../JS/components.js"></script>
-    <script src="../JS/theme.js"></script>
+    <script src="../JS/navbar.js"></script>
     <script src="../JS/register.js"></script>
 
 </body>

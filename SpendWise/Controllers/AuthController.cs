@@ -6,11 +6,9 @@ using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json.Linq;
 using SpendWise.DTOS;
 using SpendWise.Models;
-using SpendWise.Services;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using SpendWise.Services;
 using SpendWise.Services.Interfaces;
 
 namespace SpendWise.Controllers

@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using SpendWise.Services.Interfaces;
+using System.Net;
 using System.Net.Mail;
 namespace SpendWise.Services
 {

@@ -1095,7 +1095,7 @@ input[type="file"].form-control {
 .auth-card .message {
     text-align: center;
 
-    margin: 16px 0 0;
+    margin: 16px 4 4;
 
     font-size: 14px;
 }
@@ -1139,6 +1139,8 @@ input[type="file"].form-control {
     text-align: center;
 
     font-size: 14px;
+    margin-top: 9px;
+    margin-bottom: 5px;
 }
 
 .create-account-link {
@@ -1176,6 +1178,7 @@ input[type="file"].form-control {
 
 .reset-footer {
     margin-top: 18px;
+    margin-bottom: 5px;
 
     color: var(--text-soft);
 }
@@ -1300,6 +1303,7 @@ input[type="file"].form-control {
     grid-template-columns: 44% 56%;
 
     background: var(--surface);
+    margin: 4px;
 
     border: 1px solid var(--border);
 
@@ -1495,6 +1499,7 @@ input[type="file"].form-control {
 
 .register-header {
     margin-bottom: 30px;
+    margin-top: 50px;
 }
 
 .register-icon {
@@ -1525,16 +1530,18 @@ input[type="file"].form-control {
 }
 
 .register-header h1 {
-    margin: 0 0 8px;
+    margin: 2px 0px 10px;
 
     color: var(--text);
 
     font-size: 30px;
     font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -0.7px;
 }
 
 .register-header p {
-    margin: 0;
+    margin: 2;
 
     color: var(--text-soft);
 
@@ -1550,6 +1557,7 @@ input[type="file"].form-control {
 
 .register-form-container .form-group {
     margin-bottom: 18px;
+    margin-top: 4px;
 }
 
 .register-form-container label {
@@ -1560,6 +1568,7 @@ input[type="file"].form-control {
     gap: 7px;
 
     margin-bottom: 8px;
+    margin-top: 3px;
 
     color: var(--text);
 
@@ -2010,10 +2019,10 @@ input[type="file"].form-control {
     margin-top: 12px;
     padding: 0 20px;
 
-    background: #e92dc9;
-    color: #202124;
+    background: #6009b1;
+    color: #ebe8ee;
 
-    border: 1px solid #bb1fae;
+    border: 1px solid #780b99;
     border-radius: 10px;
 
     font-family: inherit;
@@ -2037,7 +2046,7 @@ input[type="file"].form-control {
 /* Hover */
 
 .google-login-btn:hover {
-    background: #800585;
+    background: #560585;
     border-color: #210229;
 
     transform: translateY(-2px);
@@ -2066,6 +2075,9 @@ input[type="file"].form-control {
         0 0 0 3px rgba(99, 102, 241, 0.15);
 }
 
+.google-login-a{
+    position:center;
+}
 /* Dark Mode */
 
 [data-theme="dark"] .google-login-btn {

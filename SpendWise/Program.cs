@@ -105,6 +105,9 @@ builder.Services.AddScoped<IEmailservice, Emailservice>();
 //toke sevices
 builder.Services.AddScoped<ITokenService, TokenService>();
 
+//profile service
+builder.Services.AddScoped<IProfileService, ProfileService > ();
+
 var app = builder.Build();
 
 // =========================

@@ -1,6 +1,4 @@
-﻿
-
-namespace SpendWise.Services
+﻿namespace SpendWise.Services.Interfaces
 {
     public interface IEmailservice
     {
