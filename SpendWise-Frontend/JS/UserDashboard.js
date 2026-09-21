@@ -223,102 +223,64 @@ function updateSummary(summary) {
 ========================================= */
 
 function updateBudget(budget) {
+    const monthlyBudgetElement = document.getElementById("monthlyBudget");
+    const monthlyExpenseElement = document.getElementById("monthlyExpense");
+    const remainingBudgetElement = document.getElementById("remainingBudget");
+    const budgetProgress = document.getElementById("budgetProgress");
+    const budgetPercentageElement = document.getElementById("budgetPercentage");
+    const budgetMessage = document.getElementById("budgetMessage");
 
     if (!budget) {
+        if (monthlyBudgetElement) monthlyBudgetElement.textContent = "0";
+        if (monthlyExpenseElement) monthlyExpenseElement.textContent = "0";
+        if (remainingBudgetElement) remainingBudgetElement.textContent = "0";
+        if (budgetPercentageElement) budgetPercentageElement.textContent = "0%";
+        if (budgetProgress) budgetProgress.style.width = "0%";
         return;
     }
 
+    const monthlyBudget = Number(budget.monthlyBudget) || 0;
+    const monthlyExpense = Number(budget.monthlyExpense) || 0;
 
-    monthlyBudget.textContent =
-        formatMoney(budget.monthlyBudget);
+    const remaining = monthlyBudget - monthlyExpense;
 
+    const percentage = monthlyBudget > 0
+        ? Math.max(0, Math.min(100, (remaining / monthlyBudget) * 100))
+        : 0;
 
-    monthlyExpense.textContent =
-        `${formatMoney(budget.monthlyExpense)} spent`;
-
-
-    remainingBudget.textContent =
-        `${formatMoney(budget.remaining)} remaining`;
-
-
-    /*
-        Backend sends budgetPercentage.
-
-        In your current backend:
-        budgetPercentage =
-        remaining percentage.
-    */
-
-    let percentage =
-        Number(budget.budgetPercentage) || 0;
-
-
-    /*
-        Keep the progress between 0 and 100.
-    */
-
-    percentage =
-        Math.max(0, Math.min(100, percentage));
-
-
-    budgetProgress.style.width =
-        `${percentage}%`;
-
-
-    budgetPercentage.textContent =
-        `${percentage.toFixed(0)}% remaining`;
-
-
-    /* =========================
-       MESSAGE
-    ========================= */
-
-    if (budget.monthlyBudget <= 0) {
-
-        budgetMessage.innerHTML = `
-            <i class="bi bi-info-circle"></i>
-            <span>
-                You haven't set a monthly budget yet.
-            </span>
-        `;
-
-        return;
+    if (monthlyBudgetElement) {
+        monthlyBudgetElement.textContent = monthlyBudget.toFixed(2);
     }
 
-
-    if (budget.remaining < 0) {
-
-        budgetMessage.innerHTML = `
-            <i class="bi bi-exclamation-triangle"></i>
-            <span>
-                You have exceeded your monthly budget.
-            </span>
-        `;
-
-        return;
+    if (monthlyExpenseElement) {
+        monthlyExpenseElement.textContent = monthlyExpense.toFixed(2);
     }
 
-
-    if (percentage <= 20) {
-
-        budgetMessage.innerHTML = `
-            <i class="bi bi-exclamation-circle"></i>
-            <span>
-                You're close to your monthly budget limit.
-            </span>
-        `;
-
-        return;
+    if (remainingBudgetElement) {
+        remainingBudgetElement.textContent = remaining.toFixed(2);
     }
 
+    if (budgetPercentageElement) {
+        budgetPercentageElement.textContent = `${percentage.toFixed(0)}%`;
+    }
 
-    budgetMessage.innerHTML = `
-        <i class="bi bi-check-circle"></i>
-        <span>
-            You're keeping track of your spending.
-        </span>
-    `;
+    if (budgetProgress) {
+        budgetProgress.style.width = `${percentage}%`;
+    }
+
+    if (budgetMessage) {
+        if (monthlyBudget === 0) {
+            budgetMessage.textContent = "No budget set for this month.";
+        } else if (remaining <= 0) {
+            budgetMessage.textContent = "You have exceeded your budget.";
+        } else if (percentage <= 20) {
+            budgetMessage.textContent = "Your remaining budget is low.";
+        } else {
+            budgetMessage.textContent = "You're doing well with your budget.";
+        }
+    }
 }
+
 
 
 /* =========================================

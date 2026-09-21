@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
 
     <meta name="viewport"
@@ -30,14 +29,12 @@
 
     <!-- ================= GOOGLE FONT ================= -->
 
-    <link
-        rel="preconnect"
-        href="https://fonts.googleapis.com">
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
 
-    <link
-        rel="preconnect"
-        href="https://fonts.gstatic.com"
-        crossorigin>
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
 
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
@@ -46,23 +43,26 @@
 
     <!-- ================= THEME ================= -->
 
-    <link
-        rel="stylesheet"
-        href="../CSS/theme.css">
+    <link rel="stylesheet"
+          href="../CSS/theme.css">
 
 
     <!-- ================= MAIN CSS ================= -->
 
-    <link
-        rel="stylesheet"
-        href="../CSS/style.css">
+    <link rel="stylesheet"
+          href="../CSS/style.css">
 
 
     <!-- ================= COMPONENTS ================= -->
 
-    <link
-        rel="stylesheet"
-        href="../CSS/components.css">
+    <link rel="stylesheet"
+          href="../CSS/components.css">
+
+
+    <!-- ================= CATEGORIES CSS ================= -->
+
+    <link rel="stylesheet"
+          href="../CSS/categories.css">
 
 </head>
 
@@ -77,161 +77,291 @@
     <div id="navbar"></div>
 
 
+
     <!-- =====================================================
          MAIN CONTENT
     ====================================================== -->
 
-    <main class="container page-container">
+    <main class="categories-page">
+
+        <div class="categories-container">
 
 
-        <!-- ================= PAGE HEADER ================= -->
+            <!-- =================================================
+                 PAGE HEADER
+            ================================================== -->
 
-        <div class="page-header fade-in">
+            <section class="categories-header">
 
+                <div class="categories-title-wrapper">
 
-            <div>
+                    <span class="section-label">
+                        ORGANIZATION
+                    </span>
 
-                <span class="section-label">
-
-                    ORGANIZATION
-
-                </span>
-
-
-                <h1>
-
-                    Categories
-
-                </h1>
-
-
-                <p>
-
-                    Manage and organize your expense categories.
-
-                </p>
-
-            </div>
-
-
-            <!-- ADD CATEGORY -->
-
-            <a
-                href="./addCategory.html"
-                class="btn custom-btn">
-
-                <i class="bi bi-plus-circle me-2"></i>
-
-                Add Category
-
-            </a>
-
-        </div>
-
-
-        <!-- =================================================
-             CATEGORIES TABLE
-        ================================================== -->
-
-        <div class="table-card fade-in">
-
-
-            <!-- TABLE HEADER -->
-
-            <div class="table-card-header">
-
-                <div>
-
-                    <h5 class="mb-1">
-
-                        <i class="bi bi-grid me-2"></i>
-
+                    <h1>
                         Expense Categories
+                    </h1>
 
-                    </h5>
-
-                    <p class="mb-0">
-
-                        View and manage your categories.
-
+                    <p>
+                        Organize your expenses into simple and meaningful categories.
                     </p>
 
+                </div>
+
+
+                <!-- ADMIN ONLY -->
+
+                <a
+                    href="./addCategory.html"
+                    id="addCategoryBtn"
+                    class="add-category-btn">
+
+                    <i class="bi bi-plus-lg"></i>
+
+                    <span>
+                        Add Category
+                    </span>
+
+                </a>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 ADMIN INFO
+            ================================================== -->
+
+            <div
+                id="adminNotice"
+                class="admin-notice"
+                hidden>
+
+                <div class="admin-notice-icon">
+                    <i class="bi bi-shield-check"></i>
+                </div>
+
+                <div>
+                    <strong>Administrator Mode</strong>
+
+                    <p>
+                        You can add, edit and delete expense categories.
+                    </p>
                 </div>
 
             </div>
 
 
-            <!-- TABLE -->
 
-            <div class="table-responsive">
+            <!-- =================================================
+                 USER INFO
+            ================================================== -->
 
-                <table class="table custom-table mb-0">
+            <div
+                id="userNotice"
+                class="user-notice"
+                hidden>
 
+                <div class="user-notice-icon">
+                    <i class="bi bi-grid"></i>
+                </div>
 
-                    <thead>
+                <div>
+                    <strong>Expense Categories</strong>
 
-                        <tr>
-
-                            <th>
-                                ID
-                            </th>
-
-                            <th>
-                                Name
-                            </th>
-
-                            <th>
-                                Image
-                            </th>
-
-                            <th>
-                                Description
-                            </th>
-
-                            <th>
-                                Action
-                            </th>
-
-                        </tr>
-
-                    </thead>
-
-
-                    <!--
-                        IMPORTANT:
-                        categories.js will insert
-                        the categories here.
-                    -->
-
-                    <tbody id="categoriesTable">
-
-                    </tbody>
-
-
-                </table>
+                    <p>
+                        Browse the available categories for your expenses.
+                    </p>
+                </div>
 
             </div>
 
-        </div>
 
 
-        <!-- ================= BACK LINK ================= -->
+            <!-- =================================================
+                 CATEGORIES CARD
+            ================================================== -->
 
-        <div class="text-center mt-4">
+            <section class="categories-card">
 
-            <a
-                href="./UserDashboard.html"
-                class="back-link">
 
-                <i class="bi bi-arrow-left me-1"></i>
+                <!-- CARD HEADER -->
 
-                Back to Dashboard
+                <div class="categories-card-header">
 
-            </a>
+                    <div>
+
+                        <span class="card-label">
+                            CATEGORIES
+                        </span>
+
+                        <h2>
+                            Available Categories
+                        </h2>
+
+                        <p>
+                            Choose the category that best describes your expense.
+                        </p>
+
+                    </div>
+
+
+                    <div class="categories-count">
+
+                        <span id="categoriesCount">
+                            0
+                        </span>
+
+                        <small>
+                            Categories
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     LOADING
+                ================================================== -->
+
+                <div
+                    id="categoriesLoading"
+                    class="categories-state">
+
+                    <div class="loading-spinner"></div>
+
+                    <h3>
+                        Loading categories...
+                    </h3>
+
+                    <p>
+                        Please wait while we load your categories.
+                    </p>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     ERROR
+                ================================================== -->
+
+                <div
+                    id="categoriesError"
+                    class="categories-state error-state"
+                    hidden>
+
+                    <div class="state-icon error-icon">
+
+                        <i class="bi bi-exclamation-triangle"></i>
+
+                    </div>
+
+                    <h3>
+                        Unable to load categories
+                    </h3>
+
+                    <p id="errorMessage">
+                        Something went wrong.
+                    </p>
+
+                    <button
+                        type="button"
+                        id="retryBtn"
+                        class="retry-btn">
+
+                        <i class="bi bi-arrow-clockwise"></i>
+
+                        Try Again
+
+                    </button>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     EMPTY
+                ================================================== -->
+
+                <div
+                    id="categoriesEmpty"
+                    class="categories-state"
+                    hidden>
+
+                    <div class="state-icon">
+
+                        <i class="bi bi-grid"></i>
+
+                    </div>
+
+                    <h3>
+                        No categories found
+                    </h3>
+
+                    <p>
+                        There are no expense categories available yet.
+                    </p>
+
+                    <!-- ADMIN ONLY -->
+
+                    <a
+                        href="./addCategory.html"
+                        id="emptyAddCategoryBtn"
+                        class="empty-add-btn"
+                        hidden>
+
+                        <i class="bi bi-plus-lg"></i>
+
+                        Add First Category
+
+                    </a>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     CATEGORY GRID
+                ================================================== -->
+
+                <div
+                    id="categoriesGrid"
+                    class="categories-grid"
+                    hidden>
+                </div>
+
+
+            </section>
+
+
+
+            <!-- =================================================
+                 BACK TO DASHBOARD
+            ================================================== -->
+
+            <div class="back-section">
+
+                <a
+                    href="./UserDashboard.html"
+                    class="back-link">
+
+                    <i class="bi bi-arrow-left"></i>
+
+                    Back to Dashboard
+
+                </a>
+
+            </div>
+
 
         </div>
 
     </main>
+
 
 
     <!-- =====================================================
@@ -241,11 +371,13 @@
     <div id="footer"></div>
 
 
+
     <!-- ================= BOOTSTRAP JS ================= -->
 
     <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
     </script>
+
 
 
     <!-- ================= SHARED COMPONENTS ================= -->
@@ -258,7 +390,7 @@
     <script src="../JS/theme.js"></script>
 
 
-    <!-- ================= PAGE JAVASCRIPT ================= -->
+    <!-- ================= CATEGORIES JS ================= -->
 
     <script src="../JS/categories.js"></script>
 

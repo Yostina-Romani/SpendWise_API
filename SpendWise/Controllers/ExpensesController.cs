@@ -82,12 +82,8 @@ namespace SpendWise.Controllers
                            e.Category.categoryNmae,
                            e.Category.imageURL
                        }
-                   })
-                   .ToListAsync(); if (!expenses.Any())
-            {
-                return BadRequest(new { message = "you donot have any expenses" });
-
-            }
+                   }).OrderByDescending(e => e.expenseTime).ToListAsync();
+             
             return Ok(expenses);
         }
 

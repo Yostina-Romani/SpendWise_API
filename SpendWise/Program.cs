@@ -108,6 +108,9 @@ builder.Services.AddScoped<ITokenService, TokenService>();
 //profile service
 builder.Services.AddScoped<IProfileService, ProfileService > ();
 
+//budget service
+builder.Services.AddScoped<IBudgetService, BudgetService>();
+
 var app = builder.Build();
 
 // =========================

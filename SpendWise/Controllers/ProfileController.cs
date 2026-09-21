@@ -45,7 +45,7 @@ namespace SpendWise.Controllers
             var userid = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (userid == null)
             {
-                return null;
+                return Unauthorized();
             }
             if (image == null||image.Length==0)
             {

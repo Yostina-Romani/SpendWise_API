@@ -9,9 +9,9 @@
           content="width=device-width, initial-scale=1.0">
 
     <meta name="description"
-          content="SpendWise - Personal expense management dashboard">
+          content="SpendWise Admin Dashboard">
 
-    <title>SpendWise | Dashboard</title>
+    <title>SpendWise | Admin Dashboard</title>
 
 
     <!-- ================= BOOTSTRAP ================= -->
@@ -64,6 +64,13 @@
         rel="stylesheet"
         href="../CSS/components.css">
 
+
+    <!-- ================= ADMIN DASHBOARD CSS ================= -->
+
+    <link
+        rel="stylesheet"
+        href="../CSS/admin-dashboard.css">
+
 </head>
 
 
@@ -71,233 +78,951 @@
 
 
     <!-- =====================================================
-         NAVBAR
+         ADMIN SIDEBAR
     ====================================================== -->
 
-    <div id="navbar"></div>
+    <aside class="admin-sidebar" id="adminSidebar">
 
+        <div class="sidebar-brand">
 
-    <!-- =====================================================
-         DASHBOARD
-    ====================================================== -->
+            <a href="./AdminDashboard.html">
 
-    <main class="container dashboard-container">
-
-
-        <!-- ================= WELCOME ================= -->
-
-        <div class="dashboard-header fade-in">
-
-
-            <div>
-
-                <span class="welcome-label">
-
-                    Welcome back 👋
-
+                <span class="sidebar-logo">
+                    S
                 </span>
 
+                <span class="sidebar-brand-text">
+                    SpendWise
+                </span>
 
-                <h1>
-
-                    SpendWise Dashboard
-
-                </h1>
-
-
-                <p>
-
-                    Manage your expenses and categories
-                    from one place.
-
-                </p>
-
-            </div>
+            </a>
 
         </div>
 
 
+        <!-- ADMIN LABEL -->
+
+        <div class="sidebar-section-title">
+            ADMIN PANEL
+        </div>
+
+
+        <!-- NAVIGATION -->
+
+        <nav class="sidebar-nav">
+
+            <a
+                href="./AdminDashboard.html"
+                class="sidebar-link active">
+
+                <i class="bi bi-grid-1x2-fill"></i>
+
+                <span>
+                    Dashboard
+                </span>
+
+            </a>
+
+
+            <a
+                href="./categories.html"
+                class="sidebar-link">
+
+                <i class="bi bi-grid"></i>
+
+                <span>
+                    Categories
+                </span>
+
+            </a>
+
+
+            <a
+                href="./Expenses.html"
+                class="sidebar-link">
+
+                <i class="bi bi-wallet2"></i>
+
+                <span>
+                    Expenses
+                </span>
+
+            </a>
+
+
+            <a
+                href="./Profile.html"
+                class="sidebar-link">
+
+                <i class="bi bi-person"></i>
+
+                <span>
+                    Profile
+                </span>
+
+            </a>
+
+        </nav>
+
+
+        <!-- SIDEBAR BOTTOM -->
+
+        <div class="sidebar-bottom">
+
+            <button
+                type="button"
+                id="sidebarThemeBtn"
+                class="sidebar-bottom-btn">
+
+                <i class="bi bi-moon-stars"></i>
+
+                <span>
+                    Theme
+                </span>
+
+            </button>
+
+
+            <button
+                type="button"
+                id="sidebarLogoutBtn"
+                class="sidebar-bottom-btn logout-sidebar-btn">
+
+                <i class="bi bi-box-arrow-right"></i>
+
+                <span>
+                    Logout
+                </span>
+
+            </button>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- =====================================================
+         MAIN AREA
+    ====================================================== -->
+
+    <div class="admin-main">
+
+
         <!-- =================================================
-             ACTION CARDS
+             TOPBAR
         ================================================== -->
 
-        <div class="row g-4 mt-3">
+        <header class="admin-topbar">
+
+            <div class="topbar-left">
+
+                <button
+                    type="button"
+                    id="sidebarToggle"
+                    class="sidebar-toggle">
+
+                    <i class="bi bi-list"></i>
+
+                </button>
 
 
-            <!-- ================= ADD EXPENSE ================= -->
+                <div>
 
-            <div class="col-md-6 col-lg-4">
+                    <span class="topbar-label">
+                        ADMIN DASHBOARD
+                    </span>
 
-                <div class="dashboard-card fade-in">
-
-
-                    <div class="dashboard-icon">
-
-                        <i class="bi bi-wallet2"></i>
-
-                    </div>
-
-
-                    <h3>
-
-                        Add Expense
-
-                    </h3>
-
-
-                    <p>
-
-                        Record a new expense and keep
-                        track of your spending.
-
-                    </p>
-
-
-                    <a
-                        href="./AddExpense.html"
-                        class="btn custom-btn">
-
-                        <i class="bi bi-plus-circle me-2"></i>
-
-                        Add Expense
-
-                    </a>
+                    <h1>
+                        Overview
+                    </h1>
 
                 </div>
 
             </div>
 
 
-            <!-- ================= ADD CATEGORY ================= -->
-
-            <div class="col-md-6 col-lg-4">
-
-                <div class="dashboard-card fade-in">
+            <div class="topbar-right">
 
 
-                    <div class="dashboard-icon">
+                <!-- THEME -->
 
-                        <i class="bi bi-folder-plus"></i>
+                <button
+                    type="button"
+                    id="topThemeBtn"
+                    class="topbar-icon-btn"
+                    title="Toggle theme">
+
+                    <i class="bi bi-moon-stars"></i>
+
+                </button>
+
+
+                <!-- NOTIFICATION -->
+
+                <button
+                    type="button"
+                    class="topbar-icon-btn"
+                    title="Notifications">
+
+                    <i class="bi bi-bell"></i>
+
+                    <span class="notification-dot"></span>
+
+                </button>
+
+
+                <!-- ADMIN PROFILE -->
+
+                <a
+                    href="./Profile.html"
+                    class="admin-profile">
+
+                    <div class="admin-avatar">
+                        <i class="bi bi-person-fill"></i>
+                    </div>
+
+                    <div class="admin-profile-info">
+
+                        <strong id="adminName">
+                            Admin
+                        </strong>
+
+                        <span>
+                            Administrator
+                        </span>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =================================================
+             CONTENT
+        ================================================== -->
+
+        <main class="admin-content">
+
+
+            <!-- =================================================
+                 WELCOME
+            ================================================== -->
+
+            <section class="welcome-section">
+
+                <div>
+
+                    <span class="welcome-small-label">
+                        WELCOME BACK 👋
+                    </span>
+
+                    <h2>
+                        Hello, <span id="welcomeName">Admin</span>
+                    </h2>
+
+                    <p>
+                        Here's what's happening with SpendWise today.
+                    </p>
+
+                </div>
+
+
+                <div class="dashboard-date">
+
+                    <i class="bi bi-calendar3"></i>
+
+                    <span id="currentDate">
+                        --
+                    </span>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 STATS
+            ================================================== -->
+
+            <section class="stats-grid">
+
+
+                <!-- USERS -->
+
+                <article class="stat-card">
+
+                    <div class="stat-card-top">
+
+                        <div class="stat-icon purple-icon">
+                            <i class="bi bi-people-fill"></i>
+                        </div>
+
+                        <span class="stat-badge">
+                            Users
+                        </span>
+
+                    </div>
+
+                    <div class="stat-value"
+                         id="totalUsers">
+                        --
+                    </div>
+
+                    <div class="stat-label">
+                        Total Users
+                    </div>
+
+                    <div class="stat-footer">
+
+                        <i class="bi bi-arrow-up"></i>
+
+                        <span>
+                            Registered accounts
+                        </span>
+
+                    </div>
+
+                </article>
+
+
+                <!-- EXPENSES -->
+
+                <article class="stat-card">
+
+                    <div class="stat-card-top">
+
+                        <div class="stat-icon pink-icon">
+                            <i class="bi bi-wallet2"></i>
+                        </div>
+
+                        <span class="stat-badge pink-badge">
+                            Spending
+                        </span>
+
+                    </div>
+
+                    <div class="stat-value"
+                         id="totalExpenses">
+                        --
+                    </div>
+
+                    <div class="stat-label">
+                        Total Expenses
+                    </div>
+
+                    <div class="stat-footer">
+
+                        <i class="bi bi-bar-chart"></i>
+
+                        <span>
+                            All recorded expenses
+                        </span>
+
+                    </div>
+
+                </article>
+
+
+                <!-- INCOME -->
+
+                <article class="stat-card">
+
+                    <div class="stat-card-top">
+
+                        <div class="stat-icon blue-icon">
+                            <i class="bi bi-cash-stack"></i>
+                        </div>
+
+                        <span class="stat-badge blue-badge">
+                            Income
+                        </span>
+
+                    </div>
+
+                    <div class="stat-value"
+                         id="totalIncome">
+                        --
+                    </div>
+
+                    <div class="stat-label">
+                        Total Income
+                    </div>
+
+                    <div class="stat-footer">
+
+                        <i class="bi bi-graph-up-arrow"></i>
+
+                        <span>
+                            Recorded income
+                        </span>
+
+                    </div>
+
+                </article>
+
+
+                <!-- CATEGORIES -->
+
+                <article class="stat-card">
+
+                    <div class="stat-card-top">
+
+                        <div class="stat-icon orange-icon">
+                            <i class="bi bi-grid-fill"></i>
+                        </div>
+
+                        <span class="stat-badge orange-badge">
+                            Categories
+                        </span>
+
+                    </div>
+
+                    <div class="stat-value"
+                         id="totalCategories">
+                        --
+                    </div>
+
+                    <div class="stat-label">
+                        Categories
+                    </div>
+
+                    <div class="stat-footer">
+
+                        <i class="bi bi-tags"></i>
+
+                        <span>
+                            Available categories
+                        </span>
+
+                    </div>
+
+                </article>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 ANALYTICS ROW
+            ================================================== -->
+
+            <section class="analytics-grid">
+
+
+                <!-- SPENDING OVERVIEW -->
+
+                <article class="dashboard-panel spending-panel">
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <span class="panel-label">
+                                ANALYTICS
+                            </span>
+
+                            <h3>
+                                Spending Overview
+                            </h3>
+
+                        </div>
+
+
+                        <div class="panel-icon">
+                            <i class="bi bi-bar-chart-line"></i>
+                        </div>
 
                     </div>
 
 
-                    <h3>
+                    <div class="spending-overview">
 
-                        Add Category
+                        <div class="overview-number">
 
-                    </h3>
+                            <span>
+                                Total Spent
+                            </span>
+
+                            <strong id="overviewExpenses">
+                                --
+                            </strong>
+
+                        </div>
 
 
-                    <p>
+                        <div class="overview-progress">
 
-                        Create a category to organize
-                        your expenses.
+                            <div class="progress-header">
 
-                    </p>
+                                <span>
+                                    Expenses vs Income
+                                </span>
+
+                                <strong id="expenseRatio">
+                                    --%
+                                </strong>
+
+                            </div>
+
+
+                            <div class="progress-track">
+
+                                <div
+                                    class="progress-bar"
+                                    id="expenseProgress">
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="overview-stats">
+
+                            <div>
+
+                                <span>
+                                    Income
+                                </span>
+
+                                <strong id="overviewIncome">
+                                    --
+                                </strong>
+
+                            </div>
+
+
+                            <div>
+
+                                <span>
+                                    Expenses
+                                </span>
+
+                                <strong id="overviewSpent">
+                                    --
+                                </strong>
+
+                            </div>
+
+
+                            <div>
+
+                                <span>
+                                    Balance
+                                </span>
+
+                                <strong id="overviewBalance">
+                                    --
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+
+                <!-- BUDGET -->
+
+                <article class="dashboard-panel budget-panel">
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <span class="panel-label">
+                                BUDGET
+                            </span>
+
+                            <h3>
+                                Budget Overview
+                            </h3>
+
+                        </div>
+
+
+                        <div class="panel-icon pink-panel-icon">
+                            <i class="bi bi-pie-chart"></i>
+                        </div>
+
+                    </div>
+
+
+                    <div class="budget-content">
+
+                        <div class="budget-circle">
+
+                            <div>
+
+                                <strong id="budgetPercentage">
+                                    --%
+                                </strong>
+
+                                <span>
+                                    Used
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="budget-details">
+
+                            <div class="budget-detail">
+
+                                <span>
+                                    Monthly Budget
+                                </span>
+
+                                <strong id="monthlyBudget">
+                                    --
+                                </strong>
+
+                            </div>
+
+
+                            <div class="budget-detail">
+
+                                <span>
+                                    Monthly Expenses
+                                </span>
+
+                                <strong id="monthlyExpenses">
+                                    --
+                                </strong>
+
+                            </div>
+
+
+                            <div class="budget-detail">
+
+                                <span>
+                                    Remaining
+                                </span>
+
+                                <strong
+                                    id="remainingBudget"
+                                    class="remaining-value">
+                                    --
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 QUICK ACTIONS
+            ================================================== -->
+
+            <section class="quick-section">
+
+                <div class="section-title-row">
+
+                    <div>
+
+                        <span class="panel-label">
+                            QUICK ACTIONS
+                        </span>
+
+                        <h3>
+                            Manage SpendWise
+                        </h3>
+
+                    </div>
+
+                </div>
+
+
+                <div class="quick-grid">
 
 
                     <a
                         href="./addCategory.html"
-                        class="btn custom-btn">
+                        class="quick-card">
 
-                        <i class="bi bi-plus-circle me-2"></i>
+                        <div class="quick-icon purple-quick">
 
-                        Add Category
+                            <i class="bi bi-folder-plus"></i>
+
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Add Category
+                            </strong>
+
+                            <span>
+                                Create a new expense category
+                            </span>
+
+                        </div>
+
+                        <i class="bi bi-arrow-up-right"></i>
 
                     </a>
-
-                </div>
-
-            </div>
-
-
-            <!-- ================= CATEGORIES ================= -->
-
-            <div class="col-md-6 col-lg-4">
-
-                <div class="dashboard-card fade-in">
-
-
-                    <div class="dashboard-icon">
-
-                        <i class="bi bi-grid"></i>
-
-                    </div>
-
-
-                    <h3>
-
-                        Categories
-
-                    </h3>
-
-
-                    <p>
-
-                        View and manage all your
-                        expense categories.
-
-                    </p>
 
 
                     <a
                         href="./categories.html"
-                        class="btn custom-btn">
+                        class="quick-card">
 
-                        <i class="bi bi-arrow-right me-2"></i>
+                        <div class="quick-icon pink-quick">
 
-                        View Categories
+                            <i class="bi bi-grid"></i>
+
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Categories
+                            </strong>
+
+                            <span>
+                                View and manage categories
+                            </span>
+
+                        </div>
+
+                        <i class="bi bi-arrow-up-right"></i>
+
+                    </a>
+
+
+                    <a
+                        href="./Expenses.html"
+                        class="quick-card">
+
+                        <div class="quick-icon blue-quick">
+
+                            <i class="bi bi-receipt"></i>
+
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Expenses
+                            </strong>
+
+                            <span>
+                                Review recorded expenses
+                            </span>
+
+                        </div>
+
+                        <i class="bi bi-arrow-up-right"></i>
+
+                    </a>
+
+
+                    <a
+                        href="./Profile.html"
+                        class="quick-card">
+
+                        <div class="quick-icon orange-quick">
+
+                            <i class="bi bi-gear"></i>
+
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Settings
+                            </strong>
+
+                            <span>
+                                Manage your profile
+                            </span>
+
+                        </div>
+
+                        <i class="bi bi-arrow-up-right"></i>
 
                     </a>
 
                 </div>
 
+            </section>
+
+
+
+            <!-- =================================================
+                 RECENT EXPENSES
+            ================================================== -->
+
+            <section class="dashboard-panel recent-panel">
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <span class="panel-label">
+                            ACTIVITY
+                        </span>
+
+                        <h3>
+                            Recent Expenses
+                        </h3>
+
+                    </div>
+
+
+                    <a
+                        href="./Expenses.html"
+                        class="view-all-btn">
+
+                        View All
+
+                        <i class="bi bi-arrow-right"></i>
+
+                    </a>
+
+                </div>
+
+
+                <div class="recent-table-wrapper">
+
+                    <table class="recent-table">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    Category
+                                </th>
+
+                                <th>
+                                    Amount
+                                </th>
+
+                                <th>
+                                    Date
+                                </th>
+
+                                <th>
+                                    Status
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody id="recentExpensesBody">
+
+                            <tr>
+
+                                <td colspan="4"
+                                    class="table-loading">
+
+                                    <div class="small-spinner"></div>
+
+                                    Loading recent expenses...
+
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 ERROR
+            ================================================== -->
+
+            <div
+                id="dashboardError"
+                class="dashboard-error"
+                hidden>
+
+                <i class="bi bi-exclamation-circle"></i>
+
+                <div>
+
+                    <strong>
+                        Dashboard data could not be loaded.
+                    </strong>
+
+                    <span id="dashboardErrorMessage">
+                        Please try again.
+                    </span>
+
+                </div>
+
+                <button
+                    type="button"
+                    id="retryDashboardBtn">
+
+                    <i class="bi bi-arrow-clockwise"></i>
+
+                    Retry
+
+                </button>
+
             </div>
 
-        </div>
+        </main>
 
+    </div>
 
-        <!-- =================================================
-             QUICK ACTIONS
-        ================================================== -->
-
-        <div class="dashboard-quick-section fade-in">
-
-            <div class="section-heading">
-
-                <span class="section-label">
-
-                    QUICK ACCESS
-
-                </span>
-
-
-                <h2>
-
-                    Manage Your Finances
-
-                </h2>
-
-
-                <p>
-
-                    Choose an action to get started.
-
-                </p>
-
-            </div>
-
-        </div>
-
-    </main>
 
 
     <!-- =====================================================
-         FOOTER
+         MOBILE OVERLAY
     ====================================================== -->
 
-    <div id="footer"></div>
+    <div
+        class="sidebar-overlay"
+        id="sidebarOverlay">
+    </div>
+
+
+
+    <!-- =====================================================
+         TOAST
+    ====================================================== -->
+
+    <div
+        id="adminToast"
+        class="admin-toast">
+
+        <i class="bi bi-check-circle"></i>
+
+        <span>
+            Success
+        </span>
+
+    </div>
+
 
 
     <!-- ================= BOOTSTRAP JS ================= -->
@@ -317,10 +1042,9 @@
     <script src="../JS/theme.js"></script>
 
 
-    <!-- ================= PAGE JAVASCRIPT ================= -->
+    <!-- ================= ADMIN DASHBOARD ================= -->
 
     <script src="../JS/dashboard.js"></script>
-
 
 </body>
 
