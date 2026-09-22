@@ -1,5 +1,5 @@
 const PROFILE_API_URL =
-    "http://127.0.0.1:5253/api/Profile";
+    "https://spendwise-api.runasp.net/api/Profile";
 
 
 /* =========================================================
@@ -133,7 +133,7 @@ async function loadProfile() {
                 if (profileImage && imageUrl) {
                     profileImage.src = imageUrl.startsWith("http")
                         ? imageUrl
-                        : `http://127.0.0.1:5253${imageUrl}`;
+                        : `${imageUrl}`;
                 }
 
     }

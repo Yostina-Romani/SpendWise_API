@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
 
 
-const API_URL = "http://127.0.0.1:5253/api/UserDashboard";
+const API_URL = "https://spendwise-api.runasp.net/api/UserDashboard";
 
 const token = localStorage.getItem("token");
 

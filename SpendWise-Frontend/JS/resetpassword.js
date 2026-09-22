@@ -10,7 +10,7 @@ form.addEventListener("submit",async function(event) {
     const prams=new URLSearchParams(window.location.search)
     const emai=prams.get("email");
     const token=prams.get("token");
-    const response=await fetch("http://127.0.0.1:5253/api/Auth/resetPassword",{
+    const response=await fetch("https://spendwise-api.runasp.net/api/Auth/resetPassword",{
         method:"POST",
         headers:{
             "Content-Type":"application/json"

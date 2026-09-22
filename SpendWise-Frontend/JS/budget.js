@@ -1,5 +1,4 @@
-const BUDGET_API_URL = "http://127.0.0.1:5253/api/Budget";
-
+const BUDGET_API_URL = "https://spendwise-api.runasp.net/api/Budget";
 let currentBudgetId = null;
 
 

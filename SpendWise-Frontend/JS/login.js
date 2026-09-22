@@ -1,7 +1,7 @@
 
 const btngoogle=document.getElementById("googleLoginBtn");
 btngoogle.addEventListener("click",()=>{
-window.location.href="http://localhost:5253/api/Auth/google-login";
+window.location.href="https://spendwise-api.runasp.net/api/Auth/google-login";
 });
 
 
@@ -18,7 +18,7 @@ form.addEventListener("submit", async function (event) {
         showError("passworderror", "password is required");
         return;
     }
-    const response = await fetch("http://127.0.0.1:5253/api/Auth/login", {
+    const response = await fetch("https://spendwise-api.runasp.net/api/Auth/login", {
         method:"POST",
         headers: {
             "Content-Type":"application/json"

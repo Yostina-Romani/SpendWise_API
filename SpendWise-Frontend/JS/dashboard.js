@@ -3,10 +3,10 @@
 ========================================================= */
 
 const API_URL =
-    "http://127.0.0.1:5253/api/AdminDashboard";
+    "https://spendwise-api.runasp.net/api/AdminDashboard";
 
 const BACKEND_URL =
-    "http://127.0.0.1:5253";
+    "";
 
 
 /* =========================================================

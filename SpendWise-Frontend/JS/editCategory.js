@@ -26,7 +26,7 @@ const id = params.get("id");
 
 console.log("FULL URL:", window.location.href);
 console.log("CATEGORY ID:", id);
-const response=await fetch(`http://127.0.0.1:5253/api/Category/${id}`,{
+const response=await fetch(`https://spendwise-api.runasp.net/api/Category/${id}`,{
     method:"PUT",
     headers:{
         "Content-Type":"application/json",

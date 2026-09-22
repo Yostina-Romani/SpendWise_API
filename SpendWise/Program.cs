@@ -12,7 +12,7 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
 // =========================
-// Add services to the container
+// Services
 // =========================
 
 builder.Services.AddControllers();
@@ -20,62 +20,131 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
 // =========================
 // Database
 // =========================
 
+var connectionString =
+    builder.Configuration.GetConnectionString("DefaultConnection");
+
+if (string.IsNullOrWhiteSpace(connectionString))
+{
+    throw new InvalidOperationException(
+        "Database connection string 'DefaultConnection' is not configured."
+    );
+}
+
 builder.Services.AddDbContext<dbcontext>(options =>
-    options.UseSqlServer(
-        builder.Configuration.GetConnectionString("DefaultConnection")
-    )
+    options.UseSqlServer(connectionString)
 );
+
 
 // =========================
 // Identity
 // =========================
 
-builder.Services.AddIdentityCore<Applicationuser>().AddRoles<IdentityRole>()
-    .AddEntityFrameworkStores<dbcontext>().AddDefaultTokenProviders().AddSignInManager();
+builder.Services
+    .AddIdentityCore<Applicationuser>()
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<dbcontext>()
+    .AddDefaultTokenProviders()
+    .AddSignInManager();
+
 
 // =========================
-// JWT Authentication
+// JWT Configuration
 // =========================
 
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultAuthenticateScheme =
-        JwtBearerDefaults.AuthenticationScheme;
+var jwtKey = builder.Configuration["jwt:key"];
+var jwtIssuer = builder.Configuration["jwt:issuer"];
+var jwtAudience = builder.Configuration["jwt:audience"];
 
-    options.DefaultChallengeScheme =
-        JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
-})
-.AddJwtBearer(options =>
+if (string.IsNullOrWhiteSpace(jwtKey))
 {
-    options.TokenValidationParameters = new TokenValidationParameters
+    throw new InvalidOperationException(
+        "JWT key is not configured."
+    );
+}
+
+if (string.IsNullOrWhiteSpace(jwtIssuer))
+{
+    throw new InvalidOperationException(
+        "JWT issuer is not configured."
+    );
+}
+
+if (string.IsNullOrWhiteSpace(jwtAudience))
+{
+    throw new InvalidOperationException(
+        "JWT audience is not configured."
+    );
+}
+
+
+// =========================
+// Authentication
+// =========================
+
+builder.Services
+    .AddAuthentication(options =>
     {
-        ValidateIssuer = true,
-        ValidateAudience = true,
-        ValidateLifetime = true,
-        ValidateIssuerSigningKey = true,
+        options.DefaultAuthenticateScheme =
+            JwtBearerDefaults.AuthenticationScheme;
 
-        ValidIssuer = builder.Configuration["jwt:issuer"],
-        ValidAudience = builder.Configuration["jwt:audience"],
+        options.DefaultChallengeScheme =
+            JwtBearerDefaults.AuthenticationScheme;
 
-        IssuerSigningKey = new SymmetricSecurityKey(
-            Encoding.UTF8.GetBytes(
-                builder.Configuration["jwt:key"]!
-            )
-        )
-    };
-}).AddCookie(IdentityConstants.ExternalScheme).AddGoogle(options =>
-{
-    options.ClientId = builder.Configuration["Authentication:Google:ClientId"]!;
-    options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"]!;
-    options.CallbackPath = "/api/Auth/google-callback";
-});
+        options.DefaultSignInScheme =
+            IdentityConstants.ExternalScheme;
+    })
 
+    // JWT
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters =
+            new TokenValidationParameters
+            {
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
 
+                ValidIssuer = jwtIssuer,
+                ValidAudience = jwtAudience,
+
+                IssuerSigningKey =
+                    new SymmetricSecurityKey(
+                        Encoding.UTF8.GetBytes(jwtKey)
+                    ),
+
+                ClockSkew = TimeSpan.FromMinutes(1)
+            };
+    })
+
+    // External authentication cookie
+    .AddCookie(IdentityConstants.ExternalScheme)
+
+    // Google
+    .AddGoogle(options =>
+    {
+        options.ClientId =
+            builder.Configuration[
+                "Authentication:Google:ClientId"
+            ] ?? throw new InvalidOperationException(
+                "Google ClientId is not configured."
+            );
+
+        options.ClientSecret =
+            builder.Configuration[
+                "Authentication:Google:ClientSecret"
+            ] ?? throw new InvalidOperationException(
+                "Google ClientSecret is not configured."
+            );
+
+        options.CallbackPath =
+            "/api/Auth/google-callback";
+    });
 
 
 // =========================
@@ -84,69 +153,99 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddAuthorization();
 
+
 // =========================
 // CORS
 // =========================
+
+var frontendUrl =
+    builder.Configuration["Frontend:Url"];
+
+if (string.IsNullOrWhiteSpace(frontendUrl))
+{
+    throw new InvalidOperationException(
+        "Frontend URL is not configured."
+    );
+}
 
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("FrontendPolicy", policy =>
     {
         policy
-            .WithOrigins("http://127.0.0.1:5500")
+            .WithOrigins(frontendUrl)
             .AllowAnyHeader()
             .AllowAnyMethod();
     });
 });
 
-//email services
+
+// =========================
+// Application Services
+// =========================
+
 builder.Services.AddScoped<IEmailservice, Emailservice>();
 
-//toke sevices
 builder.Services.AddScoped<ITokenService, TokenService>();
 
-//profile service
-builder.Services.AddScoped<IProfileService, ProfileService > ();
+builder.Services.AddScoped<IProfileService, ProfileService>();
 
-//budget service
 builder.Services.AddScoped<IBudgetService, BudgetService>();
 
+
+// =========================
+// Build Application
+// =========================
+
 var app = builder.Build();
+
 
 // =========================
 // Seed Identity
 // =========================
-using (var scope=app.Services.CreateScope())
+
+using (var scope = app.Services.CreateScope())
 {
-    var rolemanager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-    var usermanager = scope.ServiceProvider.GetRequiredService<UserManager<Applicationuser>>();
-    await IdentitySeeder.RoleIsentityAsync(rolemanager, usermanager);
+    var roleManager =
+        scope.ServiceProvider
+            .GetRequiredService<RoleManager<IdentityRole>>();
 
+    var userManager =
+        scope.ServiceProvider
+            .GetRequiredService<UserManager<Applicationuser>>();
+
+    await IdentitySeeder.RoleIsentityAsync(
+        roleManager,
+        userManager
+    );
 }
-// =========================
-// Check JWT Key
-// =========================
 
-Console.WriteLine(
-    $"JWT Key exists: {!string.IsNullOrEmpty(builder.Configuration["jwt:key"])}"
-);
 
 // =========================
-// HTTP Request Pipeline
+// Swagger
+// Development only
 // =========================
 
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
+
     app.UseSwaggerUI();
 }
 
+
+// =========================
+// Middleware
+// =========================
+
+// HTTPS
+app.UseHttpsRedirection();
+
+// Static Files
+app.UseStaticFiles();
+
 // CORS
 app.UseCors("FrontendPolicy");
-
-// HTTPS Redirection
-// Temporarily disabled because we are testing on HTTP localhost
-// app.UseHttpsRedirection();
 
 // Authentication
 app.UseAuthentication();
@@ -154,8 +253,12 @@ app.UseAuthentication();
 // Authorization
 app.UseAuthorization();
 
-app.UseStaticFiles();
-
 // Controllers
 app.MapControllers();
+
+
+// =========================
+// Run
+// =========================
+
 app.Run();

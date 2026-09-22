@@ -32,8 +32,8 @@ form.addEventListener("submit",async function (event) {
     formdata.append("image",image);
 
     }
- const response= await fetch("http://127.0.0.1:5253/api/Category/addCategory",{
-    method:"Post",
+const response = await fetch("https://spendwise-api.runasp.net/api/Expenses/addExpense", {
+        method:"Post",
     headers:{
         "Authorization":`Bearer ${token}`,
     },

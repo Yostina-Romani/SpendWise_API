@@ -3,10 +3,10 @@
 ========================================================= */
 
 const API_URL =
-    "http://127.0.0.1:5253/api/Category/getcategories";
+    "https://spendwise-api.runasp.net/api/Category/getcategories";
 
 const BACKEND_URL =
-    "http://127.0.0.1:5253";
+    "";
 
 
 /* =========================================================
@@ -754,7 +754,7 @@ async function deleteCategory(categoryId) {
 
         const response =
             await fetch(
-                `http://127.0.0.1:5253/api/Category/${categoryId}`,
+                `/api/Category/${categoryId}`,
                 {
                     method: "DELETE",
 

@@ -17,7 +17,7 @@ namespace SpendWise.Services
             _userManager = userManager;
             _webHostEnvironment = webHostEnvironment;
         }
-        public async Task<ProfileDTO> getProfile(string userid)
+        public async Task<ProfileDTO?> getProfile(string userid)
         {
             var user = await _userManager.FindByIdAsync(userid);
             if (user == null)
