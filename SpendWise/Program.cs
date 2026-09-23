@@ -143,7 +143,7 @@ builder.Services
             );
 
         options.CallbackPath =
-            "/api/Auth/google-callback";
+            "https://spendwise-api.runasp.net/api/Auth/google-callback";
     });
 
 
