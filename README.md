@@ -38,7 +38,7 @@ Users can monitor their financial information from a centralized dashboard, incl
 - Total Expenses
 - Current Balance
 - Monthly Budget
-- Budget status
+- Budget Status
 - Recent financial activities
 - Quick actions for common operations
 
@@ -85,7 +85,7 @@ SpendWise supports organizing financial activities using categories such as:
 - Transportation
 - Other
 
-Categories can be managed and organized through the application's administrative functionality.
+Categories can be managed through the application's administrative functionality.
 
 👤 Profile Management
 
@@ -149,20 +149,26 @@ Request Flow
 For example, when a user adds an income:
 
 User
- ↓
+  │
+  ▼
 Frontend
- ↓
-Income API Controller
- ↓
+  │
+  ▼
+Income Controller
+  │
+  ▼
 Income Service
- ↓
+  │
+  ▼
 Income Repository
- ↓
+  │
+  ▼
 Entity Framework Core
- ↓
+  │
+  ▼
 SQL Server
 
-This structure helps keep the application organized and makes the code easier to maintain and extend.
+This structure separates responsibilities and makes the application easier to maintain and extend.
 
 ---
 
@@ -171,17 +177,23 @@ This structure helps keep the application organized and makes the code easier to
 SpendWise uses JWT Bearer Authentication to secure API requests.
 
 User Login
-    ↓
+    │
+    ▼
 ASP.NET Core Identity
-    ↓
+    │
+    ▼
 JWT Token Generated
-    ↓
+    │
+    ▼
 Token Stored on Client
-    ↓
+    │
+    ▼
 Token Sent with API Requests
-    ↓
+    │
+    ▼
 JWT Authentication Middleware
-    ↓
+    │
+    ▼
 Authorized Controller
 
 Protected requests include the JWT token in the HTTP Authorization header:
@@ -196,21 +208,24 @@ The backend uses the authenticated user's identity to make sure financial data b
 
 SpendWise provides a password recovery flow for users who forget their passwords.
 
-The general flow is:
-
 Forgot Password
-       ↓
+       │
+       ▼
 Enter Email
-       ↓
+       │
+       ▼
 Password Reset Request
-       ↓
+       │
+       ▼
 Reset Link / Token
-       ↓
+       │
+       ▼
 Create New Password
-       ↓
+       │
+       ▼
 Password Updated
 
-This allows users to regain access to their accounts without needing administrator intervention.
+This allows users to regain access to their accounts through the password reset process.
 
 ---
 
@@ -231,7 +246,7 @@ The project uses several security mechanisms, including:
 
 Administrative functionality is protected using role-based authorization.
 
-For example:
+Example:
 
 [Authorize(Roles = "Admin")]
 
@@ -278,45 +293,49 @@ Deployment
 
 📂 Project Structure
 
-A simplified structure of the project:
+The project is organized into separate backend and frontend parts.
 
-SpendWise
+Backend
+
+SpendWise_api/
 │
-├── Controllers
+├── Controllers/
 │   ├── AuthController.cs
 │   ├── IncomeController.cs
 │   ├── BudgetController.cs
 │   ├── ProfileController.cs
 │   └── ...
 │
-├── Services
-│   ├── Interfaces
-│   └── Implementations
+├── Services/
+│   ├── Interfaces/
+│   └── Implementations/
 │
-├── Repositories
-│   ├── Interfaces
-│   └── Implementations
+├── Repositories/
+│   ├── Interfaces/
+│   └── Implementations/
 │
-├── Models
+├── Models/
 │
-├── DTOS
+├── DTOS/
 │
-├── Data
+├── Data/
 │   └── ApplicationDbContext.cs
 │
-├── Migrations
+├── Migrations/
 │
-├── Images
+├── Images/
 │
 ├── Program.cs
 │
-└── appsettings.json
-
-The frontend contains separate files for:
+├── appsettings.json
+│
+└── ...
 
 Frontend
+
+Frontend/
 │
-├── HTML
+├── HTML/
 │   ├── Home.html
 │   ├── Login.html
 │   ├── Register.html
@@ -325,16 +344,19 @@ Frontend
 │   ├── AdminDashboard.html
 │   └── ...
 │
-├── CSS
+├── CSS/
+│   ├── home.css
+│   ├── profile.css
+│   └── ...
 │
-├── JS
+├── JS/
 │   ├── config.js
 │   ├── profile.js
 │   ├── income.js
 │   ├── budget.js
 │   └── ...
 │
-└── Images
+└── Images/
 
 ---
 
@@ -353,7 +375,7 @@ The database stores application data related to:
 - User financial information
 - Profile information
 
-Entity Framework Core is used to communicate with the database and manage migrations.
+Entity Framework Core is used to communicate with the database and manage database migrations.
 
 ---
 
@@ -380,11 +402,11 @@ This allows the frontend to communicate with protected backend endpoints while p
 
 1. Clone the Repository
 
-git clone https://github.com/Yostina-Romani/SpendWIse_api_project.git
+git clone https://github.com/Yostina-Romani/SpendWise_api.git
 
 2. Navigate to the Project
 
-cd SpendWIse_api_project
+cd SpendWise_api
 
 3. Restore Dependencies
 
@@ -416,7 +438,7 @@ dotnet build
 
 dotnet run
 
-The API will start locally according to the configured application URL.
+The API will start according to the configured application URL.
 
 8. Run the Frontend
 
@@ -425,31 +447,7 @@ Open the frontend using a local development server such as:
 - Visual Studio Code Live Server
 - Another local HTTP server
 
-Then open the appropriate HTML page from the "HTML" folder.
-
----
-
-🖼️ Screenshots
-
-🏠 Home Page
-
-Add your homepage screenshot here:
-
-![SpendWise Home Page](screenshots/home.png)
-
-📊 User Dashboard
-
-![SpendWise Dashboard](screenshots/dashboard.png)
-
-👤 Profile
-
-![SpendWise Profile](screenshots/profile.png)
-
-🔐 Login
-
-![SpendWise Login](screenshots/login.png)
-
-«You can replace these placeholders with your actual screenshots after adding them to a "screenshots" folder in the repository.»
+Then open the required HTML page from the "HTML" folder.
 
 ---
 
