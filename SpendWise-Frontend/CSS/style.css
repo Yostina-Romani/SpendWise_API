@@ -42,34 +42,7 @@ section {
 }
 
 
-/* =====================================================
-   NAVBAR
-===================================================== */
 
-.spend-navbar {
-    position: relative;
-    z-index: 1000;
-    min-height: 72px;
-}
-
-.spend-navbar .container {
-    min-height: 72px;
-}
-
-.spend-navbar .navbar-brand {
-    color: var(--text);
-    font-size: 20px;
-}
-
-.spend-navbar .nav-link {
-    color: var(--text-soft);
-    font-weight: 600;
-    transition: var(--transition);
-}
-
-.spend-navbar .nav-link:hover {
-    color: var(--primary);
-}
 
 
 /* =====================================================
@@ -1390,13 +1363,14 @@ body {
     font-family: Arial, sans-serif;
 }
 
+
+
 /* =========================
    Login Page
 ========================= */
 
 .login-page {
     min-height: 100vh;
-
     background-image: url("../images/image2.png");
     background-size: cover;
     background-position: center;
@@ -1408,7 +1382,47 @@ body {
     justify-content: center;
     align-items: center;
 
-    padding: 20px;
+    /* مساحة للـ fixed navbar */
+    padding: 110px 20px 40px;
+}
+
+/* Overlay */
+.login-page .overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+}
+
+/* Login Card */
+.login-page .login-card {
+    position: relative;
+    z-index: 2;
+
+    width: 100%;
+    max-width: 430px;
+
+    padding: 40px;
+
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+/* Mobile */
+@media (max-width: 576px) {
+
+    .login-page {
+        padding: 95px 15px 30px;
+    }
+
+    .login-page .login-card {
+        padding: 30px 25px;
+        border-radius: 18px;
+    }
 }
 
 /* =========================
@@ -3041,4 +3055,63 @@ body {
 
     }
 
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+/* =========================
+   Edit Category Image
+========================= */
+
+.current-image-container {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.current-category-image {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 15px;
+    border: 2px solid #e5e7eb;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.image-preview-container {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 15px;
+    background: #f8f9fa;
+    text-align: center;
+}
+
+.preview-title {
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.image-preview {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 15px;
+    border: 2px solid #667eea;
+}
+
+.d-none {
+    display: none !important;
+}
+
+@media (max-width: 576px) {
+
+    .current-category-image,
+    .image-preview {
+        width: 150px;
+        height: 150px;
+    }
 }

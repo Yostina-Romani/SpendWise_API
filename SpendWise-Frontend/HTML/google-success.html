@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Signing in...</title>
+</head>
+
+<body>
+
+    <p>Signing you in...</p>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+
+        const token = params.get("token");
+
+        if (token) {
+
+            localStorage.setItem("token", token);
+
+            window.location.href = "./UserDahboard.html";
+
+        } else {
+
+            alert("Google login failed.");
+
+            window.location.href = "./Login.html";
+        }
+    </script>
+
+</body>
+</html>

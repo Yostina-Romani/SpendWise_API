@@ -319,35 +319,24 @@ function showCategories() {
 ========================================================= */
 
 function getImageUrl(imageUrl) {
-
     if (!imageUrl) {
-
         return null;
-
     }
 
-
+    // If it's already a complete URL
     if (
         imageUrl.startsWith("http://") ||
         imageUrl.startsWith("https://")
     ) {
-
         return imageUrl;
-
     }
 
+    // Remove leading slash
+    imageUrl = imageUrl.replace(/^\/+/, "");
 
-    if (imageUrl.startsWith("/")) {
-
-        return BACKEND_URL + imageUrl;
-
-    }
-
-
-    return BACKEND_URL + "/" + imageUrl;
-
+    // Image is stored on the API server
+    return `https://spendwise-api.runasp.net/${imageUrl}`;
 }
-
 
 /* =========================================================
    LOAD CATEGORIES

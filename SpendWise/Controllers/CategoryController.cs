@@ -57,29 +57,63 @@ namespace SpendWise.Controllers
             });
             
         }
-
-        [Authorize(Roles ="Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
-        public async Task<IActionResult> EditCategory(int id,Categories model)
+        public async Task<IActionResult> EditCategory(
+            int id,
+            [FromForm] Categories model,
+            IFormFile? image)
         {
-            var categor =await _dbcontext.category.FirstOrDefaultAsync(c => c.categoryID ==id);
+            var categor = await _dbcontext.category
+                .FirstOrDefaultAsync(c => c.categoryID == id);
+
             if (categor == null)
             {
                 return NotFound(new
                 {
-                    Message="sorry not found"
+                    message = "Category not found"
                 });
             }
+
+            // Update name and description
             categor.categoryNmae = model.categoryNmae;
             categor.CategoryDescription = model.CategoryDescription;
 
+            // Update image only if a new image was uploaded
+            if (image != null)
+            {
+                var folderPath = Path.Combine(
+                    Directory.GetCurrentDirectory(),
+                    "wwwroot",
+                    "Images",
+                    "categories"
+                );
+
+                if (!Directory.Exists(folderPath))
+                {
+                    Directory.CreateDirectory(folderPath);
+                }
+
+                var fileName = Guid.NewGuid().ToString()
+                                 + Path.GetExtension(image.FileName);
+
+                var filePath = Path.Combine(folderPath, fileName);
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await image.CopyToAsync(stream);
+                }
+
+                categor.imageURL = $"/Images/categories/{fileName}";
+            }
+
             await _dbcontext.SaveChangesAsync();
+
             return Ok(new
             {
-                message = "update successfully"
+                message = "Category updated successfully",
+                imageURL = categor.imageURL
             });
-
-
         }
         [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]

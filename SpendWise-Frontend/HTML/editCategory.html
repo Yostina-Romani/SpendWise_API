@@ -1,74 +1,44 @@
 <!doctype html>
-
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>SpendWise - Edit Category</title>
 
-
     <!-- Bootstrap -->
-
     <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
         rel="stylesheet">
 
-
     <!-- Bootstrap Icons -->
-
     <link
         rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-
     <!-- Custom CSS -->
-
-    <link
-        rel="stylesheet"
-        href="../CSS/theme.css">
-
-    <link
-        rel="stylesheet"
-        href="../CSS/style.css">
-
-    <link
-        rel="stylesheet"
-        href="../CSS/components.css">
-
+    <link rel="stylesheet" href="../CSS/theme.css">
+    <link rel="stylesheet" href="../CSS/style.css">
+    <link rel="stylesheet" href="../CSS/components.css">
 </head>
-
 
 <body>
 
-
     <!-- Navbar -->
-
     <div id="navbar"></div>
 
-
     <!-- Page -->
-
     <main class="container form-page">
 
         <div class="form-card fade-in">
 
-
             <!-- Icon -->
-
             <div class="form-icon">
-
                 <i class="bi bi-pencil-square"></i>
-
             </div>
 
-
             <!-- Title -->
-
             <span class="section-label">
                 CATEGORY MANAGEMENT
             </span>
@@ -81,91 +51,130 @@
                 Update your category information.
             </p>
 
-
             <!-- Form -->
-
             <form id="editCategory">
 
-
                 <!-- Name -->
-
                 <div class="form-group">
-
                     <label for="namecat">
-
                         <i class="bi bi-tag"></i>
-
                         Category Name
-
                     </label>
 
                     <input
                         type="text"
                         id="namecat"
                         class="form-control"
-                        placeholder="Enter category name">
-
+                        placeholder="Enter category name"
+                        required>
                 </div>
 
-
                 <!-- Description -->
-
                 <div class="form-group">
-
                     <label for="catdescription">
-
                         <i class="bi bi-card-text"></i>
-
                         Category Description
-
                     </label>
 
                     <textarea
                         id="catdescription"
                         class="form-control"
                         rows="4"
-                        placeholder="Enter category description"></textarea>
+                        placeholder="Enter category description"
+                        required></textarea>
+                </div>
+
+                <!-- Current Image -->
+                <div class="form-group">
+
+                    <label>
+                        <i class="bi bi-image"></i>
+                        Current Image
+                    </label>
+
+                    <div class="current-image-container">
+                        <img
+                            id="currentImage"
+                            src=""
+                            alt="Current Category Image"
+                            class="current-category-image">
+
+                        <p
+                            id="noCurrentImage"
+                            class="text-muted mt-2 d-none">
+                            No image available
+                        </p>
+                    </div>
 
                 </div>
 
+                <!-- New Image -->
+                <div class="form-group">
+
+                    <label for="categoryImage">
+                        <i class="bi bi-cloud-arrow-up"></i>
+                        Change Image
+                    </label>
+
+                    <input
+                        type="file"
+                        id="categoryImage"
+                        class="form-control"
+                        accept="image/*">
+
+                    <small class="text-muted">
+                        Leave empty if you want to keep the current image.
+                    </small>
+
+                </div>
+
+                <!-- New Image Preview -->
+                <div
+                    id="imagePreviewContainer"
+                    class="image-preview-container d-none">
+
+                    <p class="preview-title">
+                        New Image Preview
+                    </p>
+
+                    <img
+                        id="imagePreview"
+                        src=""
+                        alt="New Image Preview"
+                        class="image-preview">
+
+                </div>
 
                 <!-- Info -->
-
                 <div class="form-info">
 
                     <i class="bi bi-info-circle"></i>
 
                     <div>
-
                         <strong>
                             Keep your categories organized
                         </strong>
 
                         <p>
-                            Update the category name or description,
-                            then save your changes.
+                            Update the category name, description,
+                            or image, then save your changes.
                         </p>
-
                     </div>
 
                 </div>
 
-
                 <!-- Submit -->
-
                 <button
                     type="submit"
-                    class="btn custom-btn w-100 mt-4">
+                    class="btn custom-btn w-100 mt-4"
+                    id="saveButton">
 
                     <i class="bi bi-check2-circle me-2"></i>
-
                     Save Changes
 
                 </button>
 
-
                 <!-- Back -->
-
                 <div class="form-footer">
 
                     <a
@@ -173,13 +182,11 @@
                         class="back-link text-decoration-none">
 
                         <i class="bi bi-arrow-left me-1"></i>
-
                         Back to Categories
 
                     </a>
 
                 </div>
-
 
             </form>
 
@@ -187,24 +194,16 @@
 
     </main>
 
-
     <!-- Footer -->
-
     <div id="footer"></div>
 
-
     <!-- Shared Components -->
-
     <script src="../JS/components.js"></script>
-
     <script src="../JS/theme.js"></script>
     <script src="../JS/config.js"></script>
 
-
     <!-- Page JavaScript -->
-
     <script src="../JS/editCategory.js"></script>
-
 
 </body>
 

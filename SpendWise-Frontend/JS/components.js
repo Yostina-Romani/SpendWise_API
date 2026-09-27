@@ -1,7 +1,12 @@
+// ======================================================
+// SpendWise - Shared Components
+// Navbar + Footer
+// ======================================================
 
-// =====================================================
+
+// ======================================================
 // NAVBAR
-// =====================================================
+// ======================================================
 
 function loadNavbar() {
 
@@ -10,29 +15,28 @@ function loadNavbar() {
     if (!navbar) return;
 
     const token = localStorage.getItem("token");
-
     const isLoggedIn = !!token;
 
     navbar.innerHTML = `
+
         <nav class="navbar navbar-expand-lg spend-navbar">
 
             <div class="container">
 
                 <!-- Brand -->
-                <a class="navbar-brand" href="home.html">
+                <a class="navbar-brand" href="./home.html">
 
                     <span class="brand-icon">
                         <i class="bi bi-wallet2"></i>
                     </span>
 
-                    <span>
+                    <span class="brand-text">
                         SpendWise
                     </span>
 
                 </a>
 
-
-                <!-- Mobile Button -->
+                <!-- Mobile Toggle -->
                 <button
                     class="navbar-toggler"
                     type="button"
@@ -47,120 +51,137 @@ function loadNavbar() {
                 </button>
 
 
-                <!-- Navbar Content -->
-                <div
-                    class="collapse navbar-collapse"
-                    id="spendNavbar">
+                <!-- Navbar -->
+                <div class="collapse navbar-collapse" id="spendNavbar">
 
 
-                    <!-- Links -->
-                    <ul class="navbar-nav mx-auto">
+                    <!-- Main Links -->
+                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
 
                         <li class="nav-item">
-                            <a
-                                class="nav-link active"
-                                href="home.html">
+
+                            <a class="nav-link"
+                               href="./home.html">
+
                                 Home
+
                             </a>
+
                         </li>
 
+
                         <li class="nav-item">
-                            <a
-                                class="nav-link"
-                                href="home.html#about">
+
+                            <a class="nav-link"
+                               href="./home.html#about">
+
                                 About
+
                             </a>
+
                         </li>
 
+
                         <li class="nav-item">
-                            <a
-                                class="nav-link"
-                                href="home.html#features">
+
+                            <a class="nav-link"
+                               href="./home.html#features">
+
                                 Features
+
                             </a>
+
                         </li>
+
 
                         <li class="nav-item">
-                            <a
-                                class="nav-link"
-                                href="home.html#contact">
+
+                            <a class="nav-link"
+                               href="./home.html#contact">
+
                                 Contact
+
                             </a>
+
                         </li>
-
-                        ${
-                            isLoggedIn
-                                ? `
-                                    <li class="nav-item">
-                                        <a
-                                            class="nav-link"
-                                            href="UserDahboard.html">
-                                            Dashboard
-                                        </a>
-                                    </li>
-
-                                    <li class="nav-item">
-                                        <a
-                                            class="nav-link"
-                                            href="Profile.html">
-                                            Profile
-                                        </a>
-                                    </li>
-                                  `
-                                : ""
-                        }
 
                     </ul>
 
 
-                    <!-- Actions -->
-                    <div class="navbar-actions">
-
-                        <!-- Theme -->
-                        <button
-                            type="button"
-                            class="theme-btn"
-                            id="themeToggle"
-                            aria-label="Toggle theme">
-
-                            <i class="bi bi-moon-stars-fill"></i>
-
-                        </button>
+                    <!-- Right Side -->
+                    <div class="d-flex align-items-center gap-2">
 
 
                         ${
                             isLoggedIn
-                                ? `
-                                    <!-- Logout -->
-                                    <button
-                                        type="button"
-                                        class="nav-login-btn"
-                                        id="navbarLogoutBtn">
 
-                                        Logout
+                            ?
 
-                                    </button>
-                                  `
-                                : `
-                                    <!-- Login -->
-                                    <a
-                                        href="login.html"
-                                        class="nav-login-btn">
+                            `
 
-                                        Login
+                            <!-- Profile -->
+                            <a
+                                href="./Profile.html"
+                                class="nav-link profile-link">
 
-                                    </a>
+                                <i class="bi bi-person-circle me-1"></i>
+
+                                Profile
+
+                            </a>
 
 
-                                    <!-- Register -->
-                                    <a
-                                        href="register.html"
-                                        class="nav-register-btn">
+                            <!-- Dashboard -->
+                            <a
+                                href="./UserDahboard.html"
+                                class="btn btn-primary navbar-dashboard-btn">
 
-                                        Register
+                                <i class="bi bi-speedometer2 me-1"></i>
 
-                                    </a>
-                                  `
+                                Dashboard
+
+                            </a>
+
+
+                            <!-- Logout -->
+                            <button
+                                type="button"
+                                id="logoutBtn"
+                                class="btn btn-outline-danger">
+
+                                <i class="bi bi-box-arrow-right me-1"></i>
+
+                                Logout
+
+                            </button>
+
+                            `
+
+                            :
+
+                            `
+
+                            <!-- Login -->
+                            <a
+                                href="./Login.html"
+                                class="btn btn-outline-primary">
+
+                                Login
+
+                            </a>
+
+
+                            <!-- Register -->
+                            <a
+                                href="./Register.html"
+                                class="btn btn-primary">
+
+                                Register
+
+                            </a>
+
+                            `
+
                         }
 
                     </div>
@@ -170,68 +191,339 @@ function loadNavbar() {
             </div>
 
         </nav>
+
     `;
 
 
-    // =====================================================
+    // ==================================================
     // LOGOUT
-    // =====================================================
+    // ==================================================
 
-    const logoutBtn =
-        document.getElementById("navbarLogoutBtn");
+    const logoutBtn = document.getElementById("logoutBtn");
 
     if (logoutBtn) {
 
-        logoutBtn.addEventListener("click", () => {
+        logoutBtn.addEventListener("click", function () {
 
+            // Remove authentication data
             localStorage.removeItem("token");
 
-            window.location.href = "login.html";
+            // Remove stored user data if exists
+            localStorage.removeItem("user");
+
+            // Redirect to login
+            window.location.href = "./Login.html";
 
         });
 
     }
+
 }
 
 
-// =====================================================
+// ======================================================
 // FOOTER
-// =====================================================
+// ======================================================
 
 function loadFooter() {
 
-    const footer =
-        document.getElementById("footer");
+    const footer = document.getElementById("footer");
 
     if (!footer) return;
 
+
     footer.innerHTML = `
-        <footer class="py-4 mt-5">
 
-            <div class="container text-center">
+        <footer class="spend-footer">
 
-                <p class="mb-0">
-                    © 2026 SpendWise
-                </p>
+            <div class="container">
 
-                <small>
-                    Smart expense management made simple.
-                </small>
+                <div class="row gy-4">
+
+
+                    <!-- Brand -->
+                    <div class="col-lg-5 col-md-6">
+
+                        <a
+                            href="./home.html"
+                            class="footer-brand">
+
+                            <i class="bi bi-wallet2"></i>
+
+                            SpendWise
+
+                        </a>
+
+
+                        <p class="footer-description">
+
+                            Take control of your money,
+                            track your expenses,
+                            manage your budget,
+                            and build better financial habits.
+
+                        </p>
+
+
+                        <div class="footer-socials">
+
+                            <a href="#" aria-label="Facebook">
+
+                                <i class="bi bi-facebook"></i>
+
+                            </a>
+
+
+                            <a href="#" aria-label="Instagram">
+
+                                <i class="bi bi-instagram"></i>
+
+                            </a>
+
+
+                            <a href="#" aria-label="LinkedIn">
+
+                                <i class="bi bi-linkedin"></i>
+
+                            </a>
+
+
+                            <a href="#" aria-label="GitHub">
+
+                                <i class="bi bi-github"></i>
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Quick Links -->
+                    <div class="col-lg-2 col-md-6">
+
+                        <h5>Quick Links</h5>
+
+                        <ul>
+
+                            <li>
+                                <a href="./home.html">
+                                    Home
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="./home.html#about">
+                                    About
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="./home.html#features">
+                                    Features
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="./home.html#contact">
+                                    Contact
+                                </a>
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+
+                    <!-- Account -->
+                    <div class="col-lg-2 col-md-6">
+
+                        <h5>Account</h5>
+
+                        <ul>
+
+                            ${
+                                isUserLoggedIn()
+
+                                ?
+
+                                `
+
+                                <li>
+                                    <a href="./Profile.html">
+                                        Profile
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="./UserDahboard.html">
+                                        Dashboard
+                                    </a>
+                                </li>
+
+                                `
+
+                                :
+
+                                `
+
+                                <li>
+                                    <a href="./Login.html">
+                                        Login
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="./Register.html">
+                                        Register
+                                    </a>
+                                </li>
+
+                                `
+
+                            }
+
+                        </ul>
+
+                    </div>
+
+
+                    <!-- Contact -->
+                    <div class="col-lg-3 col-md-6">
+
+                        <h5>Contact</h5>
+
+                        <ul>
+
+                            <li>
+
+                                <i class="bi bi-envelope me-2"></i>
+
+                                support@spendwise.com
+
+                            </li>
+
+                            <li>
+
+                                <i class="bi bi-globe me-2"></i>
+
+                                SpendWise
+
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Bottom -->
+                <div class="footer-bottom">
+
+                    <p>
+
+                        © ${new Date().getFullYear()}
+                        SpendWise.
+                        All rights reserved.
+
+                    </p>
+
+                    <p>
+
+                        Built with ❤️ for smarter money management.
+
+                    </p>
+
+                </div>
 
             </div>
 
         </footer>
+
     `;
+
 }
 
 
-// =====================================================
-// INITIALIZE
-// =====================================================
+// ======================================================
+// CHECK LOGIN
+// ======================================================
 
-document.addEventListener("DOMContentLoaded", () => {
+function isUserLoggedIn() {
 
-    loadNavbar();
-    loadFooter();
+    const token = localStorage.getItem("token");
 
-});
+    return !!token;
+
+}
+
+
+// ======================================================
+// ACTIVE NAVBAR LINK
+// ======================================================
+
+function setActiveNavbarLink() {
+
+    const currentPage =
+        window.location.pathname
+            .split("/")
+            .pop()
+            .toLowerCase();
+
+
+    const navLinks =
+        document.querySelectorAll(".spend-navbar .nav-link");
+
+
+    navLinks.forEach(link => {
+
+        const href =
+            link.getAttribute("href");
+
+        if (!href) return;
+
+
+        const linkPage =
+            href
+                .split("/")
+                .pop()
+                .split("#")[0]
+                .toLowerCase();
+
+
+        if (
+            linkPage &&
+            linkPage === currentPage
+        ) {
+
+            link.classList.add("active");
+
+        }
+
+    });
+
+}
+
+
+// ======================================================
+// INITIALIZE COMPONENTS
+// ======================================================
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        // Load Navbar
+        loadNavbar();
+
+
+        // Load Footer
+        loadFooter();
+
+
+        // Active link
+        setActiveNavbarLink();
+
+    }
+);

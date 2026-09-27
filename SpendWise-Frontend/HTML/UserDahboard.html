@@ -52,7 +52,7 @@
                 Home
             </a>
 
-            <a href="./UserDashboard.html" class="active-link">
+            <a href="./UserDahboard.html" class="active-link">
                 Dashboard
             </a>
 
@@ -106,7 +106,7 @@
             Home
         </a>
 
-        <a href="./UserDashboard.html">
+        <a href="./UserDahboard.html">
             Dashboard
         </a>
 
@@ -139,6 +139,92 @@
     </div>
 
 </nav>
+
+
+
+
+
+        <!-- ==================== SIDEBAR ==================== -->
+        <aside class="dashboard-sidebar" id="dashboardSidebar">
+
+            <!-- Sidebar Brand -->
+            <div class="sidebar-brand">
+                <div class="sidebar-brand-icon">
+                    <i class="bi bi-wallet2"></i>
+                </div>
+
+                <div>
+                    <strong>SpendWise</strong>
+                    <span>Financial Manager</span>
+                </div>
+            </div>
+
+            <!-- Sidebar Navigation -->
+            <nav class="sidebar-nav">
+
+                <p class="sidebar-section-title">
+                    MAIN
+                </p>
+
+                <!-- Dashboard -->
+                <a href="./UserDahboard.html" class="sidebar-link active">
+                    <i class="bi bi-grid-1x2-fill"></i>
+                    <span>Dashboard</span>
+                </a>
+
+                <!-- Expenses -->
+                <a href="./expenses.html" class="sidebar-link">
+                    <i class="bi bi-arrow-up-right-circle"></i>
+                    <span>Expenses</span>
+                </a>
+
+
+
+                <p class="sidebar-section-title">
+                    ACCOUNT
+                </p>
+
+                <!-- Profile -->
+                <a href="./Profile.html" class="sidebar-link">
+                    <i class="bi bi-person-circle"></i>
+                    <span>Profile</span>
+                </a>
+
+                <!-- Admin Dashboard -->
+                <a
+                    href="./DashBoard.html"
+                    class="sidebar-link admin-link"
+                    id="adminDashboardLink"
+                    style="display: none;">
+
+                    <i class="bi bi-shield-lock"></i>
+                    <span>Admin Dashboard</span>
+                </a>
+
+            </nav>
+
+            <!-- Sidebar Bottom -->
+            <div class="sidebar-bottom">
+
+                <button
+                    type="button"
+                    class="sidebar-link sidebar-logout"
+                    id="sidebarLogoutBtn">
+
+                    <i class="bi bi-box-arrow-right"></i>
+                    <span>Logout</span>
+
+                </button>
+
+            </div>
+
+        </aside>
+
+        <!-- Mobile Sidebar Overlay -->
+        <div
+            class="sidebar-overlay"
+            id="sidebarOverlay">
+        </div>
 
 
 <!-- ==================== DASHBOARD ==================== -->
@@ -554,7 +640,7 @@
 
 
         <a
-            href="./AddIncome.html"
+           href="./Profile.html#add-income-section" 
             class="quick-action">
 
             <div class="quick-action-icon income-action-icon">

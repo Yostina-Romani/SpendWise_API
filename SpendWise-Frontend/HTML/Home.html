@@ -25,6 +25,7 @@
     >
 
     <!-- Project CSS -->
+     
     <link rel="stylesheet" href="../CSS/theme.css">
     <link rel="stylesheet" href="../CSS/style.css">
     <link rel="stylesheet" href="../CSS/components.css">
@@ -38,67 +39,65 @@
     ========================== -->
     <div id="navbar"> </div>
 
+<main>
 
     <!-- =========================
          HERO
     ========================== -->
-    <main>
+    <section class="home-hero">
 
-        <section class="home-hero">
+        <div class="container">
 
-            <div class="container">
+            <div class="row align-items-center g-5">
 
-                <div class="row align-items-center g-5">
+                <!-- Hero Content -->
+                <div class="col-lg-6">
 
-                    <!-- Hero Content -->
-                    <div class="col-lg-6">
+                    <span class="hero-badge">
+                        <i class="bi bi-stars"></i>
+                        Smart Expense Management
+                    </span>
 
-                        <span class="hero-badge">
-                            <i class="bi bi-stars"></i>
-                            Smart Expense Management
-                        </span>
+                    <h1 class="hero-title">
+                        Take control of
+                        <span>your money.</span>
+                    </h1>
 
-                        <h1 class="hero-title">
-                            Take control of
-                            <span>your money.</span>
-                        </h1>
+                    <p class="hero-description">
+                        SpendWise helps you track your expenses,
+                        organize your spending, and understand
+                        your financial habits easily.
+                    </p>
 
-                        <p class="hero-description">
-                            SpendWise helps you track your expenses,
-                            organize your spending, and understand
-                            your financial habits easily.
-                        </p>
+                    <!-- Auth Buttons -->
+                    <div class="hero-actions" id="authButtons">
 
-                        <div class="hero-actions">
+                        <a href="register.html"
+                           class="hero-primary-btn">
+                            Get Started
+                            <i class="bi bi-arrow-right"></i>
+                        </a>
 
-                            <a href="register.html"
-                               class="hero-primary-btn">
-                                Get Started
-                                <i class="bi bi-arrow-right"></i>
-                            </a>
-
-                            <a href="login.html"
-                               class="hero-secondary-btn">
-                                Login
-                            </a>
-
-                        </div>
+                        <a href="login.html"
+                           class="hero-secondary-btn">
+                            Login
+                        </a>
 
                     </div>
 
+                </div>
 
-                    <!-- Hero Image -->
-                    <div class="col-lg-6">
 
-                        <div class="hero-image-wrapper">
+                <!-- Hero Image -->
+                <div class="col-lg-6">
 
-                            <img
-                                src="../images/image5.png"
-                                alt="SpendWise Finance Management"
-                                class="hero-image"
-                            >
+                    <div class="hero-image-wrapper">
 
-                        </div>
+                        <img
+                            src="../images/image5.png"
+                            alt="SpendWise Finance Management"
+                            class="hero-image"
+                        >
 
                     </div>
 
@@ -106,14 +105,16 @@
 
             </div>
 
-        </section>
+        </div>
+
+    </section>
 
 
+    <!-- =========================
+         ABOUT
+    ========================== -->
 
-        <!-- =========================
-             ABOUT
-        ========================== -->
-        <section class="about-section section-space">
+    <section class="about-section section-space" id="about">
 
             <div class="container">
 
@@ -384,7 +385,7 @@
         <!-- =========================
              CONTACT
         ========================== -->
-        <section class="contact-section section-space">
+        <section class="contact-section section-space" id="contact">
 
             <div class="container">
 
@@ -488,10 +489,35 @@
     <!-- =========================
          SCRIPTS
     ========================== -->
-    <script src="../JS/config.js"></script>
+  <script src="../JS/config.js"></script>
+<script src="../JS/theme.js"></script>
 
-    <script src="../JS/components.js"></script>
-    <script src="../JS/theme.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
+<script src="../JS/components.js"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const authButtons =
+            document.getElementById("authButtons");
+
+        if (!authButtons) {
+            return;
+        }
+
+        const token =
+            localStorage.getItem("token");
+
+        if (token) {
+            // User is logged in
+            authButtons.classList.add("d-none");
+        } else {
+            // User is not logged in
+            authButtons.classList.remove("d-none");
+        }
+
+    });
+</script>
 </body>
 </html>

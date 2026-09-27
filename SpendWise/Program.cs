@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using SpendWise.Data;
 using SpendWise.Models;
+using SpendWise.Repositories;
 using SpendWise.Services;
 using SpendWise.Services.Interfaces;
 using System.Text;
@@ -143,7 +144,7 @@ builder.Services
             );
 
         options.CallbackPath =
-            "https://spendwise-api.runasp.net/api/Auth/google-callback";
+            "/api/Auth/google-callback";
     });
 
 
@@ -191,6 +192,8 @@ builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IProfileService, ProfileService>();
 
 builder.Services.AddScoped<IBudgetService, BudgetService>();
+builder.Services.AddScoped<Iincomeservice, Incomeservice>();
+builder.Services.AddScoped<IincomeRepository, IncomeRepository>();
 
 
 // =========================

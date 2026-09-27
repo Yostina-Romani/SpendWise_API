@@ -23,7 +23,7 @@ namespace SpendWise.Controllers
         private readonly SignInManager<Applicationuser> _signmanager;
         private readonly ITokenService _tokenservise;
 
-        public AuthController(ITokenService tokenService,SignInManager<Applicationuser> signInManager,UserManager<Applicationuser> userManager, IConfiguration iconfiguration, IEmailservice emailservice)
+        public AuthController(ITokenService tokenService, SignInManager<Applicationuser> signInManager, UserManager<Applicationuser> userManager, IConfiguration iconfiguration, IEmailservice emailservice)
         {
             _usermanager = userManager;
             _iconfiguration = iconfiguration;
@@ -31,7 +31,14 @@ namespace SpendWise.Controllers
             _signmanager = signInManager;
             _tokenservise = tokenService;
         }
-
+        [HttpGet("test")]
+        public IActionResult Test()
+        {
+            return Ok(new
+            {
+                message = "API is working"
+            });
+        }
         [HttpPost("register")]
         public async Task<IActionResult> Register(RegisterDTO model)
         {
@@ -63,7 +70,8 @@ namespace SpendWise.Controllers
         public async Task<IActionResult> Login(LoginDTO model)
         {
             var user = await _usermanager.FindByEmailAsync(model.email);
-            if (user == null) {
+            if (user == null)
+            {
                 return Unauthorized("invalid email or password");
             }
 
@@ -72,12 +80,13 @@ namespace SpendWise.Controllers
             {
                 return Unauthorized("invalid email or password");
             }
-           
 
-            var jwttoken =await _tokenservise.GenerateTokenAsync( user);
+
+            var jwttoken = await _tokenservise.GenerateTokenAsync(user);
 
             return Ok(new
-            { token = jwttoken
+            {
+                token = jwttoken
             });
         }
         [HttpPost("forgetPassword")]
@@ -94,8 +103,9 @@ namespace SpendWise.Controllers
             var token = await _usermanager.GeneratePasswordResetTokenAsync(user);
             var encodedToken = Uri.EscapeDataString(token);
             var encodedEmail = Uri.EscapeDataString(model.email);
+            var frontendUrl = _iconfiguration["Frontend:Url"];
 
-            var resetLink = $"http://127.0.0.1:5500/HTML/ResetPassword.html?email={encodedEmail}&token={encodedToken}";
+            var resetLink = $"{frontendUrl}/HTML/ResetPassword.html?email={encodedEmail}&token={encodedToken}";
             var emailDody = $@"
 
         <h2>Reset Your SpendWise Password</h2>
@@ -155,11 +165,12 @@ namespace SpendWise.Controllers
 
 
         [HttpGet("google-success")]
-        public async Task<IActionResult> googleSuccess(){
+        public async Task<IActionResult> googleSuccess()
+        {
 
             var info = await _signmanager.GetExternalLoginInfoAsync();
 
-            if(info == null)
+            if (info == null)
             {
                 return Unauthorized("Google authentication failed.");
             }
@@ -172,10 +183,10 @@ namespace SpendWise.Controllers
 
             }
 
-            var user = await _usermanager.FindByLoginAsync(info.LoginProvider,info.ProviderKey);
+            var user = await _usermanager.FindByLoginAsync(info.LoginProvider, info.ProviderKey);
             if (user == null)
             {
-                 user = await _usermanager.FindByEmailAsync(email);
+                user = await _usermanager.FindByEmailAsync(email);
                 if (user == null)
                 {
                     user = new Applicationuser()
@@ -185,7 +196,7 @@ namespace SpendWise.Controllers
                         UserName = email
                     };
 
-                    var createResult=await _usermanager.CreateAsync(user);
+                    var createResult = await _usermanager.CreateAsync(user);
                     if (!createResult.Succeeded)
                     {
                         return BadRequest(createResult.Errors);
@@ -209,10 +220,11 @@ namespace SpendWise.Controllers
             }
             var jwttoken = await _tokenservise.GenerateTokenAsync(user);
 
-            return Ok(new
-            {
-                token = jwttoken
-            });
+            var frontendUrl = _iconfiguration["Frontend:Url"];
+
+            return Redirect(
+                $"{frontendUrl}/HTML/google-success.html?token={Uri.EscapeDataString(jwttoken)}"
+            );
 
 
         }

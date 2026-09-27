@@ -1,86 +1,192 @@
 /* =====================================================
    NAVBAR
 ===================================================== */
-
 .spend-navbar {
-    position: sticky;
+    position: fixed !important;
     top: 0;
-    z-index: 1000;
+    left: 0;
+    right: 0;
+    z-index: 9999;
 
     width: 100%;
+    min-height: 72px;
 
     background: rgba(255, 255, 255, 0.90);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
 
     border-bottom: 1px solid var(--border);
-
     box-shadow: 0 4px 20px rgba(15, 23, 42, 0.05);
-
-    transition:
-        background 0.3s ease,
-        box-shadow 0.3s ease;
 }
 
 [data-theme="dark"] .spend-navbar {
     background: rgba(31, 41, 55, 0.92);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* =====================================================
+   SPENDWISE PREMIUM NAVBAR BRAND
+===================================================== */
+
+.spend-navbar .navbar-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 11px;
+
+    text-decoration: none;
+    line-height: 1;
+
+    font-size: 1.3rem;
+    font-weight: 800;
+    letter-spacing: -0.6px;
+
+    transition: transform 0.3s ease;
 }
 
 
 /* =====================================================
-   NAVBAR BRAND
+   BRAND TEXT
 ===================================================== */
 
-.spend-navbar .navbar-brand {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+.spend-navbar .navbar-brand .brand-text {
+    background: linear-gradient(
+        135deg,
+        #6366f1 0%,
+        #8b5cf6 45%,
+        #ec4899 100%
+    );
 
-    color: var(--text) !important;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 
-    font-size: 1.25rem;
-    font-weight: 800;
-
-    text-decoration: none;
-
-    letter-spacing: -0.3px;
-
-    transition: 0.3s ease;
-}
-
-.spend-navbar .navbar-brand:hover {
-    color: var(--text) !important;
+    transition:
+        filter 0.3s ease,
+        transform 0.3s ease;
 }
 
 
-/* Logo Icon */
+/* =====================================================
+   BRAND ICON
+===================================================== */
 
 .spend-navbar .brand-icon {
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
 
     display: inline-flex;
     align-items: center;
     justify-content: center;
 
-    border-radius: 12px;
+    flex-shrink: 0;
 
-    color: white;
+    position: relative;
 
-    background: var(--primary-gradient);
+    border-radius: 14px;
+
+    color: #ffffff;
+
+    background: linear-gradient(
+        135deg,
+        #6366f1 0%,
+        #7c3aed 45%,
+        #ec4899 100%
+    );
 
     box-shadow:
-        0 8px 20px rgba(99, 102, 241, 0.25);
+        0 8px 20px rgba(99, 102, 241, 0.28);
 
-    transition: 0.3s ease;
+    overflow: hidden;
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+
+/* =====================================================
+   ICON
+===================================================== */
+
+.spend-navbar .brand-icon i {
+    position: relative;
+    z-index: 2;
+
+    font-size: 1.3rem;
+    line-height: 1;
+
+    filter: drop-shadow(
+        0 2px 3px rgba(0, 0, 0, 0.15)
+    );
+}
+
+
+/* =====================================================
+   LIGHT SHINE
+===================================================== */
+
+.spend-navbar .brand-icon::before {
+    content: "";
+
+    position: absolute;
+
+    width: 70px;
+    height: 70px;
+
+    top: -42px;
+    right: -28px;
+
+    background: rgba(255, 255, 255, 0.22);
+
+    border-radius: 50%;
+
+    filter: blur(2px);
+
+    transition:
+        transform 0.4s ease;
+}
+
+
+/* =====================================================
+   HOVER
+===================================================== */
+
+.spend-navbar .navbar-brand:hover {
+    transform: translateY(-1px);
 }
 
 .spend-navbar .navbar-brand:hover .brand-icon {
-    transform: translateY(-2px) rotate(-3deg);
+    transform: translateY(-2px) rotate(-3deg) scale(1.05);
 
     box-shadow:
-        0 12px 25px rgba(99, 102, 241, 0.32);
+        0 12px 28px rgba(99, 102, 241, 0.38),
+        0 0 18px rgba(236, 72, 153, 0.16);
+}
+
+.spend-navbar .navbar-brand:hover .brand-icon::before {
+    transform: translate(-8px, 8px);
+}
+
+.spend-navbar .navbar-brand:hover .brand-text {
+    filter:
+        drop-shadow(
+            0 3px 8px rgba(99, 102, 241, 0.18)
+        );
+}
+
+
+/* =====================================================
+   DARK MODE
+===================================================== */
+
+[data-theme="dark"] .spend-navbar .brand-icon {
+    box-shadow:
+        0 8px 22px rgba(99, 102, 241, 0.35);
+}
+
+[data-theme="dark"] .spend-navbar .navbar-brand:hover .brand-icon {
+    box-shadow:
+        0 12px 30px rgba(99, 102, 241, 0.45),
+        0 0 20px rgba(236, 72, 153, 0.20);
 }
 
 
@@ -1278,13 +1384,14 @@ input[type="file"].form-control {
 ===================================================== */
 
 .register-wrapper {
+    width: 100%;
     min-height: 100vh;
-
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
 
-    padding: 40px 25px;
+    /* Space for fixed navbar */
+    padding: 110px 25px 40px;
 }
 
 
@@ -1805,7 +1912,7 @@ input[type="file"].form-control {
 @media (max-width: 576px) {
 
     .register-wrapper {
-        padding: 20px 12px;
+        padding: 95px 12px 25px;
     }
 
     .register-card {

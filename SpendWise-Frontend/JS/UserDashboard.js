@@ -1,632 +1,973 @@
 document.addEventListener("DOMContentLoaded", () => {
 
+    const API_URL = "https://spendwise-api.runasp.net/api/UserDashboard";
+    const API_BASE_URL = "https://spendwise-api.runasp.net";
 
-const API_URL = "https://spendwise-api.runasp.net/api/UserDashboard";
+    const token = localStorage.getItem("token");
 
-const token = localStorage.getItem("token");
+    let categoryChart = null;
 
-let categoryChart = null;
+    // =========================
+    // Authentication
+    // =========================
 
-
-/* =========================================
-   CHECK LOGIN
-========================================= */
-
-if (!token) {
-
-    window.location.href = "./Login.html";
-
-    return;
-}
-
-
-/* =========================================
-   DOM ELEMENTS
-========================================= */
-
-const userName = document.getElementById("userName");
-
-const totalBalance = document.getElementById("totalBalance");
-const totalIncome = document.getElementById("totalIncome");
-const totalExpenses = document.getElementById("totalExpenses");
-const monthlyBudget = document.getElementById("monthlyBudget");
-
-const monthlyExpense = document.getElementById("monthlyExpense");
-const remainingBudget = document.getElementById("remainingBudget");
-
-const budgetProgress = document.getElementById("budgetProgress");
-const budgetPercentage = document.getElementById("budgetPercentage");
-const budgetMessage = document.getElementById("budgetMessage");
-
-const categoryList = document.getElementById("categoryList");
-const recentExpenses = document.getElementById("recentExpenses");
-
-const currentMonth = document.getElementById("currentMonth");
-
-
-/* =========================================
-   FORMAT MONEY
-========================================= */
-
-function formatMoney(amount) {
-
-    const number = Number(amount) || 0;
-
-    return `${number.toLocaleString("en-EG", {
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 2
-    })} EGP`;
-}
-
-
-/* =========================================
-   FORMAT DATE
-========================================= */
-
-function formatDate(dateValue) {
-
-    if (!dateValue) {
-        return "Unknown date";
+    if (!token) {
+        window.location.href = "./Login.html";
+        return;
     }
 
-    const date = new Date(dateValue);
+    // =========================
+    // DOM Elements
+    // =========================
 
-    if (Number.isNaN(date.getTime())) {
-        return "Unknown date";
+    const userName = document.getElementById("userName");
+
+    const totalBalance = document.getElementById("totalBalance");
+    const totalIncome = document.getElementById("totalIncome");
+    const totalExpenses = document.getElementById("totalExpenses");
+
+    const monthlyBudget = document.getElementById("monthlyBudget");
+    const monthlyExpense = document.getElementById("monthlyExpense");
+    const remainingBudget = document.getElementById("remainingBudget");
+
+    const budgetProgress = document.getElementById("budgetProgress");
+    const budgetPercentage = document.getElementById("budgetPercentage");
+    const budgetMessage = document.getElementById("budgetMessage");
+
+    const categoryList = document.getElementById("categoryList");
+    const recentExpenses = document.getElementById("recentExpenses");
+
+    const currentMonth = document.getElementById("currentMonth");
+
+
+    // =========================
+    // Format Money
+    // =========================
+
+    function formatMoney(amount) {
+
+        const number = Number(amount) || 0;
+
+        return `${number.toLocaleString("en-EG", {
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 2
+        })} EGP`;
     }
 
-    return date.toLocaleDateString("en-EG", {
-        day: "2-digit",
-        month: "short",
-        year: "numeric"
-    });
-}
+
+    // =========================
+    // Format Date
+    // =========================
+
+    function formatDate(dateValue) {
+
+        if (!dateValue) {
+            return "Unknown date";
+        }
+
+        const date = new Date(dateValue);
+
+        if (Number.isNaN(date.getTime())) {
+            return "Unknown date";
+        }
+
+        return date.toLocaleDateString("en-EG", {
+            day: "2-digit",
+            month: "short",
+            year: "numeric"
+        });
+    }
 
 
-/* =========================================
-   CURRENT MONTH
-========================================= */
+    // =========================
+    // Display Current Month
+    // =========================
 
-function displayCurrentMonth() {
+    function displayCurrentMonth() {
 
-    const now = new Date();
+        if (!currentMonth) {
+            return;
+        }
 
-    currentMonth.textContent = now.toLocaleDateString(
-        "en-EG",
-        {
+        const now = new Date();
+
+        currentMonth.textContent = now.toLocaleDateString("en-EG", {
             month: "long",
             year: "numeric"
+        });
+    }
+
+
+    // =========================
+    // Convert Image URL
+    // =========================
+
+    function getImageUrl(imageUrl) {
+
+        if (!imageUrl) {
+            return null;
         }
-    );
-}
+
+        imageUrl = String(imageUrl).trim();
+
+        if (!imageUrl) {
+            return null;
+        }
+
+        // Already a complete URL
+        if (
+            imageUrl.startsWith("http://") ||
+            imageUrl.startsWith("https://")
+        ) {
+            return imageUrl;
+        }
+
+        // Relative URL from API
+        if (imageUrl.startsWith("/")) {
+            return `${API_BASE_URL}${imageUrl}`;
+        }
+
+        // Relative URL without /
+        return `${API_BASE_URL}/${imageUrl}`;
+    }
 
 
-/* =========================================
-   LOAD DASHBOARD
-========================================= */
+    // =========================
+    // Load Dashboard
+    // =========================
 
-async function loadDashboard() {
+    async function loadDashboard() {
 
-    try {
+        try {
 
-        const response = await fetch(API_URL, {
+            const response = await fetch(API_URL, {
+                method: "GET",
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                    "Content-Type": "application/json"
+                }
+            });
 
-            method: "GET",
 
-            headers: {
-                "Authorization": `Bearer ${token}`,
-                "Content-Type": "application/json"
+            // Unauthorized
+            if (response.status === 401) {
+
+                localStorage.removeItem("token");
+
+                window.location.href = "./Login.html";
+
+                return;
             }
 
-        });
+
+            // Other errors
+            if (!response.ok) {
+
+                throw new Error(
+                    `Request failed with status ${response.status}`
+                );
+            }
 
 
-        /* =========================
-           UNAUTHORIZED
-        ========================= */
+            const data = await response.json();
 
-        if (response.status === 401) {
+            console.log("Dashboard Data:", data);
 
-            localStorage.removeItem("token");
+            console.log(
+                "Category Breakdown:",
+                data.categoryBreakdown
+            );
 
-            window.location.href = "./Login.html";
+
+            updateUser(data.user);
+
+            updateSummary(data.summary);
+
+            updateBudget(data.budget);
+
+            updateCategories(data.categoryBreakdown);
+
+            updateRecentExpenses(data.recentExpenses);
+
+        }
+        catch (error) {
+
+            console.error(
+                "Dashboard Error:",
+                error
+            );
+
+            showDashboardError();
+        }
+    }
+
+
+    // =========================
+    // Update User
+    // =========================
+
+    function updateUser(user) {
+
+        if (!user) {
+            return;
+        }
+
+        if (userName) {
+            userName.textContent =
+                user.name || "User";
+        }
+    }
+
+
+    // =========================
+    // Update Summary
+    // =========================
+
+    function updateSummary(summary) {
+
+        if (!summary) {
+            return;
+        }
+
+        if (totalBalance) {
+            totalBalance.textContent =
+                formatMoney(summary.balance);
+        }
+
+        if (totalIncome) {
+            totalIncome.textContent =
+                formatMoney(summary.totalIncome);
+        }
+
+        if (totalExpenses) {
+            totalExpenses.textContent =
+                formatMoney(summary.totalExpenses);
+        }
+    }
+
+
+    // =========================
+    // Update Budget
+    // =========================
+
+    function updateBudget(budget) {
+
+        if (!budget) {
+
+            if (monthlyBudget) {
+                monthlyBudget.textContent = "0";
+            }
+
+            if (monthlyExpense) {
+                monthlyExpense.textContent = "0";
+            }
+
+            if (remainingBudget) {
+                remainingBudget.textContent = "0";
+            }
+
+            if (budgetPercentage) {
+                budgetPercentage.textContent = "0%";
+            }
+
+            if (budgetProgress) {
+                budgetProgress.style.width = "0%";
+            }
+
+            if (budgetMessage) {
+                budgetMessage.textContent =
+                    "No budget set for this month.";
+            }
 
             return;
         }
 
 
-        /* =========================
-           OTHER ERRORS
-        ========================= */
+        const budgetAmount =
+            Number(budget.monthlyBudget) || 0;
 
-        if (!response.ok) {
+        const expenseAmount =
+            Number(budget.monthlyExpense) || 0;
 
-            throw new Error(
-                `Request failed with status ${response.status}`
-            );
+
+        const remaining =
+            budgetAmount - expenseAmount;
+
+
+        const percentage =
+            budgetAmount > 0
+                ? Math.max(
+                    0,
+                    Math.min(
+                        100,
+                        (remaining / budgetAmount) * 100
+                    )
+                )
+                : 0;
+
+
+        if (monthlyBudget) {
+
+            monthlyBudget.textContent =
+                budgetAmount.toFixed(2);
         }
 
 
-        /* =========================
-           JSON
-        ========================= */
+        if (monthlyExpense) {
 
-        const data = await response.json();
-
-        console.log("Dashboard Data:", data);
+            monthlyExpense.textContent =
+                expenseAmount.toFixed(2);
+        }
 
 
-        /* =========================
-           UPDATE UI
-        ========================= */
+        if (remainingBudget) {
 
-        updateUser(data.user);
-
-        updateSummary(data.summary);
-
-        updateBudget(data.budget);
-
-        updateCategories(data.categoryBreakdown);
-
-        updateRecentExpenses(data.recentExpenses);
-
-    }
-    catch (error) {
-
-        console.error(
-            "Dashboard Error:",
-            error
-        );
-
-        showDashboardError();
-    }
-}
+            remainingBudget.textContent =
+                remaining.toFixed(2);
+        }
 
 
-/* =========================================
-   USER
-========================================= */
+        if (budgetPercentage) {
 
-function updateUser(user) {
-
-    if (!user) {
-        return;
-    }
-
-    userName.textContent = user.name || "User";
-}
+            budgetPercentage.textContent =
+                `${percentage.toFixed(0)}%`;
+        }
 
 
-/* =========================================
-   SUMMARY
-========================================= */
+        if (budgetProgress) {
 
-function updateSummary(summary) {
-
-    if (!summary) {
-        return;
-    }
-
-    totalBalance.textContent =
-        formatMoney(summary.balance);
-
-    totalIncome.textContent =
-        formatMoney(summary.totalIncome);
-
-    totalExpenses.textContent =
-        formatMoney(summary.totalExpenses);
-}
+            budgetProgress.style.width =
+                `${percentage}%`;
+        }
 
 
-/* =========================================
-   BUDGET
-========================================= */
+        if (budgetMessage) {
 
-function updateBudget(budget) {
-    const monthlyBudgetElement = document.getElementById("monthlyBudget");
-    const monthlyExpenseElement = document.getElementById("monthlyExpense");
-    const remainingBudgetElement = document.getElementById("remainingBudget");
-    const budgetProgress = document.getElementById("budgetProgress");
-    const budgetPercentageElement = document.getElementById("budgetPercentage");
-    const budgetMessage = document.getElementById("budgetMessage");
+            if (budgetAmount === 0) {
 
-    if (!budget) {
-        if (monthlyBudgetElement) monthlyBudgetElement.textContent = "0";
-        if (monthlyExpenseElement) monthlyExpenseElement.textContent = "0";
-        if (remainingBudgetElement) remainingBudgetElement.textContent = "0";
-        if (budgetPercentageElement) budgetPercentageElement.textContent = "0%";
-        if (budgetProgress) budgetProgress.style.width = "0%";
-        return;
-    }
+                budgetMessage.textContent =
+                    "No budget set for this month.";
 
-    const monthlyBudget = Number(budget.monthlyBudget) || 0;
-    const monthlyExpense = Number(budget.monthlyExpense) || 0;
+            }
+            else if (remaining <= 0) {
 
-    const remaining = monthlyBudget - monthlyExpense;
+                budgetMessage.textContent =
+                    "You have exceeded your budget.";
 
-    const percentage = monthlyBudget > 0
-        ? Math.max(0, Math.min(100, (remaining / monthlyBudget) * 100))
-        : 0;
+            }
+            else if (percentage <= 20) {
 
-    if (monthlyBudgetElement) {
-        monthlyBudgetElement.textContent = monthlyBudget.toFixed(2);
-    }
+                budgetMessage.textContent =
+                    "Your remaining budget is low.";
 
-    if (monthlyExpenseElement) {
-        monthlyExpenseElement.textContent = monthlyExpense.toFixed(2);
-    }
+            }
+            else {
 
-    if (remainingBudgetElement) {
-        remainingBudgetElement.textContent = remaining.toFixed(2);
-    }
-
-    if (budgetPercentageElement) {
-        budgetPercentageElement.textContent = `${percentage.toFixed(0)}%`;
-    }
-
-    if (budgetProgress) {
-        budgetProgress.style.width = `${percentage}%`;
-    }
-
-    if (budgetMessage) {
-        if (monthlyBudget === 0) {
-            budgetMessage.textContent = "No budget set for this month.";
-        } else if (remaining <= 0) {
-            budgetMessage.textContent = "You have exceeded your budget.";
-        } else if (percentage <= 20) {
-            budgetMessage.textContent = "Your remaining budget is low.";
-        } else {
-            budgetMessage.textContent = "You're doing well with your budget.";
+                budgetMessage.textContent =
+                    "You're doing well with your budget.";
+            }
         }
     }
-}
 
 
+    // =========================
+    // Update Categories
+    // =========================
 
-/* =========================================
-   CATEGORY BREAKDOWN
-========================================= */
+    function updateCategories(categories) {
 
-function updateCategories(categories) {
-
-    categoryList.innerHTML = "";
-
-
-    if (!categories || categories.length === 0) {
-
-        categoryList.innerHTML = `
-            <div class="empty-state">
-                <i class="bi bi-bar-chart"></i>
-                <p>
-                    No category expenses yet.
-                </p>
-            </div>
-        `;
-
-        createCategoryChart([], []);
-
-        return;
-    }
+        if (!categoryList) {
+            return;
+        }
 
 
-    /* =========================
-       CREATE LIST
-    ========================= */
-
-    categories.forEach((category, index) => {
-
-        const item = document.createElement("div");
-
-        item.className = "category-item";
+        categoryList.innerHTML = "";
 
 
-        item.innerHTML = `
+        // No categories
+        if (
+            !categories ||
+            categories.length === 0
+        ) {
 
-            <div class="category-item-left">
+            categoryList.innerHTML = `
+                <div class="empty-state">
+                    <i class="bi bi-bar-chart"></i>
+                    <p>No category expenses yet.</p>
+                </div>
+            `;
 
+            createCategoryChart([], []);
+
+            return;
+        }
+
+
+        // Create category items
+        categories.forEach((category, index) => {
+
+            const item =
+                document.createElement("div");
+
+            item.className =
+                "category-item";
+
+
+            const categoryName =
+                category.categoryName ||
+                "Unknown";
+
+
+            const imageUrl =
+                getImageUrl(
+                    category.categoryUrl
+                );
+
+
+            // Default icon
+            let categoryIconHtml = `
                 <span
                     class="category-dot"
                     style="background: ${getChartColor(index)}">
                 </span>
+            `;
 
-                <span class="category-name">
-                    ${escapeHtml(
-                        category.categoryName || "Unknown"
+
+            // Category image
+            if (imageUrl) {
+
+                categoryIconHtml = `
+                    <img
+                        src="${escapeHtml(imageUrl)}"
+                        alt="${escapeHtml(categoryName)}"
+                        class="category-image"
+                        onerror="this.onerror=null; this.style.display='none';"
+                    >
+                `;
+            }
+
+
+            item.innerHTML = `
+                <div class="category-item-left">
+
+                    <div class="category-image-wrapper">
+                        ${categoryIconHtml}
+                    </div>
+
+                    <span class="category-name">
+                        ${escapeHtml(categoryName)}
+                    </span>
+
+                </div>
+
+                <span class="category-amount">
+                    ${formatMoney(category.totalAmount)}
+                </span>
+            `;
+
+
+            categoryList.appendChild(item);
+        });
+
+
+        // Chart data
+
+        const labels =
+            categories.map(
+                category =>
+                    category.categoryName ||
+                    "Unknown"
+            );
+
+
+        const values =
+            categories.map(
+                category =>
+                    Number(category.totalAmount) || 0
+            );
+
+
+        createCategoryChart(
+            labels,
+            values
+        );
+    }
+
+
+    // =========================
+    // Create Category Chart
+    // =========================
+
+    function createCategoryChart(
+        labels,
+        values
+    ) {
+
+        const canvas =
+            document.getElementById(
+                "categoryChart"
+            );
+
+
+        if (!canvas) {
+            return;
+        }
+
+
+        if (categoryChart) {
+
+            categoryChart.destroy();
+
+            categoryChart = null;
+        }
+
+
+        categoryChart =
+            new Chart(canvas, {
+
+                type: "doughnut",
+
+                data: {
+
+                    labels: labels,
+
+                    datasets: [
+
+                        {
+                            data: values,
+
+                            backgroundColor: [
+                                "#6366f1",
+                                "#a855f7",
+                                "#ec4899",
+                                "#14b8a6",
+                                "#f59e0b",
+                                "#ef4444",
+                                "#3b82f6",
+                                "#8b5cf6"
+                            ],
+
+                            borderWidth: 0
+                        }
+
+                    ]
+                },
+
+
+                options: {
+
+                    responsive: true,
+
+                    maintainAspectRatio: false,
+
+                    cutout: "70%",
+
+
+                    plugins: {
+
+                        legend: {
+                            display: false
+                        },
+
+
+                        tooltip: {
+
+                            callbacks: {
+
+                                label: function (context) {
+
+                                    return ` ${formatMoney(
+                                        context.raw
+                                    )}`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+    }
+
+
+    // =========================
+    // Chart Colors
+    // =========================
+
+    function getChartColor(index) {
+
+        const colors = [
+
+            "#6366f1",
+            "#a855f7",
+            "#ec4899",
+            "#14b8a6",
+            "#f59e0b",
+            "#ef4444",
+            "#3b82f6",
+            "#8b5cf6"
+
+        ];
+
+
+        return colors[
+            index % colors.length
+        ];
+    }
+
+
+    // =========================
+    // Update Recent Expenses
+    // =========================
+
+    function updateRecentExpenses(expenses) {
+
+        if (!recentExpenses) {
+            return;
+        }
+
+
+        recentExpenses.innerHTML = "";
+
+
+        if (
+            !expenses ||
+            expenses.length === 0
+        ) {
+
+            recentExpenses.innerHTML = `
+                <div class="empty-state">
+                    <i class="bi bi-receipt"></i>
+                    <p>No expenses recorded yet.</p>
+                </div>
+            `;
+
+            return;
+        }
+
+
+        expenses.forEach(expense => {
+
+            const item =
+                document.createElement("div");
+
+            item.className =
+                "transaction-item";
+
+
+            const category =
+                expense.category ||
+                "Unknown";
+
+
+            const imageUrl =
+                getImageUrl(
+                    expense.categoryUrl
+                );
+
+
+            let iconHtml = `
+                <i class="bi bi-receipt"></i>
+            `;
+
+
+            if (imageUrl) {
+
+                iconHtml = `
+                    <img
+                        src="${escapeHtml(imageUrl)}"
+                        alt="${escapeHtml(category)}"
+                        onerror="this.onerror=null; this.style.display='none';"
+                    >
+                `;
+            }
+
+
+            item.innerHTML = `
+
+                <div class="transaction-left">
+
+                    <div class="transaction-icon">
+                        ${iconHtml}
+                    </div>
+
+                    <div class="transaction-info">
+
+                        <p class="transaction-category">
+                            ${escapeHtml(category)}
+                        </p>
+
+                        <p class="transaction-date">
+                            ${formatDate(
+                                expense.expenseTime
+                            )}
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <span class="transaction-amount">
+                    - ${formatMoney(
+                        expense.expenseamount
                     )}
                 </span>
 
-            </div>
-
-            <span class="category-amount">
-                ${formatMoney(category.totalAmount)}
-            </span>
-
-        `;
+            `;
 
 
-        categoryList.appendChild(item);
-    });
-
-
-    /* =========================
-       CHART DATA
-    ========================= */
-
-    const labels = categories.map(
-        category =>
-            category.categoryName || "Unknown"
-    );
-
-
-    const values = categories.map(
-        category =>
-            Number(category.totalAmount) || 0
-    );
-
-
-    createCategoryChart(labels, values);
-}
-
-
-/* =========================================
-   CATEGORY CHART
-========================================= */
-
-function createCategoryChart(labels, values) {
-
-    const canvas =
-        document.getElementById("categoryChart");
-
-
-    if (!canvas) {
-        return;
+            recentExpenses.appendChild(item);
+        });
     }
 
 
-    if (categoryChart) {
+    // =========================
+    // Dashboard Error
+    // =========================
 
-        categoryChart.destroy();
-    }
+    function showDashboardError() {
 
-
-    categoryChart = new Chart(
-        canvas,
-        {
-            type: "doughnut",
-
-            data: {
-
-                labels: labels,
-
-                datasets: [
-                    {
-                        data: values,
-
-                        backgroundColor: [
-                            "#6366f1",
-                            "#a855f7",
-                            "#ec4899",
-                            "#14b8a6",
-                            "#f59e0b",
-                            "#ef4444",
-                            "#3b82f6",
-                            "#8b5cf6"
-                        ],
-
-                        borderWidth: 0
-                    }
-                ]
-            },
-
-            options: {
-
-                responsive: true,
-
-                maintainAspectRatio: false,
-
-                cutout: "70%",
-
-                plugins: {
-
-                    legend: {
-                        display: false
-                    },
-
-                    tooltip: {
-
-                        callbacks: {
-
-                            label: function(context) {
-
-                                return ` ${formatMoney(
-                                    context.raw
-                                )}`;
-
-                            }
-
-                        }
-
-                    }
-
-                }
-            }
+        if (!recentExpenses) {
+            return;
         }
-    );
-}
 
-
-/* =========================================
-   CHART COLORS
-========================================= */
-
-function getChartColor(index) {
-
-    const colors = [
-        "#6366f1",
-        "#a855f7",
-        "#ec4899",
-        "#14b8a6",
-        "#f59e0b",
-        "#ef4444",
-        "#3b82f6",
-        "#8b5cf6"
-    ];
-
-    return colors[
-        index % colors.length
-    ];
-}
-
-
-/* =========================================
-   RECENT EXPENSES
-========================================= */
-
-function updateRecentExpenses(expenses) {
-
-    recentExpenses.innerHTML = "";
-
-
-    if (!expenses || expenses.length === 0) {
 
         recentExpenses.innerHTML = `
-            <div class="empty-state">
-                <i class="bi bi-receipt"></i>
+
+            <div class="error-state">
+
+                <i class="bi bi-exclamation-circle"></i>
 
                 <p>
-                    No expenses recorded yet.
+                    We couldn't load your dashboard data.
                 </p>
-            </div>
-        `;
 
-        return;
+                <p>
+                    Please check that the API is running.
+                </p>
+
+            </div>
+
+        `;
     }
 
 
-    expenses.forEach(expense => {
+    // =========================
+    // Escape HTML
+    // =========================
 
-        const item =
-            document.createElement("div");
+    function escapeHtml(value) {
 
-
-        item.className =
-            "transaction-item";
-
-
-        const category =
-            expense.category || "Unknown";
-
-
-        const imageUrl =
-            expense.categoryUrl;
-
-
-        let iconHtml = `
-            <i class="bi bi-receipt"></i>
-        `;
-
-
-        if (imageUrl) {
-
-            iconHtml = `
-                <img
-                    src="${escapeHtml(imageUrl)}"
-                    alt="${escapeHtml(category)}"
-                    onerror="this.style.display='none';"
-                >
-            `;
+        if (
+            value === null ||
+            value === undefined
+        ) {
+            return "";
         }
 
 
-        item.innerHTML = `
+        return String(value)
 
-            <div class="transaction-left">
+            .replaceAll("&", "&amp;")
 
-                <div class="transaction-icon">
-                    ${iconHtml}
-                </div>
+            .replaceAll("<", "&lt;")
 
-                <div class="transaction-info">
+            .replaceAll(">", "&gt;")
 
-                    <p class="transaction-category">
-                        ${escapeHtml(category)}
-                    </p>
+            .replaceAll('"', "&quot;")
 
-                    <p class="transaction-date">
-                        ${formatDate(
-                            expense.expenseTime
-                        )}
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <span class="transaction-amount">
-                - ${formatMoney(
-                    expense.expenseamount
-                )}
-            </span>
-
-        `;
-
-
-        recentExpenses.appendChild(item);
-    });
-}
-
-
-/* =========================================
-   ERROR STATE
-========================================= */
-
-function showDashboardError() {
-
-    recentExpenses.innerHTML = `
-        <div class="error-state">
-
-            <i class="bi bi-exclamation-circle"></i>
-
-            <p>
-                We couldn't load your dashboard data.
-            </p>
-
-            <p>
-                Please check that the API is running.
-            </p>
-
-        </div>
-    `;
-}
-
-
-/* =========================================
-   HTML ESCAPE
-========================================= */
-
-function escapeHtml(value) {
-
-    if (value === null || value === undefined) {
-        return "";
+            .replaceAll("'", "&#039;");
     }
 
-    return String(value)
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
-}
+
+    // =========================
+    // Sidebar
+    // =========================
+
+    function setupSidebar() {
+
+        const sidebar =
+            document.getElementById(
+                "dashboardSidebar"
+            );
 
 
-/* =========================================
-   START
-========================================= */
+        const overlay =
+            document.getElementById(
+                "sidebarOverlay"
+            );
 
-displayCurrentMonth();
 
-loadDashboard();
+        const menuToggle =
+            document.getElementById(
+                "menuToggle"
+            );
 
+
+        if (
+            menuToggle &&
+            sidebar &&
+            overlay
+        ) {
+
+            menuToggle.addEventListener(
+                "click",
+                function () {
+
+                    sidebar.classList.toggle(
+                        "sidebar-open"
+                    );
+
+                    overlay.classList.toggle(
+                        "active"
+                    );
+                }
+            );
+
+
+            overlay.addEventListener(
+                "click",
+                function () {
+
+                    sidebar.classList.remove(
+                        "sidebar-open"
+                    );
+
+                    overlay.classList.remove(
+                        "active"
+                    );
+                }
+            );
+        }
+    }
+
+
+    // =========================
+    // Admin Link
+    // =========================
+
+    function setupAdminLink() {
+
+        const adminLink =
+            document.getElementById(
+                "adminDashboardLink"
+            );
+
+
+        if (!adminLink) {
+            return;
+        }
+
+
+        const storedToken =
+            localStorage.getItem("token");
+
+
+        if (!storedToken) {
+            return;
+        }
+
+
+        try {
+
+            const payload =
+                storedToken.split(".")[1];
+
+
+            const decodedPayload =
+                JSON.parse(
+
+                    atob(
+                        payload
+                            .replace(/-/g, "+")
+                            .replace(/_/g, "/")
+                    )
+                );
+
+
+            const role =
+                decodedPayload.role ||
+                decodedPayload[
+                    "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
+                ];
+
+
+            const roles =
+                Array.isArray(role)
+                    ? role
+                    : [role];
+
+
+            const isAdmin =
+                roles.some(
+                    r =>
+                        String(r)
+                            .toLowerCase() ===
+                        "admin"
+                );
+
+
+            if (isAdmin) {
+
+                adminLink.style.display =
+                    "flex";
+            }
+
+        }
+        catch (error) {
+
+            console.error(
+                "Could not read user role from token:",
+                error
+            );
+        }
+    }
+
+
+    // =========================
+    // Logout
+    // =========================
+
+    function setupLogout() {
+
+        const sidebarLogoutBtn =
+            document.getElementById(
+                "sidebarLogoutBtn"
+            );
+
+
+        if (!sidebarLogoutBtn) {
+            return;
+        }
+
+
+        sidebarLogoutBtn.addEventListener(
+            "click",
+            function () {
+
+                localStorage.removeItem(
+                    "token"
+                );
+
+
+                window.location.href =
+                    "./Home.html";
+            }
+        );
+    }
+
+
+    // =========================
+    // Initialize
+    // =========================
+
+    displayCurrentMonth();
+
+    setupSidebar();
+
+    setupAdminLink();
+
+    setupLogout();
+
+    loadDashboard();
 
 });

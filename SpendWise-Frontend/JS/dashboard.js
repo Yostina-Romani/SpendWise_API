@@ -5,8 +5,7 @@
 const API_URL =
     "https://spendwise-api.runasp.net/api/AdminDashboard";
 
-const BACKEND_URL =
-    "";
+const BACKEND_URL = "https://spendwise-api.runasp.net";
 
 
 /* =========================================================
@@ -820,42 +819,33 @@ function escapeHtml(value) {
    IMAGE URL
 ========================================================= */
 
-function getImageUrl(
-    imageUrl
-) {
+function getImageUrl(imageUrl) {
 
     if (!imageUrl) {
         return null;
     }
 
+    imageUrl = String(imageUrl).trim();
 
+    if (!imageUrl) {
+        return null;
+    }
+
+    // Full URL
     if (
-        imageUrl.startsWith(
-            "http://"
-        ) ||
-        imageUrl.startsWith(
-            "https://"
-        )
+        imageUrl.startsWith("http://") ||
+        imageUrl.startsWith("https://")
     ) {
-
         return imageUrl;
     }
 
-
-    if (
-        imageUrl.startsWith("/")
-    ) {
-
-        return BACKEND_URL +
-            imageUrl;
+    // Relative URL
+    if (imageUrl.startsWith("/")) {
+        return BACKEND_URL + imageUrl;
     }
 
-
-    return BACKEND_URL +
-        "/" +
-        imageUrl;
+    return BACKEND_URL + "/" + imageUrl;
 }
-
 
 /* =========================================================
    DATE FORMAT

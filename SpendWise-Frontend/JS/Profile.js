@@ -1,19 +1,41 @@
+
 const PROFILE_API_URL =
     "https://spendwise-api.runasp.net/api/Profile";
 
+const PROFILE_API_BASE_URL =
+    "https://spendwise-api.runasp.net";
 
-/* =========================================================
-   TOKEN
-========================================================= */
+
+// =========================================================
+// TOKEN
+// =========================================================
 
 function getToken() {
     return localStorage.getItem("token");
 }
 
 
-/* =========================================================
-   LOAD PROFILE
-========================================================= */
+// =========================================================
+// BUILD IMAGE URL
+// =========================================================
+
+function buildImageUrl(imagePath) {
+
+    if (!imagePath) {
+        return `${PROFILE_API_BASE_URL}/Images/default-avatar.png`;
+    }
+
+    if (imagePath.startsWith("http")) {
+        return imagePath;
+    }
+
+    return `${PROFILE_API_BASE_URL}${imagePath}`;
+}
+
+
+// =========================================================
+// LOAD PROFILE
+// =========================================================
 
 async function loadProfile() {
 
@@ -24,14 +46,12 @@ async function loadProfile() {
         return;
     }
 
-
     try {
 
         const response = await fetch(
             `${PROFILE_API_URL}/getprofile`,
             {
                 method: "GET",
-
                 headers: {
                     "Authorization": `Bearer ${token}`,
                     "Content-Type": "application/json"
@@ -39,30 +59,26 @@ async function loadProfile() {
             }
         );
 
-
         if (response.status === 401) {
             handleUnauthorized();
             return;
         }
-
 
         if (!response.ok) {
 
             throw new Error(
                 `Failed to load profile. Status: ${response.status}`
             );
-
         }
-
 
         const profile = await response.json();
 
         console.log("Profile Data:", profile);
 
 
-        /* =========================================
-           PROFILE INFORMATION
-        ========================================= */
+        // =====================================================
+        // PROFILE INFORMATION
+        // =====================================================
 
         const profileName =
             document.getElementById("profileName");
@@ -84,7 +100,6 @@ async function loadProfile() {
 
             profileName.textContent =
                 profile.name || "User";
-
         }
 
 
@@ -92,7 +107,6 @@ async function loadProfile() {
 
             profileEmail.textContent =
                 profile.email || "No email";
-
         }
 
 
@@ -100,7 +114,6 @@ async function loadProfile() {
 
             nameInput.value =
                 profile.name || "";
-
         }
 
 
@@ -108,7 +121,6 @@ async function loadProfile() {
 
             emailInput.value =
                 profile.email || "";
-
         }
 
 
@@ -116,28 +128,56 @@ async function loadProfile() {
 
             phoneInput.value =
                 profile.phoneNumber || "";
-
         }
 
 
-        /* =========================================
-           PROFILE IMAGE
-        ========================================= */
+        // =====================================================
+        // PROFILE IMAGE
+        // =====================================================
 
         const profileImage =
             document.getElementById("profileImage");
 
+        const imageUrl =
+            buildImageUrl(profile.imageurl);
 
-                const imageUrl = profile.profileImageUrl || profile.imageurl;
 
-                if (profileImage && imageUrl) {
-                    profileImage.src = imageUrl.startsWith("http")
-                        ? imageUrl
-                        : `${imageUrl}`;
-                }
+        if (profileImage) {
+
+            profileImage.src =
+                imageUrl;
+        }
+
+
+        // =====================================================
+        // SIDEBAR PROFILE
+        // =====================================================
+
+        const sidebarName =
+            document.getElementById(
+                "sidebarProfileName"
+            );
+
+        const sidebarImage =
+            document.getElementById(
+                "sidebarProfileImage"
+            );
+
+
+        if (sidebarName) {
+
+            sidebarName.textContent =
+                profile.name || "User";
+        }
+
+
+        if (sidebarImage) {
+
+            sidebarImage.src =
+                imageUrl;
+        }
 
     }
-
     catch (error) {
 
         console.error(
@@ -149,15 +189,13 @@ async function loadProfile() {
             "Unable to load profile.",
             "error"
         );
-
     }
 }
 
 
-
-/* =========================================================
-   UPLOAD PROFILE IMAGE
-========================================================= */
+// =========================================================
+// UPLOAD PROFILE IMAGE
+// =========================================================
 
 async function uploadProfileImage(file) {
 
@@ -166,9 +204,7 @@ async function uploadProfileImage(file) {
     if (!token) {
 
         handleUnauthorized();
-
         return;
-
     }
 
 
@@ -177,9 +213,9 @@ async function uploadProfileImage(file) {
     }
 
 
-    /* =========================================
-       VALIDATE FILE TYPE
-    ========================================= */
+    // =====================================================
+    // VALIDATE FILE TYPE
+    // =====================================================
 
     const allowedTypes = [
         "image/jpeg",
@@ -197,16 +233,16 @@ async function uploadProfileImage(file) {
         );
 
         return;
-
     }
 
 
-    /* =========================================
-       VALIDATE FILE SIZE
-       MAX = 5 MB
-    ========================================= */
+    // =====================================================
+    // VALIDATE FILE SIZE
+    // MAXIMUM = 5 MB
+    // =====================================================
 
-    const maxSize = 5 * 1024 * 1024;
+    const maxSize =
+        5 * 1024 * 1024;
 
 
     if (file.size > maxSize) {
@@ -217,51 +253,56 @@ async function uploadProfileImage(file) {
         );
 
         return;
-
     }
 
 
     try {
 
-        const formData = new FormData();
+        const formData =
+            new FormData();
 
-        formData.append("image", file);
 
-
-        const response = await fetch(
-            PROFILE_API_URL,
-            {
-                method: "POST",
-
-                headers: {
-                    "Authorization":
-                        `Bearer ${token}`
-                },
-
-                body: formData
-            }
+        formData.append(
+            "image",
+            file
         );
+
+
+        const response =
+            await fetch(
+                PROFILE_API_URL,
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Authorization":
+                            `Bearer ${token}`
+                    },
+
+                    body: formData
+                }
+            );
 
 
         if (response.status === 401) {
 
             handleUnauthorized();
-
             return;
-
         }
 
 
         if (!response.ok) {
 
             const errorData =
-                await response.json().catch(() => null);
+                await response
+                    .json()
+                    .catch(() => null);
+
 
             throw new Error(
                 errorData?.message ||
                 "Image upload failed."
             );
-
         }
 
 
@@ -275,12 +316,24 @@ async function uploadProfileImage(file) {
         );
 
 
-        /* =========================================
-           UPDATE IMAGE
-        ========================================= */
+        // =====================================================
+        // BUILD FULL IMAGE URL
+        // =====================================================
+
+        const uploadedImageUrl =
+            buildImageUrl(
+                result.imageurl
+            );
+
+
+        // =====================================================
+        // UPDATE MAIN PROFILE IMAGE
+        // =====================================================
 
         const profileImage =
-            document.getElementById("profileImage");
+            document.getElementById(
+                "profileImage"
+            );
 
 
         if (
@@ -289,8 +342,27 @@ async function uploadProfileImage(file) {
         ) {
 
             profileImage.src =
-                result.imageurl;
+                uploadedImageUrl;
+        }
 
+
+        // =====================================================
+        // UPDATE SIDEBAR IMAGE
+        // =====================================================
+
+        const sidebarImage =
+            document.getElementById(
+                "sidebarProfileImage"
+            );
+
+
+        if (
+            sidebarImage &&
+            result.imageurl
+        ) {
+
+            sidebarImage.src =
+                uploadedImageUrl;
         }
 
 
@@ -300,7 +372,6 @@ async function uploadProfileImage(file) {
         );
 
     }
-
     catch (error) {
 
         console.error(
@@ -308,44 +379,50 @@ async function uploadProfileImage(file) {
             error
         );
 
+
         showToast(
             error.message ||
             "Unable to upload image.",
             "error"
         );
-
     }
-
 }
 
 
-
-/* =========================================================
-   LOGOUT
-========================================================= */
+// =========================================================
+// LOGOUT
+// =========================================================
 
 function logout() {
 
     localStorage.removeItem("token");
 
-    window.location.href = "Login.html";
+    window.location.href =
+        "Login.html";
 }
 
+
+// =========================================================
+// HANDLE UNAUTHORIZED
+// =========================================================
 
 function handleUnauthorized() {
 
     localStorage.removeItem("token");
 
-    window.location.href = "Login.html";
+    window.location.href =
+        "Login.html";
 }
 
 
+// =========================================================
+// TOAST
+// =========================================================
 
-/* =========================================================
-   TOAST
-========================================================= */
-
-function showToast(message, type = "success") {
+function showToast(
+    message,
+    type = "success"
+) {
 
     const toast =
         document.getElementById("toast");
@@ -356,7 +433,9 @@ function showToast(message, type = "success") {
     }
 
 
-    toast.textContent = message;
+    toast.textContent =
+        message;
+
 
     toast.className =
         `toast-message ${type} show`;
@@ -364,110 +443,534 @@ function showToast(message, type = "success") {
 
     setTimeout(() => {
 
-        toast.classList.remove("show");
+        toast.classList.remove(
+            "show"
+        );
 
     }, 3000);
-
 }
 
 
+// =========================================================
+// DARK MODE
+// =========================================================
 
-/* =========================================================
-   EVENTS
-========================================================= */
+function initializeDarkMode() {
+
+    const darkModeBtn =
+        document.getElementById(
+            "darkModeBtn"
+        );
+
+
+    const darkModeIcon =
+        document.getElementById(
+            "darkModeIcon"
+        );
+
+
+    const darkModeText =
+        document.getElementById(
+            "darkModeText"
+        );
+
+
+    const savedTheme =
+        localStorage.getItem(
+            "theme"
+        );
+
+
+    // =====================================================
+    // LOAD SAVED THEME
+    // =====================================================
+
+    if (savedTheme === "dark") {
+
+        document.documentElement.setAttribute(
+            "data-theme",
+            "dark"
+        );
+
+
+        if (darkModeIcon) {
+
+            darkModeIcon.textContent =
+                "☀";
+        }
+
+
+        if (darkModeText) {
+
+            darkModeText.textContent =
+                "Light Mode";
+        }
+    }
+
+
+    // =====================================================
+    // DARK MODE BUTTON
+    // =====================================================
+
+    if (darkModeBtn) {
+
+        darkModeBtn.addEventListener(
+            "click",
+            () => {
+
+                const isDark =
+                    document.documentElement
+                        .getAttribute(
+                            "data-theme"
+                        ) === "dark";
+
+
+                // =================================================
+                // SWITCH TO LIGHT
+                // =================================================
+
+                if (isDark) {
+
+                    document.documentElement
+                        .removeAttribute(
+                            "data-theme"
+                        );
+
+
+                    localStorage.setItem(
+                        "theme",
+                        "light"
+                    );
+
+
+                    if (darkModeIcon) {
+
+                        darkModeIcon.textContent =
+                            "☾";
+                    }
+
+
+                    if (darkModeText) {
+
+                        darkModeText.textContent =
+                            "Dark Mode";
+                    }
+
+                }
+
+
+                // =================================================
+                // SWITCH TO DARK
+                // =================================================
+
+                else {
+
+                    document.documentElement
+                        .setAttribute(
+                            "data-theme",
+                            "dark"
+                        );
+
+
+                    localStorage.setItem(
+                        "theme",
+                        "dark"
+                    );
+
+
+                    if (darkModeIcon) {
+
+                        darkModeIcon.textContent =
+                            "☀";
+                    }
+
+
+                    if (darkModeText) {
+
+                        darkModeText.textContent =
+                            "Light Mode";
+                    }
+                }
+            }
+        );
+    }
+}
+
+
+// =========================================================
+// CHECK ADMIN ROLE
+// =========================================================
+
+function checkAdminRole() {
+
+    const token =
+        localStorage.getItem(
+            "token"
+        );
+
+
+    if (!token) {
+        return;
+    }
+
+
+    try {
+
+        // =====================================================
+        // JWT STRUCTURE
+        // HEADER.PAYLOAD.SIGNATURE
+        // =====================================================
+
+        const tokenParts =
+            token.split(".");
+
+
+        if (tokenParts.length !== 3) {
+
+            console.error(
+                "Invalid JWT token."
+            );
+
+            return;
+        }
+
+
+        const payload =
+            JSON.parse(
+                atob(
+                    tokenParts[1]
+                )
+            );
+
+
+        console.log(
+            "JWT Payload:",
+            payload
+        );
+
+
+        // =====================================================
+        // GET ROLE
+        // =====================================================
+
+        const role =
+            payload.role ||
+            payload[
+                "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
+            ];
+
+
+        console.log(
+            "User Role:",
+            role
+        );
+
+
+        // =====================================================
+        // ADMIN LINK
+        // =====================================================
+
+        const adminLink =
+            document.getElementById(
+                "adminDashboardLink"
+            );
+
+
+        // =====================================================
+        // SIDEBAR ROLE
+        // =====================================================
+
+        const sidebarRole =
+            document.getElementById(
+                "sidebarProfileRole"
+            );
+
+
+        // =====================================================
+        // ADMIN
+        // =====================================================
+
+        if (role === "Admin") {
+
+            if (adminLink) {
+
+                adminLink.hidden =
+                    false;
+            }
+
+
+            if (sidebarRole) {
+
+                sidebarRole.textContent =
+                    "Administrator";
+            }
+
+        }
+
+
+        // =====================================================
+        // NORMAL USER
+        // =====================================================
+
+        else {
+
+            if (adminLink) {
+
+                adminLink.hidden =
+                    true;
+            }
+
+
+            if (sidebarRole) {
+
+                sidebarRole.textContent =
+                    "User";
+            }
+        }
+
+    }
+    catch (error) {
+
+        console.error(
+            "Unable to read user role:",
+            error
+        );
+    }
+}
+
+
+// =========================================================
+// SIDEBAR
+// =========================================================
+
+function initializeSidebar() {
+
+    const sidebar =
+        document.getElementById(
+            "profileSidebar"
+        );
+
+
+    const toggle =
+        document.getElementById(
+            "sidebarToggle"
+        );
+
+
+    const overlay =
+        document.getElementById(
+            "sidebarOverlay"
+        );
+
+
+    if (!sidebar || !toggle) {
+        return;
+    }
+
+
+    // =====================================================
+    // OPEN / CLOSE SIDEBAR
+    // =====================================================
+
+    toggle.addEventListener(
+        "click",
+        () => {
+
+            sidebar.classList.toggle(
+                "open"
+            );
+
+
+            if (overlay) {
+
+                overlay.classList.toggle(
+                    "show"
+                );
+            }
+        }
+    );
+
+
+    // =====================================================
+    // CLOSE USING OVERLAY
+    // =====================================================
+
+    if (overlay) {
+
+        overlay.addEventListener(
+            "click",
+            () => {
+
+                sidebar.classList.remove(
+                    "open"
+                );
+
+
+                overlay.classList.remove(
+                    "show"
+                );
+            }
+        );
+    }
+
+
+    // =====================================================
+    // CLOSE SIDEBAR AFTER LINK CLICK
+    // =====================================================
+
+    const sidebarLinks =
+        document.querySelectorAll(
+            ".sidebar-nav a"
+        );
+
+
+    sidebarLinks.forEach(
+        (link) => {
+
+            link.addEventListener(
+                "click",
+                () => {
+
+                    sidebar.classList.remove(
+                        "open"
+                    );
+
+
+                    if (overlay) {
+
+                        overlay.classList.remove(
+                            "show"
+                        );
+                    }
+                }
+            );
+        }
+    );
+}
+
+
+// =========================================================
+// SIDEBAR LOGOUT
+// =========================================================
+
+function initializeSidebarLogout() {
+
+    const sidebarLogoutBtn =
+        document.getElementById(
+            "sidebarLogoutBtn"
+        );
+
+
+    if (sidebarLogoutBtn) {
+
+        sidebarLogoutBtn.addEventListener(
+            "click",
+            logout
+        );
+    }
+}
+
+
+// =========================================================
+// IMAGE UPLOAD EVENT
+// =========================================================
+
+function initializeImageUpload() {
+
+    const imageInput =
+        document.getElementById(
+            "profileImageInput"
+        );
+
+
+    if (!imageInput) {
+        return;
+    }
+
+
+    imageInput.addEventListener(
+        "change",
+        async function () {
+
+            const file =
+                this.files?.[0];
+
+
+            if (!file) {
+                return;
+            }
+
+
+            await uploadProfileImage(
+                file
+            );
+
+
+            // Reset input
+            // Allows selecting the same image again.
+
+            this.value = "";
+        }
+    );
+}
+
+
+// =========================================================
+// SECURITY LOGOUT
+// =========================================================
+
+function initializeSecurityLogout() {
+
+    const securityLogoutBtn =
+        document.getElementById(
+            "securityLogoutBtn"
+        );
+
+
+    if (securityLogoutBtn) {
+
+        securityLogoutBtn.addEventListener(
+            "click",
+            logout
+        );
+    }
+}
+
+
+// =========================================================
+// INITIALIZE PAGE
+// =========================================================
 
 document.addEventListener(
     "DOMContentLoaded",
     () => {
 
-
-        /* =========================
-           LOAD PROFILE
-        ========================= */
-
+        // Load profile
         loadProfile();
 
 
-        /* =========================
-           IMAGE UPLOAD
-        ========================= */
-
-        const imageInput =
-            document.getElementById(
-                "profileImageInput"
-            );
+        // Check Admin role
+        checkAdminRole();
 
 
-        if (imageInput) {
-
-            imageInput.addEventListener(
-                "change",
-                async function () {
-
-                    const file =
-                        this.files?.[0];
-
-                    if (!file) {
-                        return;
-                    }
+        // Dark Mode
+        initializeDarkMode();
 
 
-                    await uploadProfileImage(file);
+        // Sidebar
+        initializeSidebar();
 
 
-                    /*
-                     * Reset input so the user
-                     * can select the same file again.
-                     */
-
-                    this.value = "";
-
-                }
-            );
-
-        }
+        // Sidebar Logout
+        initializeSidebarLogout();
 
 
-        /* =========================
-           LOGOUT BUTTONS
-        ========================= */
-
-        const logoutBtn =
-            document.getElementById(
-                "logoutBtn"
-            );
+        // Profile Image Upload
+        initializeImageUpload();
 
 
-        const securityLogoutBtn =
-            document.getElementById(
-                "securityLogoutBtn"
-            );
-
-
-        if (logoutBtn) {
-
-            logoutBtn.addEventListener(
-                "click",
-                function (event) {
-
-                    event.preventDefault();
-
-                    logout();
-
-                }
-            );
-
-        }
-
-
-        if (securityLogoutBtn) {
-
-            securityLogoutBtn.addEventListener(
-                "click",
-                logout
-            );
-
-        }
+        // Security Logout
+        initializeSecurityLogout();
 
     }
 );
