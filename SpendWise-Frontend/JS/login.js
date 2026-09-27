@@ -1,56 +1,108 @@
 
-const btngoogle=document.getElementById("googleLoginBtn");
-btngoogle.addEventListener("click",()=>{
-window.location.href="https://spendwise-api.runasp.net/api/Auth/google-login";
+const btngoogle = document.getElementById("googleLoginBtn");
+
+btngoogle.addEventListener("click", () => {
+    window.location.href =
+        "https://spendwise-api.runasp.net/api/Auth/google-login";
 });
 
 
 const form = document.getElementById("formid");
+
 form.addEventListener("submit", async function (event) {
+
     event.preventDefault();
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
+
+    const emailInput = document.getElementById("email");
+    const passwordInput = document.getElementById("password");
+
+    const email = emailInput.value.trim();
+    const password = passwordInput.value.trim();
+
+    // Clear previous errors
+    showError("emailError", "");
+    showError("passwordError", "");
+
+    // Validate Email
     if (email === "") {
-        showError("emailerror", "email is required");
+        showError("emailError", "This field is required.");
+        emailInput.focus();
         return;
     }
+
+    // Validate Password
     if (password === "") {
-        showError("passworderror", "password is required");
-        return;
-    }
-    const response = await fetch("https://spendwise-api.runasp.net/api/Auth/login", {
-        method:"POST",
-        headers: {
-            "Content-Type":"application/json"
-        },
-        body: JSON.stringify({
-            email: email,
-            password:password
-        })
-    });
-
-    if (!response.ok) {
-        const errorMessage=await response.text();
-        showError("emailerror",errorMessage);
-        console.log("api response", data);
+        showError("passwordError", "This field is required.");
+        passwordInput.focus();
         return;
     }
 
-     const data = await response.json();
+    try {
 
-    const token = data.token;
-    localStorage.setItem("token", token);
+        const response = await fetch(
+            "https://spendwise-api.runasp.net/api/Auth/login",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    email: email,
+                    password: password
+                })
+            }
+        );
 
-    const payload=JSON.parse(atob(token.split(".")[1]));
-    const role=payload["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
-    if(role==="Admin"){
-    window.location.href="DashBoard.html";
+        const data = await response.json().catch(() => null);
+
+        if (!response.ok) {
+
+            showError(
+                "emailError",
+                data?.message || "Invalid email or password."
+            );
+
+            return;
+        }
+
+        const token = data.token;
+
+        localStorage.setItem("token", token);
+
+        const payload = JSON.parse(
+            atob(token.split(".")[1])
+        );
+
+        const role =
+            payload[
+                "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
+            ];
+
+        if (role === "Admin") {
+            window.location.href = "DashBoard.html";
+        }
+        else {
+            window.location.href = "UserDahboard.html";
+        }
 
     }
-    else{
-        window.location.href="UserDahboard.html";
+    catch (error) {
+
+        console.error("Login Error:", error);
+
+        showError(
+            "emailError",
+            "Unable to connect to the server."
+        );
     }
 });
-function showError(elementid, message) {
-    document.getElementById(elementid).textContent = message;
+
+
+function showError(elementId, message) {
+
+    const element = document.getElementById(elementId);
+
+    if (element) {
+        element.textContent = message;
+    }
 }
