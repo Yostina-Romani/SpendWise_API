@@ -22,28 +22,79 @@ form.addEventListener("submit", async function (event) {
     showError("passworderror", "");
     showError("passwordConfiramtionError", "");
 
-    // Name validation
+    // =========================
+    // Name Validation
+    // =========================
+
     if (name === "") {
         showError("nameerror", "This field is required.");
         nameInput.focus();
         return;
     }
 
-    // Email validation
+    if (name.length <= 3) {
+        showError(
+            "nameerror",
+            "Name must be more than 3 characters."
+        );
+        nameInput.focus();
+        return;
+    }
+
+    // =========================
+    // Email Validation
+    // =========================
+
     if (email === "") {
         showError("emailerror", "This field is required.");
         emailInput.focus();
         return;
     }
 
-    // Password validation
+    // =========================
+    // Password Validation
+    // =========================
+
     if (password === "") {
         showError("passworderror", "This field is required.");
         passwordInput.focus();
         return;
     }
 
-    // Password confirmation validation
+    // At least 8 characters
+    if (password.length < 8) {
+        showError(
+            "passworderror",
+            "Password must be at least 8 characters."
+        );
+        passwordInput.focus();
+        return;
+    }
+
+    // At least one number
+    if (!/[0-9]/.test(password)) {
+        showError(
+            "passworderror",
+            "Password must contain at least one number."
+        );
+        passwordInput.focus();
+        return;
+    }
+
+    // At least one special character
+    if (!/[!@#$%^&*(),.?":{}|<>_\-\\[\]\/~`+=;]/.test(password)) {
+        showError(
+            "passworderror",
+            "Password must contain at least one special character."
+        );
+        passwordInput.focus();
+        return;
+    }
+
+    // =========================
+    // Password Confirmation
+    // =========================
+
     if (passwordConfirmation === "") {
         showError(
             "passwordConfiramtionError",
@@ -53,7 +104,6 @@ form.addEventListener("submit", async function (event) {
         return;
     }
 
-    // Password matching
     if (passwordConfirmation !== password) {
         showError(
             "passwordConfiramtionError",
@@ -62,6 +112,10 @@ form.addEventListener("submit", async function (event) {
         passwordConfirmationInput.focus();
         return;
     }
+
+    // =========================
+    // Send Data to API
+    // =========================
 
     try {
 
@@ -85,6 +139,10 @@ form.addEventListener("submit", async function (event) {
 
         const data = await response.json().catch(() => null);
 
+        // =========================
+        // API Error
+        // =========================
+
         if (!response.ok) {
 
             console.log("API response:", data);
@@ -96,6 +154,10 @@ form.addEventListener("submit", async function (event) {
 
             return;
         }
+
+        // =========================
+        // Registration Success
+        // =========================
 
         alert(data?.message || "Registration successful.");
 
@@ -114,6 +176,10 @@ form.addEventListener("submit", async function (event) {
 });
 
 
+// =========================
+// Show Error Function
+// =========================
+
 function showError(elementId, message) {
 
     const element = document.getElementById(elementId);
@@ -122,3 +188,4 @@ function showError(elementId, message) {
         element.textContent = message;
     }
 }
+
