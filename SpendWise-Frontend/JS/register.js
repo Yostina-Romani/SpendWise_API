@@ -61,7 +61,6 @@ form.addEventListener("submit", async function (event) {
         return;
     }
 
-    // At least 8 characters
     if (password.length < 8) {
         showError(
             "passworderror",
@@ -71,7 +70,6 @@ form.addEventListener("submit", async function (event) {
         return;
     }
 
-    // At least one number
     if (!/[0-9]/.test(password)) {
         showError(
             "passworderror",
@@ -81,7 +79,6 @@ form.addEventListener("submit", async function (event) {
         return;
     }
 
-    // At least one special character
     if (!/[!@#$%^&*(),.?":{}|<>_\-\\[\]\/~`+=;]/.test(password)) {
         showError(
             "passworderror",
@@ -114,7 +111,7 @@ form.addEventListener("submit", async function (event) {
     }
 
     // =========================
-    // Send Data to API
+    // API Request
     // =========================
 
     try {
@@ -140,23 +137,47 @@ form.addEventListener("submit", async function (event) {
         const data = await response.json().catch(() => null);
 
         // =========================
-        // API Error
+        // Backend Errors
         // =========================
 
         if (!response.ok) {
 
             console.log("API response:", data);
 
-            showError(
-                "emailerror",
-                data?.message || "Registration failed."
-            );
+            if (Array.isArray(data)) {
+
+                const errorMessages = data
+                    .map(error => error.description || error.Description)
+                    .filter(message => message);
+
+                if (errorMessages.length > 0) {
+
+                    showError(
+                        "passworderror",
+                        errorMessages.join(" ")
+                    );
+
+                } else {
+
+                    showError(
+                        "passworderror",
+                        "Registration failed. Please check your information."
+                    );
+                }
+
+            } else {
+
+                showError(
+                    "emailerror",
+                    data?.message || "Registration failed."
+                );
+            }
 
             return;
         }
 
         // =========================
-        // Registration Success
+        // Success
         // =========================
 
         alert(data?.message || "Registration successful.");
@@ -177,7 +198,7 @@ form.addEventListener("submit", async function (event) {
 
 
 // =========================
-// Show Error Function
+// Show Error
 // =========================
 
 function showError(elementId, message) {
@@ -188,4 +209,3 @@ function showError(elementId, message) {
         element.textContent = message;
     }
 }
-
